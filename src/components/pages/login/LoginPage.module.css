@@ -1,0 +1,35 @@
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-bg-primary);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.greetingContainer p,
+.greetingContainer h2 {
+  margin: 0;
+}
+
+.greetingContainer h2 {
+  margin-bottom: 0.25rem;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logoContainer h1 {
+  margin: 0;
+}

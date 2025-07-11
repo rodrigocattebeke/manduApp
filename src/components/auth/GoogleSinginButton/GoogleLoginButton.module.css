@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  gap: 0.5rem;
+  width: auto;
+  max-width: 21rem;
+  height: auto;
+  min-height: 3.3rem;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(230, 230, 230);
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.container img {
+  width: 1.7rem;
+  height: auto;
+}
+
+.container p {
+  color: rgb(107, 107, 107);
+  margin: 0;
+}
