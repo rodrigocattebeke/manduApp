@@ -1,8 +1,13 @@
+"use client";
 import Image from "next/image";
 import styles from "./LoginPage.module.css";
 import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton/GoogleLoginButton";
+import { useContext } from "react";
+import { UserContext } from "@/contexts/UserContext";
 
 export const LoginPage = () => {
+  const { loginWithGoogle } = useContext(UserContext);
+
   return (
     <div className={styles.back}>
       <section className={styles.container}>
@@ -16,7 +21,7 @@ export const LoginPage = () => {
         </div>
         <div className={styles.authMethodsContainer}>
           <div className={styles.googleAuthContainer}>
-            <GoogleLoginButton />
+            <GoogleLoginButton onLogin={loginWithGoogle} />
           </div>
         </div>
       </section>
