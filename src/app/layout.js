@@ -1,5 +1,6 @@
 import "../../public/css/bootstrap-grid.min.css";
 import "@/app/globals.css";
+import { UserProvider } from "@/contexts/UserContext";
 import { ClientLayout } from "@/layouts/ClientLayout.jsx";
 import { Roboto } from "next/font/google";
 
@@ -19,7 +20,13 @@ console.log(roboto);
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{<ClientLayout>{children}</ClientLayout>}</body>
+      <body className={roboto.className}>
+        {
+          <UserProvider>
+            <ClientLayout>{children}</ClientLayout>
+          </UserProvider>
+        }
+      </body>
     </html>
   );
 }
