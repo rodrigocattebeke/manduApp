@@ -16,8 +16,8 @@ export const LoginPage = () => {
           <h1>ManduApp</h1>
         </div>
         <div className={styles.greetingContainer}>
-          <h2>¡Bienvenido de nuevo!</h2>
-          <p>Accedé a tus listas, desde cualquier dispositivo</p>
+          <h2>¡Bienvenido!</h2>
+          <p>Accedé a tus listas, desde cualquier dispositivo.</p>
         </div>
         <div className={styles.authMethodsContainer}>
           <div className={styles.googleAuthContainer}>
