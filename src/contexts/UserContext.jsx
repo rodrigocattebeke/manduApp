@@ -1,10 +1,11 @@
 "use client";
 
 import { singInWithGoogle } from "@/lib/firebase/auth";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { getDoc, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
-import { signOut } from "firebase/auth";
+import { usePathname, useRouter } from "next/navigation";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const UserContext = createContext();
 
@@ -30,6 +31,8 @@ async function createUser(userRef, user) {
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
+  const router = useRouter();
+  const pathname = usePathname();
 
   //Login and if the user doesn't exist, create user in firestore db
   const loginWithGoogle = async () => {
@@ -67,6 +70,19 @@ export const UserProvider = ({ children }) => {
       console.log("Ocurrió un error al iniciar sesión, intente más tarde");
     }
   };
+
+  //Detect if there is no user logged in
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user && pathname !== "/login") {
+        router.push("/login");
+      } else if (user && pathname == "/login") {
+        router.push("/");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, pathname]);
 
   return <UserContext.Provider value={{ loginWithGoogle, userData }}>{children}</UserContext.Provider>;
 };
