@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "./LoginPage.module.css";
-import { GoogleLoginButton } from "@/components/auth/GoogleLoginButton/GoogleLoginButton";
+import { GoogleLoginButton } from "@/components/ui/auth/GoogleLoginButton/GoogleLoginButton";
 import { useContext } from "react";
 import { UserContext } from "@/contexts/UserContext";
 
@@ -12,7 +12,7 @@ export const LoginPage = () => {
     <div className={styles.back}>
       <section className={styles.container}>
         <div className={styles.logoContainer}>
-          <Image src="/images/logo.png" width={120} height={120}></Image>
+          <Image src="/images/logo.png" width={120} height={120} alt="manduapp logo"></Image>
           <h1>ManduApp</h1>
         </div>
         <div className={styles.greetingContainer}>
