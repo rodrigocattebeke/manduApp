@@ -31,10 +31,11 @@ async function createUser(userRef, user) {
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
-  //Login and if the user doesn't exist, create user in firestore db
+  //Function for login, and if the user doesn't exist, create user in firestore db
   const loginWithGoogle = async () => {
     try {
       const user = await singInWithGoogle();
@@ -74,16 +75,24 @@ export const UserProvider = ({ children }) => {
   //Detect if there is no user logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user && pathname !== "/login") {
+      if (user) {
+        setUserData({
+          uid: user.uid,
+          photoURL: user.photoURL,
+          displayName: user.displayName,
+        });
+      } else if (!user && pathname !== "/login") {
         router.push("/login");
       } else if (user && pathname == "/login") {
         router.push("/");
       }
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, [auth, pathname]);
 
+  if (isLoading) return null; //for the moment, return null
   return <UserContext.Provider value={{ loginWithGoogle, userData }}>{children}</UserContext.Provider>;
 };
 
