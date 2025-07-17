@@ -7,6 +7,7 @@
   aspect-ratio: 16/9;
   padding: 1rem;
   border-radius: 0.5rem;
+  text-decoration: none;
 }
 
 .card.complete {
@@ -24,5 +25,4 @@
 .cardBody h3,
 .cardBody p {
   color: var(--color-text-accent);
-  text-decoration: none;
 }
