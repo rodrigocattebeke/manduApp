@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import styles from "./HomePage.module.css";
 import { UserContext } from "@/contexts/UserContext";
-import { StatusOverview } from "./statusOverview/StatusOverview";
+import { StatusOverview } from "./components/statusOverview/StatusOverview";
 
 export const HomePage = () => {
   const { userData } = useContext(UserContext);
