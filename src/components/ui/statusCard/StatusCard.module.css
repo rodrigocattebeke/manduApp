@@ -1,0 +1,28 @@
+.card {
+  display: flex;
+  align-items: end;
+  width: 100%;
+  max-width: 18rem;
+  height: 100%;
+  aspect-ratio: 16/9;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.card.complete {
+  background: linear-gradient(to bottom, var(--color-status-success) 20%, #000 140%);
+}
+
+.card.pending {
+  background: linear-gradient(to bottom, var(--color-status-warning) 20%, #000 140%);
+}
+
+.card.error {
+  background: linear-gradient(to bottom, var(--color-status-error) 20%, #000 140%);
+}
+
+.cardBody h3,
+.cardBody p {
+  color: var(--color-text-accent);
+  text-decoration: none;
+}
