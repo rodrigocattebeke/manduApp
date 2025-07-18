@@ -10,8 +10,8 @@ export const StatusOverview = () => {
 
   return (
     <div className={`${styles.listsStatusContainer} flex-column`}>
-      {cards.map((card) => (
-        <StatusCard title={card.title} quantity={card.quantity} status={card.status} to={card.to} />
+      {cards.map((card, i) => (
+        <StatusCard title={card.title} quantity={card.quantity} status={card.status} to={card.to} key={i} />
       ))}
     </div>
   );
