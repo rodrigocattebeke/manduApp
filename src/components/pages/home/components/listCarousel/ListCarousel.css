@@ -1,0 +1,25 @@
+.nextArrow,
+.prevArrow {
+  display: flex !important;
+  align-items: center;
+  width: auto;
+  height: 2.5rem;
+  z-index: 2;
+}
+
+.prevArrow::before,
+.nextArrow::before {
+  content: "";
+}
+
+.nextArrow {
+  right: 0;
+}
+
+.prevArrow {
+  left: 0;
+}
+
+.slick-slider {
+  padding: 0 1.3rem;
+}
