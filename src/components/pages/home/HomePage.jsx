@@ -3,8 +3,9 @@ import { useContext } from "react";
 import styles from "./HomePage.module.css";
 import { UserContext } from "@/contexts/UserContext";
 import { StatusOverview } from "./components/statusOverview/StatusOverview";
-import { ListCarusel } from "./components/listCarousel/ListCarousel";
 import { ListsSection } from "./components/listsSection/ListsSection";
+import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
+import Link from "next/link";
 
 export const HomePage = () => {
   const { userData } = useContext(UserContext);
@@ -24,6 +25,7 @@ export const HomePage = () => {
       <section className="container-xxl my-4 " aria-label="Resumen de listas del usuario">
         <ListsSection />
       </section>
+      <FloatingAddButton to={"#"} />
     </>
   );
 };
