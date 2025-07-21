@@ -17,8 +17,6 @@ const roboto = Roboto({
   display: "swap",
 });
 
-console.log(roboto);
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
