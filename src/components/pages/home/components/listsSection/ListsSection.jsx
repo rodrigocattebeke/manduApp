@@ -1,34 +1,8 @@
+import { cards } from "@/devDatas/cards";
 import { ListCarousel } from "../listCarousel/ListCarousel";
 import styles from "./ListsSection.module.css";
 
 export const ListsSection = () => {
-  const cards = [
-    {
-      title: "Libros",
-      quantity: 2,
-      img: "https://picsum.photos/200",
-      to: "#",
-    },
-    {
-      title: "Libros",
-      quantity: 2,
-      img: "https://picsum.photos/200",
-      to: "#",
-    },
-    {
-      title: "Libros",
-      quantity: 2,
-      img: "https://picsum.photos/200",
-      to: "#",
-    },
-    {
-      title: "Libros",
-      quantity: 2,
-      img: "https://picsum.photos/200",
-      to: "#",
-    },
-  ];
-
   return (
     <>
       <section className={styles.section}>
