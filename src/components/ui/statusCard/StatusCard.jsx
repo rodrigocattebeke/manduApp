@@ -1,5 +1,5 @@
 "use client";
-import { CARD_STATUS } from "@/constants/cardStatus";
+import { CARD_STATUS } from "@/constants/statuses";
 import styles from "./StatusCard.module.css";
 import Link from "next/link";
 
