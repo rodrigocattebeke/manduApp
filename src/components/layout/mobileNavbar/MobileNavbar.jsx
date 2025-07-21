@@ -6,7 +6,7 @@ import { Folder } from "@/components/icons/Folder";
 import { Search } from "@/components/icons/Search";
 import { Settings } from "@/components/icons/Settings";
 
-export const MobileNavbar = () => {
+export const MobileNavbar = ({ customClass = "" }) => {
   const [active, setActive] = useState(0);
 
   const handleActive = (iconId) => {
@@ -14,7 +14,7 @@ export const MobileNavbar = () => {
   };
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} ${customClass}`}>
       <div className={`${styles.icon} ${active == 1 ? styles.active : ""}`} onClick={() => handleActive(1)}>
         <Home />
         <small>Inicio</small>
