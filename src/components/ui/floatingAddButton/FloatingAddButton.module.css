@@ -1,0 +1,22 @@
+.button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  right: 1.25rem;
+  bottom: calc(var(--layout-navbar-height) + 1.5rem);
+  border-radius: 100%;
+  background-color: var(--color-accent);
+  transition: 0.2s;
+  z-index: 99;
+}
+
+.button:hover {
+  background-color: var(--color-accent-secondary);
+}
+
+.button svg {
+  fill: var(--color-text-primary);
+}
