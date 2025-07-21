@@ -81,6 +81,7 @@ export const UserProvider = ({ children }) => {
           photoURL: user.photoURL,
           displayName: user.displayName,
         });
+        if (pathname == "/login") router.push("/");
       } else if (!user && pathname !== "/login") {
         router.push("/login");
       } else if (user && pathname == "/login") {
