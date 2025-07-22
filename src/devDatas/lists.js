@@ -1,4 +1,4 @@
-export const cards = [
+export const lists = [
   {
     title: "Libros",
     quantity: 2,
