@@ -1,5 +1,5 @@
-export const CARD_STATUS = {
-  COMPLETE: "complete",
-  PENDING: "pending",
-  ERROR: "error",
+export const STATUS = {
+  completed: "completed",
+  in_process: "in_process",
+  pending: "pending",
 };
