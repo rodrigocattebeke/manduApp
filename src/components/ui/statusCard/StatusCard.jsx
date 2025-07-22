@@ -1,11 +1,11 @@
 "use client";
-import { CARD_STATUS } from "@/constants/statuses";
+import { STATUS } from "@/constants/statuses";
 import styles from "./StatusCard.module.css";
 import Link from "next/link";
 
 export const StatusCard = ({ title = "", quantity = 0, status = undefined, to = "" }) => {
-  if (!status) return console.error(`Se necesita pasar un estado para la card. Estados válidos: ${Object.values(CARD_STATUS).join(", ")}`);
-  if (!Object.values(CARD_STATUS).includes(status)) return console.error(`El valor de status pasado es incorrecto. Estados válidos: ${Object.values(CARD_STATUS).join(", ")}`);
+  if (!status) return console.error(`Se necesita pasar un estado para la card. Estados válidos: ${Object.values(STATUS).join(", ")}`);
+  if (!Object.values(STATUS).includes(status)) return console.error(`El valor de status pasado es incorrecto. Estados válidos: ${Object.values(STATUS).join(", ")}`);
 
   return (
     <Link href={to} className={`${styles.card} ${styles[status]}`}>

@@ -3,9 +3,9 @@ import styles from "./StatusOverview.module.css";
 
 export const StatusOverview = () => {
   const cards = [
-    { title: "Completados", quantity: 1, status: "complete", to: "" },
-    { title: "Pendientes", quantity: 2, status: "pending", to: "" },
-    { title: "En proceso", quantity: 3, status: "error", to: "" },
+    { title: "Completados", quantity: 1, status: "completed", to: "" },
+    { title: "En proceso", quantity: 2, status: "in_process", to: "" },
+    { title: "Pendientes", quantity: 3, status: "pending", to: "" },
   ];
 
   return (
