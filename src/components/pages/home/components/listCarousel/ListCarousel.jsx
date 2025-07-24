@@ -5,7 +5,7 @@ import "./ListCarousel.css";
 import { ItemCard } from "@/components/ui/itemCard/ItemCard";
 
 export const ListCarousel = ({ cards = undefined }) => {
-  if (!cards || !Array.isArray(cards)) return console.error(`Se necesita pasar un array para el carousel. Cada item del array debe de ser: {title: "", quantity: "", img: URL , to: URL}`);
+  if (!cards || !Array.isArray(cards)) return console.error(`Se necesita pasar un array para el carousel. Cada item del array debe de ser: {title: "", quantity: "", imgURL: URL , to: URL}`);
 
   const NextArrow = (props) => {
     const { className, onClick } = props;
@@ -38,7 +38,7 @@ export const ListCarousel = ({ cards = undefined }) => {
   return (
     <Slider {...settings}>
       {cards.map((card, i) => (
-        <ItemCard title={card.title} quantity={card.quantity} img={card.img} to={card.to} key={i} />
+        <ItemCard title={card.title} quantity={card.quantity} imgURL={card.imgURL} to={card.to} key={i} />
       ))}
     </Slider>
   );
