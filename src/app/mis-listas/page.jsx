@@ -3,9 +3,12 @@ import { getUserLists } from "@/services/firestore/getUserLists";
 import { notFound } from "next/navigation";
 
 export default async function MisListas() {
-  const userLists = await getUserLists();
+  try {
+    const userLists = await getUserLists();
 
-  if (!userLists) return notFound();
-
-  return <MyLists lists={userLists}></MyLists>;
+    return <MyLists lists={userLists}></MyLists>;
+  } catch (error) {
+    console.log(error);
+    return notFound();
+  }
 }
