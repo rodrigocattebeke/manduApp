@@ -7,7 +7,7 @@ export const UserLists = ({ lists = undefined }) => {
   return (
     <section className={styles.listsContainer} aria-label="Listas del usuario">
       {lists.map((list, i) => (
-        <ItemCard title={list.title} quantity={list.quantity} img={list.img} to={list.to} key={i} />
+        <ItemCard title={list.title} quantity={list.quantity} imgURL={list.imgURL} to={list.to} key={i} />
       ))}
     </section>
   );
