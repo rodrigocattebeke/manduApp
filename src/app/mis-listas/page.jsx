@@ -1,4 +1,4 @@
-import { MyLists } from "@/components/pages/myLists/MyLists";
+import { MyLists } from "@/components/pages/mis-listas/MyLists";
 import { getUserLists } from "@/services/firestore/getUserLists";
 import { notFound } from "next/navigation";
 
