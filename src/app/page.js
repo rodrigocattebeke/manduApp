@@ -1,4 +1,4 @@
-import { HomePage } from "@/components/pages/home/HomePage";
+import { HomePage } from "@/components/pages/inicio/HomePage";
 import { getFavorites } from "@/services/firestore/getFavorites";
 import { getRecentEdits } from "@/services/firestore/getRecentEdits";
 import { getRecentUpdates } from "@/services/firestore/getRecentUpdates";
