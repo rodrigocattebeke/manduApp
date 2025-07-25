@@ -1,0 +1,93 @@
+/* Item information */
+.imgContainer {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemCreationDate {
+  margin-top: 1.5rem;
+  color: var(--color-text-secondary);
+}
+
+.itemDescriptionContainer {
+  width: 100%;
+  height: auto;
+  max-height: 13rem;
+  margin-bottom: 0.5rem;
+  overflow-y: auto;
+}
+
+.itemDescriptionContainer p {
+  margin: 0;
+}
+
+.statusDot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 100%;
+  background-color: var(--color-text-secondary);
+}
+
+.statusDot.completed {
+  background-color: var(--color-status-success);
+}
+
+.statusDot.in_process {
+  background-color: var(--color-status-warning);
+}
+
+.statusDot.pending {
+  background-color: var(--color-status-error);
+}
+
+/* Action buttons */
+.actionButtons {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  right: 1.25rem;
+  bottom: calc(var(--layout-navbar-height) + 1.5rem);
+}
+
+.deleteButton,
+.editButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 100%;
+  background-color: var(--color-bg-secondary);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.editButton {
+  background-color: var(--color-accent);
+}
+
+.deleteButton:hover,
+.editButton:hover {
+  background-color: var(--color-hover);
+}
+
+.deleteButton:hover svg,
+.editButton:hover svg {
+  transform: translateY(-1px);
+}
+
+.deleteButton svg,
+.editButton svg {
+  fill: var(--color-text-primary);
+  transition: 0.2s;
+}
