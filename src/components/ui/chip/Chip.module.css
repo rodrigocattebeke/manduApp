@@ -1,0 +1,38 @@
+.chip {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 12rem;
+  min-height: 2.25rem;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-bg-secondary);
+  cursor: pointer;
+}
+
+.chip p {
+  margin: 0;
+  max-width: 100%;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.close {
+  display: none;
+}
+
+.close.show {
+  display: flex;
+  align-items: center;
+}
+
+.close svg {
+  fill: var(--color-text-secondary);
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.close svg:hover {
+  fill: var(--color-hover);
+}
