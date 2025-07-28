@@ -1,7 +1,7 @@
 "use client";
-const { useContext, useState, useEffect } = require("react");
+const { useState, useEffect, createContext } = require("react");
 
-const ThemeContext = useContext();
+const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
