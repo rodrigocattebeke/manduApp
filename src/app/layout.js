@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { UserProvider } from "@/contexts/UserContext";
 import { ClientLayout } from "@/layouts/ClientLayout.jsx";
 import { Roboto } from "next/font/google";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata = {
   title: "ManduApp",
@@ -22,9 +23,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         {
-          <UserProvider>
-            <ClientLayout>{children}</ClientLayout>
-          </UserProvider>
+          <ThemeProvider>
+            <UserProvider>
+              <ClientLayout>{children}</ClientLayout>
+            </UserProvider>
+          </ThemeProvider>
         }
       </body>
     </html>
