@@ -1,0 +1,90 @@
+.iconContainer {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer svg:hover {
+  fill: var(--color-hover);
+  cursor: pointer;
+  transition: fill var(--transition-short);
+}
+
+.profilePhoto {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  max-width: 3.5rem;
+  max-height: 3.5rem;
+  border-radius: 100%;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.description p:nth-child(2) {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: 0.4rem;
+  aspect-ratio: 1/1;
+  transition: background-color var(--transition-short) ease;
+}
+
+.settingInfo {
+  display: flex;
+  gap: 1rem;
+}
+
+.subtitle {
+  margin: 0;
+  font-weight: bold;
+}
+
+.title {
+  margin-bottom: 0.6rem;
+}
+
+/* theme switch */
+
+.themeToggle {
+  --size-themeToggle-width: 3.5rem;
+  width: var(--size-themeToggle-width);
+  height: 2rem;
+  background-color: var(--color-bg-secondary);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-short);
+}
+
+.toggleThumb {
+  height: 2rem;
+  border-radius: 100%;
+  background-color: var(--color-accent);
+  aspect-ratio: 1/1;
+  transition: transform var(--transition-short);
+}
+
+.toggleThumb.active {
+  transform: translateX(calc(var(--size-themeToggle-width) - 100%));
+}
+
+.toggleThumb:hover {
+  background-color: var(--color-hover);
+}
