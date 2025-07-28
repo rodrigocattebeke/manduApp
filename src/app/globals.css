@@ -12,6 +12,7 @@
   --color-status-warning: #f9e2af;
   --color-border: #dde3e9;
   --layout-navbar-height: 4rem;
+  --transition-short: 0.2s;
 }
 
 html[data-theme="dark"] {
@@ -39,6 +40,7 @@ body {
   padding: 0;
   font-size: 16px;
   background-color: var(--color-bg-primary);
+  transition: background-color var(--transition-short) ease;
 }
 
 /* BASE */
@@ -51,6 +53,7 @@ h4,
 span,
 a {
   color: var(--color-text-primary);
+  transition: color var(--transition-short) ease, fill var(--transition-short) ease;
 }
 
 p {
