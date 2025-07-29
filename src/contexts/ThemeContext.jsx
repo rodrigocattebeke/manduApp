@@ -8,7 +8,10 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
-    if (theme && (theme == "dark" || theme == "light")) return setTheme(theme);
+    if (theme && (theme == "dark" || theme == "light")) {
+      setTheme(theme);
+      document.documentElement.setAttribute("data-theme", theme);
+    }
   });
 
   const activateDarkTheme = () => {
