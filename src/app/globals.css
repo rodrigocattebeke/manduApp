@@ -74,6 +74,7 @@ h3 {
 
 svg {
   fill: var(--color-text-primary);
+  transition: fill var(--transition-short);
 }
 
 @media screen and (max-width: 576px) {
