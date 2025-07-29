@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { UserLists } from "./userLists/UserLists";
+import { UserLists } from "./components/userLists/UserLists";
 import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
 
 export const MyLists = ({ lists }) => {
