@@ -9,6 +9,7 @@ import { Info } from "@/components/icons/Info";
 import { useContext } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import { DarkMode } from "@/components/icons/DarkMode";
+import { Button } from "@/components/ui/button/Button";
 
 export const Ajustes = () => {
   const { theme, activateDarkTheme, activateLightTheme } = useContext(ThemeContext);
@@ -81,6 +82,9 @@ export const Ajustes = () => {
             </div>
           </div>
         </div>
+      </section>
+      <section className={`${styles.buttonContainer} container-xxl`}>
+        <Button text="Cerrar Sesión" fullWidth="true" />
       </section>
     </>
   );
