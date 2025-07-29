@@ -10,6 +10,7 @@
   bottom: 0;
   background-color: var(--color-bg-primary);
   z-index: 99;
+  transition: background-color var(--transition-short), border var(--transition-short);
 }
 
 .icon {
