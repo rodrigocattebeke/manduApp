@@ -5,7 +5,9 @@
   --color-text-secondary: #6b6b6b;
   --color-text-accent: #ffffff;
   --color-accent: #b8c1ec;
+  --color-accent-active: #a8b0d6;
   --color-accent-secondary: #d9c2f1;
+  --color-accent-secondary-active: #c3aeda;
   --color-hover: #e8ecf6;
   --color-status-error: #f38ba8;
   --color-status-success: #a6e3a1;
@@ -22,7 +24,9 @@ html[data-theme="dark"] {
   --color-text-secondary: #a6adc8;
   --color-text-accent: #ffffff;
   --color-accent: #94e2d5;
+  --color-accent-active: #79bbb0;
   --color-accent-secondary: #cba6f7;
+  --color-accent-secondary-active: #b695df;
   --color-hover: #313d3f;
   --color-status-error: #f38ba8;
   --color-status-success: #a6e3a1;
@@ -41,6 +45,12 @@ body {
   font-size: 16px;
   background-color: var(--color-bg-primary);
   transition: background-color var(--transition-short) ease;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* BASE */
