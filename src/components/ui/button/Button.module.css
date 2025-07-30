@@ -35,6 +35,10 @@
   background-color: var(--color-status-error);
 }
 
+.button.danger:active {
+  background-color: var(--color-status-error-active);
+}
+
 .button:hover {
   background-color: var(--color-hover);
 }
