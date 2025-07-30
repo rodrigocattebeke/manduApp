@@ -3,6 +3,7 @@
   height: auto;
   min-height: 2.5rem;
   padding: 0 1rem;
+  font-size: 1rem;
   color: var(--color-text-primary);
   transition: color var(--transition-short), background-color var(--transition-short);
   border-radius: 0.5rem;
