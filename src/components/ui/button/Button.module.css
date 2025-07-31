@@ -15,6 +15,14 @@
   width: 100%;
 }
 
+.button.default {
+  background-color: var(--color-bg-secondary);
+}
+
+.button.default:active {
+  background-color: var(--color-bg-secondary);
+}
+
 .button.primary {
   background-color: var(--color-accent);
 }
