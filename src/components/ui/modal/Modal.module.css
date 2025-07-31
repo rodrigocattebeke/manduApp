@@ -1,0 +1,91 @@
+.actionButtons {
+  display: flex;
+  width: 100%;
+  max-width: 22rem;
+  gap: 2rem;
+}
+
+.backdrop {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  height: 100vh;
+  background-color: var(--color-backdrop);
+  z-index: 999;
+}
+
+.backdrop.close {
+  display: flex;
+  height: 100vh;
+  animation: fadeOut 0.5s;
+  opacity: 0;
+}
+
+.backdrop.show {
+  animation: fadeIn 0.5s;
+  opacity: 1;
+}
+
+.closeContainer {
+  width: 100%;
+}
+
+.close {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 0;
+  width: fit-content;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.modal {
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  background-color: var(--color-bg-primary);
+  padding: 0.8rem;
+  margin: 0 0.5rem;
+  border-radius: 0.8rem;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
