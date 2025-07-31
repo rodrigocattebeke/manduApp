@@ -47,6 +47,14 @@
   background-color: var(--color-status-error-active);
 }
 
+.button.success {
+  background-color: var(--color-status-success);
+}
+
+.button.success:active {
+  background-color: var(--color-status-success-active);
+}
+
 .button:hover {
   background-color: var(--color-hover);
 }

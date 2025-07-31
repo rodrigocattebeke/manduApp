@@ -3,7 +3,7 @@ import styles from "./Button.module.css";
 /**
  * @param {{
  *  text?: 'string',
- *  mode?:  'default' | 'primary' | 'secondary' | 'danger',
+ *  mode?:  'default' | 'primary' | 'secondary' | 'success' | 'danger',
  *  fullWidth?: 'false' | 'true',
  *  onClick?: 'function()',
  * }} props
