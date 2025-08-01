@@ -5,6 +5,7 @@ import styles from "./ListView.module.css";
 import Image from "next/image";
 import { Edit } from "@/components/icons/Edit";
 import { STATUS, STATUS_LABELS } from "@/constants/statuses";
+import { Header } from "@/components/ui/header/Header";
 
 const FILTER_STATES = [
   {
@@ -47,9 +48,7 @@ export const ListView = ({ listTitle = "", listItems }) => {
 
   return (
     <>
-      <section className="container-xxl d-flex align-items-center justify-content-center py-3">
-        <h1 className="my-0">{listTitle}</h1>
-      </section>
+      <Header title={listTitle} />
 
       {/* Filters */}
       <section className="container-xxl d-flex flex-column align-items-center justify-content-center py-3">
