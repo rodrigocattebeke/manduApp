@@ -1,0 +1,24 @@
+.arrowBackContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+}
+
+.arrowBack {
+  width: fit-content;
+  height: fit-content;
+}
+
+.arrowBack svg:hover {
+  cursor: pointer;
+  fill: var(--color-hover);
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-right: 2rem;
+}
