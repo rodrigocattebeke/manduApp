@@ -8,15 +8,15 @@ export const ListsSection = ({ favorites, recentEdits, recentUpdates }) => {
     <>
       <section className={styles.section}>
         <h2 className="my-0">Listas recientes</h2>
-        <ListCarousel cards={recentUpdates} />
+        <ListCarousel cards={recentUpdates} basePath="mis-listas" />
       </section>
       <section className={styles.section}>
         <h2 className="my-0">Favoritos</h2>
-        <ListCarousel cards={favorites} />
+        <ListCarousel cards={favorites} basePath="mis-listas" />
       </section>
       <section className={styles.section}>
         <h2 className="my-0">Últimos editados</h2>
-        <ListCarousel cards={recentEdits} />
+        <ListCarousel cards={recentEdits} basePath="mis-listas" />
       </section>
     </>
   );
