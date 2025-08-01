@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 
 export const Header = ({ title = "" }) => {
   return (
-    <header className="container-xxl d-flex align-items-center justify-content-center py-3">
+    <header className="container-xxl d-flex py-3">
       <div className={styles.arrowBackContainer}>
         <div className={styles.arrowBack}>
           <ArrowBack />
