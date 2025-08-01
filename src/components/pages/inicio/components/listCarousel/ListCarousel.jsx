@@ -4,7 +4,15 @@ import Slider from "react-slick";
 import "./ListCarousel.css";
 import { ItemCard } from "@/components/ui/itemCard/ItemCard";
 
-export const ListCarousel = ({ cards = undefined }) => {
+/**
+ * @param {{
+ * cards?: array,
+ * basePath?: URL
+ * }} params
+ * @returns
+ */
+
+export const ListCarousel = ({ cards = undefined, basePath = "" }) => {
   if (!cards || !Array.isArray(cards)) return console.error(`Se necesita pasar un array para el carousel. Cada item del array debe de ser: {title: "", quantity: "", imgURL: URL , to: URL}`);
 
   const NextArrow = (props) => {
@@ -38,7 +46,7 @@ export const ListCarousel = ({ cards = undefined }) => {
   return (
     <Slider {...settings}>
       {cards.map((card, i) => (
-        <ItemCard title={card.title} quantity={card.quantity} imgURL={card.imgURL} to={card.to} key={i} />
+        <ItemCard title={card.title} quantity={card.quantity} imgURL={card.imgURL} to={`${basePath}/${encodeURIComponent(card.title)}--id${card.id}`} key={i} />
       ))}
     </Slider>
   );
