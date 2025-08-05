@@ -1,0 +1,77 @@
+.actionButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.imgContainer {
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  aspect-ratio: 40 / 27;
+  background-color: var(--color-bg-secondary);
+}
+
+.imgContainer img {
+  object-fit: cover;
+}
+
+.inputContainer {
+  border-radius: 0.6rem;
+  overflow: hidden;
+}
+
+.inputContainer input,
+.inputContainer select,
+.inputContainer textarea {
+  width: 100%;
+  border: 2px solid var(--color-border);
+  min-height: 2.9rem;
+  font-size: 1rem;
+  border-radius: inherit;
+  outline: none;
+  padding: 0.6rem 1rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.inputContainer input::placeholder,
+.inputContainer textarea::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.inputContainer input:focus,
+.inputContainer textarea:focus {
+  border: 2px solid var(--color-border-active);
+}
+
+.inputContainer select option {
+  font-size: 1.1rem;
+}
+
+.inputContainer textarea {
+  font-family: Roboto, Roboto Fallback, Arial;
+  resize: none;
+  height: 10rem;
+}
+
+.uploadImgContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.uploadImgContainer input {
+  display: none;
+}
