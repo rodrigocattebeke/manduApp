@@ -10,6 +10,8 @@ export const STATUS_LABELS = {
   [STATUS.pending]: "Pendiente",
 };
 
+export const STATUS_ORDER = [STATUS.completed, STATUS.in_process, STATUS.pending];
+
 export const STATUS_SUMMARY_ROUTES = {
   [STATUS.completed]: "#",
   [STATUS.in_process]: "#",
