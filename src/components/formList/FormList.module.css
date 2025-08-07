@@ -65,6 +65,18 @@
   height: 10rem;
 }
 
+.statusContainer {
+  display: none;
+}
+
+.statusContainer.show {
+  display: block;
+}
+
+.statusContainer select {
+  cursor: pointer;
+}
+
 .uploadImgContainer {
   position: absolute;
   bottom: 1rem;

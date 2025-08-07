@@ -40,7 +40,6 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   const [description, setDescription] = useState(initialValues.description);
   const [status, setStatus] = useState(initialValues.status);
   const [showTitleError, setShowTitleError] = useState(false);
-  const [showDescError, setShowDescError] = useState(false);
   const [showStatusError, setShowStatusError] = useState(false);
   const router = useRouter();
   const uploadFileRef = useRef();
@@ -76,10 +75,23 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     setTitle(e.target.value);
   };
 
+  const onStatusChange = (e) => {
+    if (showStatusError && e.target.value !== status) {
+      setShowStatusError(false);
+    }
+    setStatus(e.target.value);
+  };
+
   const handleSubmit = () => {
     if (!title.trim()) {
       router.push("#title");
       setShowTitleError(true);
+      return;
+    }
+
+    if (showSelectStatus && !status) {
+      router.push("#status");
+      setShowStatusError(true);
       return;
     }
 
@@ -116,7 +128,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
 
         {/* Status  */}
         <div className={`${`${styles.statusContainer} ${styles.inputContainer}`} ${showSelectStatus ? styles.show : ""}`} id="status">
-          <select name="select" value={status} onChange={(e) => setStatus(e.target.value)}>
+          <select name="select" value={status} onChange={(e) => onStatusChange(e)}>
             <option value="" disabled>
               {`- Selecciona un estado -`}
             </option>
@@ -126,7 +138,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
               </option>
             ))}
           </select>
-          <ErrorTooltip error="Se debe de poner seleccionar el estado" show={showStatusError} />
+          <ErrorTooltip error="Se debe de seleccionar un estado" show={showStatusError} />
         </div>
 
         {/* Action buttons */}
