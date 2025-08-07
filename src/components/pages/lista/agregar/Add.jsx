@@ -3,7 +3,7 @@
 import { FormList } from "@/components/formList/FormList";
 import { Header } from "@/components/ui/header/Header";
 
-export const Agregar = () => {
+export const Add = () => {
   const handleSubmit = (formObject) => {
     console.log(formObject);
   };

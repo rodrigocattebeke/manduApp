@@ -1,5 +1,5 @@
-import { Agregar } from "@/components/pages/lista/agregar/Agregar";
+import { Add } from "@/components/pages/lista/agregar/Add";
 
-export default async function Add() {
-  return <Agregar />;
+export default async function Agregar() {
+  return <Add />;
 }
