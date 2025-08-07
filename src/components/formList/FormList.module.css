@@ -28,8 +28,7 @@
 }
 
 .inputContainer {
-  border-radius: 0.6rem;
-  overflow: hidden;
+  position: relative;
 }
 
 .inputContainer input,
@@ -39,7 +38,7 @@
   border: 2px solid var(--color-border);
   min-height: 2.9rem;
   font-size: 1rem;
-  border-radius: inherit;
+  border-radius: 0.6rem;
   outline: none;
   padding: 0.6rem 1rem;
   color: var(--color-text-primary);

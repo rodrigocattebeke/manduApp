@@ -5,6 +5,8 @@ import styles from "./FormList.module.css";
 import { STATUS, STATUS_LABELS, STATUS_ORDER } from "@/constants/statuses";
 import Image from "next/image";
 import { Button } from "../ui/button/Button";
+import { ErrorTooltip } from "../ui/errorTooltip/ErrorTooltip";
+import { useRouter } from "next/navigation";
 
 /**
  * @param {{
@@ -37,6 +39,10 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   const [title, setTitle] = useState(initialValues.title);
   const [description, setDescription] = useState(initialValues.description);
   const [status, setStatus] = useState(initialValues.status);
+  const [showTitleError, setShowTitleError] = useState(false);
+  const [showDescError, setShowDescError] = useState(false);
+  const [showStatusError, setShowStatusError] = useState(false);
+  const router = useRouter();
   const uploadFileRef = useRef();
 
   //Validate onSubmit function
@@ -63,7 +69,20 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     setImgURL(image);
   };
 
+  const onTitleChange = (e) => {
+    if (showTitleError && e.target.value !== title) {
+      setShowTitleError(false);
+    }
+    setTitle(e.target.value);
+  };
+
   const handleSubmit = () => {
+    if (!title.trim()) {
+      router.push("#title");
+      setShowTitleError(true);
+      return;
+    }
+
     const formObject = {
       imgURL,
       title,
@@ -85,17 +104,18 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
         </div>
 
         {/* Title */}
-        <div className={`${styles.titleContainer} ${styles.inputContainer}`}>
-          <input type="text" placeholder="Título" name="title" value={title} onChange={(e) => setTitle(e.target.value)}></input>
+        <div className={`${styles.titleContainer} ${styles.inputContainer}`} id="title">
+          <input type="text" placeholder="Título" name="title" value={title} onChange={(e) => onTitleChange(e)}></input>
+          <ErrorTooltip error="Se debe de poner un título" show={showTitleError} />
         </div>
 
         {/* Description */}
-        <div className={`${styles.descriptionContainer} ${styles.inputContainer}`}>
+        <div className={`${styles.descriptionContainer} ${styles.inputContainer}`} id="description">
           <textarea placeholder="Descripción" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
         </div>
 
         {/* Status  */}
-        <div className={`${`${styles.statusContainer} ${styles.inputContainer}`} ${showSelectStatus ? styles.show : ""}`}>
+        <div className={`${`${styles.statusContainer} ${styles.inputContainer}`} ${showSelectStatus ? styles.show : ""}`} id="status">
           <select name="select" value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="" disabled>
               {`- Selecciona un estado -`}
@@ -106,6 +126,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
               </option>
             ))}
           </select>
+          <ErrorTooltip error="Se debe de poner seleccionar el estado" show={showStatusError} />
         </div>
 
         {/* Action buttons */}
