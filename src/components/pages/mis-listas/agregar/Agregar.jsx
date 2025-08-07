@@ -12,7 +12,7 @@ export const Agregar = () => {
     <>
       <Header title="Nueva lista" />
       <section className="container-xxl">
-        <FormList onSubmit={handleSubmit} />
+        <FormList onSubmit={handleSubmit} showSelectStatus={false} />
       </section>
     </>
   );
