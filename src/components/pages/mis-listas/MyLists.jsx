@@ -2,16 +2,23 @@
 import React from "react";
 import { UserLists } from "./components/userLists/UserLists";
 import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
+import { Header } from "@/components/ui/header/Header";
+import { Button } from "@/components/ui/button/Button";
+import Link from "next/link";
 
 export const MyLists = ({ lists }) => {
   if (!lists) return console.error("Se debe de pasar las listas del usuario.");
   return (
     <>
-      <section className="container-xxl d-flex align-items-center justify-content-center py-3">
+      <Header title="Mis listas" className="d-lg-none" />
+      <header className="d-none d-lg-flex align-items-center justify-content-between p-3">
         <h1 className="my-0">Mis Listas</h1>
-      </section>
+        <Link href={"/mis-listas/agregar"}>
+          <Button text="+ Nueva Lista" mode="primary" />
+        </Link>
+      </header>
       <UserLists lists={lists} />
-      <FloatingAddButton />
+      <FloatingAddButton to={"/mis-listas/agregar"} className="d-lg-none" />
     </>
   );
 };
