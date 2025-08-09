@@ -21,7 +21,10 @@ export const Ajustes = () => {
 
   return (
     <>
-      <Header title="Ajustes" />
+      <Header title="Ajustes" className="d-lg-none" />
+      <header className="d-none d-lg-flex justify-content-start pt-3">
+        <h1 className="my-0">Ajustes</h1>
+      </header>
       <section className="container-xxl">
         {/* Account */}
         <div className={styles.settingContainer}>
