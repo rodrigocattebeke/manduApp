@@ -1,9 +1,9 @@
 import { ArrowBack } from "@/components/icons/ArrowBack";
 import styles from "./Header.module.css";
 
-export const Header = ({ title = "" }) => {
+export const Header = ({ title = "", className = "" }) => {
   return (
-    <header className="container-xxl d-flex py-3">
+    <header className={`${className} container-xxl d-flex py-3`}>
       <div className={styles.arrowBackContainer}>
         <div className={styles.arrowBack}>
           <ArrowBack />
