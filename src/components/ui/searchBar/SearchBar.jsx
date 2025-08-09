@@ -31,6 +31,7 @@ export const SearchBar = ({ onSearch, onInputChange }) => {
           type="search"
           id="search"
           value={inputValue}
+          placeholder="Buscar"
           onChange={(e) => {
             setInputValue(e.target.value);
           }}
