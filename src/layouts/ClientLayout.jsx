@@ -1,6 +1,6 @@
 "use client";
 
-import { MobileNavbar } from "@/components/layout/mobileNavbar/MobileNavbar";
+import { Navbar } from "@/components/layout/navbar/Navbar";
 import { HIDDEN_NAVBAR_ROUTES } from "@/constants/hiddenNavbarRoutes";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
@@ -10,9 +10,12 @@ export const ClientLayout = ({ children }) => {
 
   return (
     <>
-      <main>{children}</main>
-      {/* Hidde navbar in specific routes */}
-      {!HIDDEN_NAVBAR_ROUTES.includes(pathname) && <MobileNavbar customClass="d-sm-none" />}
+      {/* layout */}
+      <div className="container-xxl d-flex">
+        {/* Hidde navbar in specific routes */}
+        {!HIDDEN_NAVBAR_ROUTES.includes(pathname) && <Navbar />}
+        <main className="container-xxl">{children}</main>
+      </div>
       <Script src="/js/bootstrap.bundle.min.js" />
     </>
   );
