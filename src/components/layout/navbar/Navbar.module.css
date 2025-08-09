@@ -1,0 +1,110 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: var(--layout-navbar-height);
+  gap: 1rem;
+  width: 100%;
+  background-color: var(--color-bg-primary);
+  z-index: 99;
+  transition: background-color var(--transition-short), border var(--transition-short);
+}
+
+.mobileNavbar {
+  position: fixed;
+  align-items: center;
+  justify-content: space-around;
+  left: 0;
+  bottom: 0;
+  border-top: 2px solid var(--color-border);
+}
+
+/* Icons */
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.icon small {
+  color: var(--color-text-secondary);
+  transition: 0.2s;
+}
+
+.icon svg {
+  fill: transparent;
+  stroke: var(--color-text-secondary);
+  stroke-width: 0.1rem;
+  transition: 0.2s;
+}
+
+.icon.active svg {
+  fill: var(--color-text-primary);
+  stroke: var(--color-text-primary);
+}
+
+.icon.active small {
+  color: var(--color-text-primary);
+}
+
+/*    Desktop */
+
+.desktopNavbar {
+  position: sticky;
+  top: 0;
+  flex-direction: column;
+  justify-content: start;
+  max-width: 18rem;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.desktopNavbar .icon {
+  flex-direction: row;
+  gap: 1rem;
+}
+.desktopNavbar p {
+  margin: 0;
+}
+
+.desktopIconsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  width: 100%;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.profile p {
+  flex: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profileImgContainer {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profileImgContainer img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
