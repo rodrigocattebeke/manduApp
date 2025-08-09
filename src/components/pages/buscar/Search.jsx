@@ -44,8 +44,8 @@ export const Search = () => {
 
   return (
     <>
-      <Header title="Buscar" />
-      <div className="container-xxl">
+      <Header title="Buscar" className="d-lg-none" />
+      <div className="container-xxl pt-lg-3">
         <SearchBar onSearch={onSearch} onInputChange={onInputChange} />
       </div>
       <section className={`${styles.recentSearchesContainer} container-xxl`}>
