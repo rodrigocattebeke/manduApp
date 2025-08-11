@@ -107,42 +107,47 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   return (
     <>
       <section className={`${styles.formContainer}`}>
-        <div className={styles.imgContainer}>
-          <Image src={imgURL} width={400} height={270} alt="Imagen de la lista" />
-          <div className={styles.uploadImgContainer}>
-            <input ref={uploadFileRef} onChange={(e) => handleUpFileChange(e)} id="fileUpload" name="fileUpload" type="file" accept=".jpg, .jpeg, .png, .webp" />
-            <Button text="Subir imagen" mode="primary" onClick={handleUploadImgButton} />
+        <div className={`${styles.infoContainer} d-flex flex-column flex-sm-row`}>
+          <div className={styles.container}>
+            <div className={styles.imgContainer}>
+              <Image src={imgURL} width={400} height={270} alt="Imagen de la lista" />
+              <div className={styles.uploadImgContainer}>
+                <input ref={uploadFileRef} onChange={(e) => handleUpFileChange(e)} id="fileUpload" name="fileUpload" type="file" accept=".jpg, .jpeg, .png, .webp" />
+                <Button text="Subir imagen" mode="primary" onClick={handleUploadImgButton} />
+              </div>
+            </div>
+          </div>
+
+          <div className={`${styles.inputsContainer} d-flex flex-column`}>
+            {/* Title */}
+            <div className={`${styles.titleContainer} ${styles.inputContainer}`} id="title">
+              <input type="text" placeholder="Título" name="title" value={title} onChange={(e) => onTitleChange(e)}></input>
+              <ErrorTooltip error="Se debe de poner un título" show={showTitleError} />
+            </div>
+
+            {/* Description */}
+            <div className={`${styles.descriptionContainer} ${styles.inputContainer}`} id="description">
+              <textarea placeholder="Descripción" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+            </div>
+
+            {/* Status  */}
+            <div className={`${`${styles.statusContainer} ${styles.inputContainer}`} ${showSelectStatus ? styles.show : ""}`} id="status">
+              <select name="select" value={status} onChange={(e) => onStatusChange(e)}>
+                <option value="" disabled>
+                  {`- Selecciona un estado -`}
+                </option>
+                {STATUS_ORDER.map((status, i) => (
+                  <option value={status} key={i}>
+                    {STATUS_LABELS[status]}
+                  </option>
+                ))}
+              </select>
+              <ErrorTooltip error="Se debe de seleccionar un estado" show={showStatusError} />
+            </div>
           </div>
         </div>
-
-        {/* Title */}
-        <div className={`${styles.titleContainer} ${styles.inputContainer}`} id="title">
-          <input type="text" placeholder="Título" name="title" value={title} onChange={(e) => onTitleChange(e)}></input>
-          <ErrorTooltip error="Se debe de poner un título" show={showTitleError} />
-        </div>
-
-        {/* Description */}
-        <div className={`${styles.descriptionContainer} ${styles.inputContainer}`} id="description">
-          <textarea placeholder="Descripción" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
-        </div>
-
-        {/* Status  */}
-        <div className={`${`${styles.statusContainer} ${styles.inputContainer}`} ${showSelectStatus ? styles.show : ""}`} id="status">
-          <select name="select" value={status} onChange={(e) => onStatusChange(e)}>
-            <option value="" disabled>
-              {`- Selecciona un estado -`}
-            </option>
-            {STATUS_ORDER.map((status, i) => (
-              <option value={status} key={i}>
-                {STATUS_LABELS[status]}
-              </option>
-            ))}
-          </select>
-          <ErrorTooltip error="Se debe de seleccionar un estado" show={showStatusError} />
-        </div>
-
         {/* Action buttons */}
-        <div className={styles.actionButtonsContainer}>
+        <div className={`${styles.actionButtonsContainer} d-flex flex-sm-row`}>
           <Button mode="primary" text="Guardar" fullWidth="true" onClick={handleSubmit} />
           <Button mode="default" text="Cancelar" fullWidth="true" />
         </div>
