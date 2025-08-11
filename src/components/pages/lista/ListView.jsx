@@ -6,6 +6,9 @@ import Image from "next/image";
 import { Edit } from "@/components/icons/Edit";
 import { STATUS, STATUS_LABELS } from "@/constants/statuses";
 import { Header } from "@/components/ui/header/Header";
+import Link from "next/link";
+import { Button } from "@/components/ui/button/Button";
+import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
 
 const FILTER_STATES = [
   {
@@ -48,7 +51,18 @@ export const ListView = ({ listTitle = "", listItems }) => {
 
   return (
     <>
-      <Header title={listTitle} />
+      <Header title={listTitle} className="d-lg-none" />
+      <header className="container-xxl d-lg-flex  d-none align-items-center justify-content-between py-3">
+        <h1 className="my-0">{listTitle}</h1>
+        <div className={styles.headerButtons}>
+          <Link href={`#`}>
+            <Button text="Editar lista" mode="default" />
+          </Link>
+          <Link href={`/mis-listas/${listTitle}/agregar`}>
+            <Button text="+ Nueva lista" mode="primary" />
+          </Link>
+        </div>
+      </header>
 
       {/* Filters */}
       <section className="container-xxl d-flex flex-column align-items-center justify-content-center py-3">
@@ -96,6 +110,7 @@ export const ListView = ({ listTitle = "", listItems }) => {
           </table>
         </div>
       </section>
+      <FloatingAddButton to="#" className="d-lg-none" />
     </>
   );
 };
