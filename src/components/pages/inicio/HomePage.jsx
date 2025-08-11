@@ -13,9 +13,9 @@ export const HomePage = ({ statusSummary, recentUpdates, favorites, recentEdits 
 
   return (
     <>
-      <section className="container-xxl d-lg-none  d-flex align-items-center justify-content-center py-3">
+      <header className="container-xxl d-lg-none  d-flex align-items-center justify-content-center py-3">
         <h1 className="my-0">Inicio</h1>
-      </section>
+      </header>
       <section className={`container-xxl py-lg-3`}>
         <div className="d-flex justify-content-between">
           <div>
