@@ -22,7 +22,7 @@ export const HomePage = ({ statusSummary, recentUpdates, favorites, recentEdits 
             <h2 className="my-0">Hola, {userData.displayName.split(" ")[0]}</h2>
             <p className="my-0">Esto es lo último de tus listas</p>
           </div>
-          <div>
+          <div className="d-none d-lg-flex align-items-center">
             <Link href="/mis-listas/agregar">
               <Button text="+ Nueva Lista" mode="primary" />
             </Link>
