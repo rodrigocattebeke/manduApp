@@ -4,6 +4,7 @@
   height: auto;
   aspect-ratio: 16/9;
   border-radius: 0.4rem;
+  margin-bottom: 1rem;
   overflow: hidden;
 }
 
@@ -13,7 +14,15 @@
   object-fit: cover;
 }
 
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
 .itemCreationDate {
+  margin: 0;
   margin-top: 1.5rem;
   color: var(--color-text-secondary);
 }
@@ -28,6 +37,10 @@
 
 .itemDescriptionContainer p {
   margin: 0;
+}
+
+.statusContainer {
+  margin-bottom: calc(var(--layout-navbar-height) + 2rem);
 }
 
 .statusDot {
@@ -51,7 +64,7 @@
 
 /* Action buttons */
 .actionButtons {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -90,4 +103,10 @@
 .editButton svg {
   fill: var(--color-text-primary);
   transition: 0.2s;
+}
+
+@media screen and (min-width: 768px) {
+  .imgContainer {
+    max-width: 19rem;
+  }
 }
