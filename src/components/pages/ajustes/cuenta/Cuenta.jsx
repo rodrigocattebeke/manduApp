@@ -55,8 +55,8 @@ export const Cuenta = () => {
   return (
     <>
       <Header title="Cuenta" />
-      <section className="container-xxl">
-        <div className={styles.profileImage}>
+      <section className="container-xxl d-flex flex-column flex-md-row">
+        <div className={`${styles.profileImage} col-md-6`}>
           <div className={styles.imageContainer}>
             <Image src={userData.photoURL} width={128} height={128} alt={`Foto de perfil de ${userData.displayName}`} />
           </div>
@@ -68,13 +68,13 @@ export const Cuenta = () => {
             <Button text="Cambiar foto de perfil" />
           </div>
         </div>
-        <div className={styles.displayName}>
+        <div className={`${styles.displayName} col-md-6`}>
           <p>Nombre</p>
           <input name="name" className={styles.nameInput} value={displayName} onChange={handleInput} />
         </div>
       </section>
       <section className={`container-xxl ${styles.actionButtons}`}>
-        <div className={styles.editButtons}>
+        <div className={`${styles.editButtons} flex-md-row`}>
           <Button text="Guardar" mode="primary" fullWidth="true" onClick={handleSaveDataButton} />
           <Button text="Cancelar" fullWidth="true" />
         </div>
