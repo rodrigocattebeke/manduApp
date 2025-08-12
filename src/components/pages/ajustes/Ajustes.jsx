@@ -10,9 +10,12 @@ import { useContext } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import { DarkMode } from "@/components/icons/DarkMode";
 import { Button } from "@/components/ui/button/Button";
+import { UserContext } from "@/contexts/UserContext";
+import Link from "next/link";
 
 export const Ajustes = () => {
   const { theme, activateDarkTheme, activateLightTheme } = useContext(ThemeContext);
+  const { userData, logOut } = useContext(UserContext);
 
   const handleTheme = () => {
     if (!theme) return;
@@ -32,16 +35,18 @@ export const Ajustes = () => {
             <h2 className={styles.title}>Cuenta</h2>
           </div>
           <div className={styles.setting}>
-            <div className={styles.settingInfo}>
-              <Image src={"https://picsum.photos/200"} width={56} height={56} className={styles.profilePhoto} alt="Foto de perfil" />
+            <div className="d-flex">
+              <Image src={userData.photoURL} width={56} height={56} className={styles.profilePhoto} alt="Foto de perfil" />
+            </div>
+            <Link href={"/ajustes/cuenta"} className={styles.linkContainer}>
               <div className={styles.description}>
                 <p className={styles.subtitle}>Editar perfil</p>
-                <p>Sofia</p>
+                <p>{userData.displayName}</p>
               </div>
-            </div>
-            <div className={styles.iconContainer}>
-              <ArrowForward />
-            </div>
+              <div className={styles.iconContainer}>
+                <ArrowForward />
+              </div>
+            </Link>
           </div>
         </div>
 
@@ -51,7 +56,7 @@ export const Ajustes = () => {
             <h2 className={styles.title}>Preferencias</h2>
           </div>
           <div className={styles.setting}>
-            <div className={styles.settingInfo}>
+            <div className={"d-flex"}>
               <div className={styles.settingIcon}>{theme == "light" ? <LightMode /> : <DarkMode />}</div>
               <div className={styles.description}>
                 <p className={styles.subtitle}>Tema</p>
@@ -71,23 +76,23 @@ export const Ajustes = () => {
             <h2 className={styles.title}>Información</h2>
           </div>
           <div className={styles.setting}>
-            <div className={styles.settingInfo}>
-              <div className={styles.settingIcon}>
-                <Info />
-              </div>
+            <div className={styles.settingIcon}>
+              <Info />
+            </div>
+            <Link href={"#"} className={styles.linkContainer}>
               <div className={styles.description}>
                 <p className={styles.subtitle}>Sobre nosotros</p>
                 <p>Lee más acerca de nuestra app</p>
               </div>
-            </div>
-            <div className={styles.iconContainer}>
-              <ArrowForward />
-            </div>
+              <div className={styles.iconContainer}>
+                <ArrowForward />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
-      <section className={`${styles.buttonContainer} container-xxl`}>
-        <Button text="Cerrar Sesión" fullWidth="true" />
+      <section className={`${styles.buttonContainer} container-xxl flex-lg-grow-0 flex-grow-1`}>
+        <Button text="Cerrar Sesión" fullWidth="true" onClick={logOut} />
       </section>
     </>
   );

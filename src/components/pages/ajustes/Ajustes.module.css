@@ -1,8 +1,8 @@
 .buttonContainer {
   display: flex;
   align-items: end;
-  padding-bottom: 1.2rem;
-  flex-grow: 1;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
 }
 
 .iconContainer {
@@ -30,11 +30,19 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 1rem;
 }
 
 .description p:nth-child(2) {
   margin: 0;
   color: var(--color-text-secondary);
+}
+
+.linkContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-decoration: none;
 }
 
 .setting {
