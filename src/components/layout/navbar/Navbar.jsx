@@ -70,7 +70,7 @@ export const Navbar = ({ className = "" }) => {
       <nav className={`${styles.navbar} ${styles.desktopNavbar} d-none d-lg-flex`}>
         <div className={styles.profile}>
           <div className={styles.profileImgContainer}>
-            <Image src={userData.photoURL} width={40} height={40} />
+            <Image src={userData.photoURL} width={40} height={40} alt="Foto de perfil del usuario" />
           </div>
           <p>{userData.displayName}</p>
         </div>
