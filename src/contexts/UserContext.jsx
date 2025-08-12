@@ -74,7 +74,7 @@ export const UserProvider = ({ children }) => {
 
   //Detect if there is no user logged in
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUserData({
           uid: user.uid,
@@ -82,19 +82,38 @@ export const UserProvider = ({ children }) => {
           displayName: user.displayName,
         });
         if (pathname == "/login") router.push("/");
+        setIsLoading(false);
       } else if (!user && pathname !== "/login") {
         router.push("/login");
       } else if (user && pathname == "/login") {
         router.push("/");
       }
-      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, [auth, pathname]);
 
+  // Detect if the current page is /login, and remove loader
+
+  useEffect(() => {
+    if (pathname === "/login") {
+      setIsLoading(false);
+    }
+  }, [pathname]);
+
+  // SignOut
+  const logOut = async () => {
+    if (!auth.currentUser) return;
+    try {
+      await signOut(auth);
+    } catch (error) {
+      return console.error("Ocurrió un error al cerrar sesión: " + error);
+    }
+  };
+
   if (isLoading) return null; //for the moment, return null
-  return <UserContext.Provider value={{ loginWithGoogle, userData }}>{children}</UserContext.Provider>;
+
+  return <UserContext.Provider value={{ loginWithGoogle, logOut, userData }}>{children}</UserContext.Provider>;
 };
 
 export { UserContext };
