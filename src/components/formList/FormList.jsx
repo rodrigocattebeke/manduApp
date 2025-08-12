@@ -106,7 +106,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
 
   return (
     <>
-      <section className={`${styles.formContainer}`}>
+      <section className={`${styles.formContainer} mt-2`}>
         <div className={`${styles.infoContainer} d-flex flex-column flex-sm-row`}>
           <div className={styles.container}>
             <div className={styles.imgContainer}>
