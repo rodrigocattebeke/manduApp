@@ -59,7 +59,7 @@ export const ListView = ({ listTitle = "", listItems }) => {
             <Button text="Editar lista" mode="default" />
           </Link>
           <Link href={`/mis-listas/${listTitle}/agregar`}>
-            <Button text="+ Nueva lista" mode="primary" />
+            <Button text="+ Nuevo ítem" mode="primary" />
           </Link>
         </div>
       </header>
