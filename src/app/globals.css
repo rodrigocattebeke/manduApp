@@ -98,6 +98,7 @@ svg {
   transition: fill var(--transition-short);
 }
 
+/* 992px is sm screen size in bootstrap available breakpoints */
 @media screen and (max-width: 576px) {
   p {
     font-size: 1rem;
@@ -114,7 +115,10 @@ svg {
   h3 {
     font-size: 1.125rem;
   }
+}
 
+/* 992px is lg screen size in bootstrap available breakpoints */
+@media screen and (max-width: 992px) {
   main {
     padding-bottom: var(--layout-navbar-height);
   }
