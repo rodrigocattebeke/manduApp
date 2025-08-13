@@ -11,10 +11,10 @@ export const ClientLayout = ({ children }) => {
   return (
     <>
       {/* layout */}
-      <div className="container-xxl d-flex">
+      <div className="container-xxl p-0 d-flex">
         {/* Hidde navbar in specific routes */}
         {!HIDDEN_NAVBAR_ROUTES.includes(pathname) && <Navbar />}
-        <main className="container-xxl">{children}</main>
+        <main className="container-xxl p-0">{children}</main>
       </div>
       <Script src="/js/bootstrap.bundle.min.js" />
     </>
