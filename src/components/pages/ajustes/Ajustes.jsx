@@ -15,7 +15,7 @@ import Link from "next/link";
 
 export const Ajustes = () => {
   const { theme, activateDarkTheme, activateLightTheme } = useContext(ThemeContext);
-  const { userData, logOut } = useContext(UserContext);
+  const { userData, singOut } = useContext(UserContext);
 
   const handleTheme = () => {
     if (!theme) return;
@@ -92,7 +92,7 @@ export const Ajustes = () => {
         </div>
       </section>
       <section className={`${styles.buttonContainer} container-xxl flex-lg-grow-0 flex-grow-1`}>
-        <Button text="Cerrar Sesión" fullWidth="true" onClick={logOut} />
+        <Button text="Cerrar Sesión" fullWidth="true" onClick={singOut} />
       </section>
     </>
   );
