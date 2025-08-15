@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button/Button";
 import { Modal } from "@/components/ui/modal/Modal";
 
 export const Cuenta = () => {
-  const { userData } = useContext(UserContext);
+  const { userData, userFunctions } = useContext(UserContext);
   const [displayName, setDisplayName] = useState(userData.displayName);
   const [showSaveDataModal, setShowSaveDataModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
@@ -27,12 +27,11 @@ export const Cuenta = () => {
     setShowSaveDataModal(true);
   };
 
-  const onConfirmSaveData = () => {
-    console.log("Datos actualizados");
-    const timeout = setTimeout(() => {
-      setShowSaveDataModal(false);
-    }, 1000);
-    return () => clearTimeout(timeout);
+  const onConfirmSaveData = async () => {
+    const res = await userFunctions.updateDisplayName(displayName);
+    if (!res.success) return console.alert("ocurrio un error");
+    setShowSaveDataModal(false);
+    return;
   };
 
   // Delete account button functions
