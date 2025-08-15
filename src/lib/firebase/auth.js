@@ -4,9 +4,9 @@ import { auth, provider } from "./index";
 export async function singInWithGoogle() {
   try {
     const res = await signInWithPopup(auth, provider);
-    return res.user;
+    return { success: true, user: res.user };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, error: error };
   }
 }
