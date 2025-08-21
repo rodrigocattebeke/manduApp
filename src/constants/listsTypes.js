@@ -1,0 +1,13 @@
+export const LISTS_REDUCER_TYPES = {
+  ADD: "[LIST] ADD",
+  ADD_ALL: "[LIST] ADD ALL",
+  REMOVE: "[LIST] REMOVE",
+  UPDATE: "[LIST] UPDATE",
+};
+
+export const ITEMS_REDUCER_TYPES = {
+  ADD: "[ITEM] ADD",
+  ADD_ALL: "[ITEM] ADD ALL",
+  REMOVE: "[ITEM] REMOVE",
+  UPDATE: "[ITEM] UPDATE",
+};
