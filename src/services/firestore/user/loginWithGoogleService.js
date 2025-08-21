@@ -8,7 +8,7 @@ async function createUser(userRef, user) {
   try {
     const localTimestamp = Timestamp.fromDate(new Date());
     const userData = {
-      userUID: user.uid,
+      userUID: user.userUID,
       displayName: user.displayName,
       photoURL: user.photoURL,
       createdAt: localTimestamp,
@@ -35,7 +35,7 @@ export const loginWithGoogleService = async () => {
     const res = await singInWithGoogle();
     if (res.success) {
       const userRes = await getUserByUIDService(res.user.uid);
-
+      console.log(userRes);
       // If the user doesn't exist in the DB, create user
       if (!userRes.success) {
         const initialUserValue = {
@@ -45,6 +45,7 @@ export const loginWithGoogleService = async () => {
         };
 
         const userRef = doc(db, "users", res.user.uid);
+
         const createUserRes = await createUser(userRef, initialUserValue);
 
         if (!createUserRes.success) {
