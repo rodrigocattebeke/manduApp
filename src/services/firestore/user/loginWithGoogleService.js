@@ -8,7 +8,7 @@ async function createUser(userRef, user) {
   try {
     const localTimestamp = Timestamp.fromDate(new Date());
     const userData = {
-      uid: user.uid,
+      userUID: user.uid,
       displayName: user.displayName,
       photoURL: user.photoURL,
       createdAt: localTimestamp,
@@ -39,7 +39,7 @@ export const loginWithGoogleService = async () => {
       // If the user doesn't exist in the DB, create user
       if (!userRes.success) {
         const initialUserValue = {
-          uid: res.user.uid,
+          userUID: res.user.uid,
           photoURL: res.user.photoURL,
           displayName: res.user.displayName,
         };
