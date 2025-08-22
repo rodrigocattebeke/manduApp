@@ -2,10 +2,20 @@
 
 import { FormList } from "@/components/formList/FormList";
 import { Header } from "@/components/ui/header/Header";
+import { ListsContext } from "@/contexts/ListsContext";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 export const Add = () => {
-  const handleSubmit = (formObject) => {
-    console.log(formObject);
+  const { listFunctions } = useContext(ListsContext);
+  const router = useRouter();
+
+  const handleSubmit = async (formObject) => {
+    const res = await listFunctions.addList(formObject);
+    if (res.success) {
+      router.push("/mis-listas");
+    }
+    //hay que manejar si es que da !success
   };
 
   return (
