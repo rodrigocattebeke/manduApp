@@ -6,6 +6,7 @@ import { UserProvider } from "@/contexts/UserContext";
 import { ClientLayout } from "@/layouts/ClientLayout.jsx";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ListsProvider } from "@/contexts/ListsContext";
 
 export const metadata = {
   title: "ManduApp",
@@ -25,7 +26,9 @@ export default function RootLayout({ children }) {
         {
           <ThemeProvider>
             <UserProvider>
-              <ClientLayout>{children}</ClientLayout>
+              <ListsProvider>
+                <ClientLayout>{children}</ClientLayout>
+              </ListsProvider>
             </UserProvider>
           </ThemeProvider>
         }
