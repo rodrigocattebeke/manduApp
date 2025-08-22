@@ -17,7 +17,7 @@ export const MyLists = ({ lists }) => {
           <Button text="+ Nueva Lista" mode="primary" />
         </Link>
       </header>
-      <UserLists lists={lists} />
+      {Object.keys(lists).length === 0 ? <h2>No hay listas para mostrar</h2> : <UserLists lists={lists} />}
       <FloatingAddButton to={"/mis-listas/agregar"} className="d-lg-none" />
     </>
   );
