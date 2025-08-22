@@ -1,7 +1,8 @@
 "use client";
-import { LISTS_REDUCER_TYPES } from "@/constants/listsTypes";
+import { ITEMS_REDUCER_TYPES, LISTS_REDUCER_TYPES } from "@/constants/listsTypes";
 import { itemsReducer } from "@/lib/reducers/itemsReducer";
 import { listsReducer } from "@/lib/reducers/listsReducer";
+import { getAllListItemsService } from "@/services/firestore/items/getAllListItemsService";
 import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
 import { getListService } from "@/services/firestore/lists/getListService";
@@ -13,7 +14,7 @@ const ListsContext = createContext();
 
 export function ListsProvider({ children }) {
   const [lists, listsDispatch] = useReducer(listsReducer, undefined);
-  // const [items, itemsDispatch] = useReducer(itemsReducer, undefined);
+  const [items, itemsDispatch] = useReducer(itemsReducer, undefined);
 
   //Lists functions
 
@@ -104,14 +105,14 @@ export function ListsProvider({ children }) {
 
   //Items Functions
 
-  const listFunctions = {
+  const listsService = {
     addList,
     getAllLists,
     getList,
     updateList,
   };
 
-  return <ListsContext.Provider value={{ listFunctions, lists, items }}>{children}</ListsContext.Provider>;
+  return <ListsContext.Provider value={{ listsService, lists, items }}>{children}</ListsContext.Provider>;
 }
 
 export { ListsContext };
