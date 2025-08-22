@@ -4,13 +4,13 @@ import { ListsContext } from "@/contexts/ListsContext";
 import { useContext, useEffect, useState } from "react";
 
 export default function MisListas() {
-  const { listFunctions, lists } = useContext(ListsContext);
+  const { listsService, lists } = useContext(ListsContext);
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(undefined);
 
   useEffect(() => {
     const fetchAllLists = async () => {
-      const res = await listFunctions.getAllLists();
+      const res = await listsService.getAllLists();
       if (res.success) {
         setIsSuccess(true);
       } else {
