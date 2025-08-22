@@ -10,14 +10,14 @@ import { useContext, useEffect, useState } from "react";
 export default function EditList() {
   const params = useParams();
   const [titleSlug, listId] = params.listTitle.split("--id");
-  const { listFunctions } = useContext(ListsContext);
+  const { listsService } = useContext(ListsContext);
   const [list, setList] = useState(undefined);
   const [isSuccess, setIsSuccess] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getList = async () => {
-      const listRes = await listFunctions.getList(listId);
+      const listRes = await listsService.getList(listId);
       if (listRes.success) {
         setList(listRes.list);
         setIsSuccess(true);
