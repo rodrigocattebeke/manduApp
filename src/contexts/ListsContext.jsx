@@ -7,8 +7,9 @@ import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
 import { getListService } from "@/services/firestore/lists/getListService";
 import { updateListService } from "@/services/firestore/lists/updateListService";
+import { getItemsById } from "@/utils/getItemsById";
 
-const { useReducer, createContext, useEffect } = require("react");
+const { useReducer, createContext } = require("react");
 
 const ListsContext = createContext();
 
@@ -105,6 +106,29 @@ export function ListsProvider({ children }) {
 
   //Items Functions
 
+  const getAllListItems = async (listId) => {
+    if (!listId) return console.error("Se debe de pasar el id de una lista");
+
+    if (items && Object.values(getItemsById(items, listId)).length !== 0) return { success: true, items: getItemsById(listId) };
+
+    const res = await getAllListItemsService(listId);
+
+    if (res.success) {
+      const action = {
+        type: ITEMS_REDUCER_TYPES.ADD_ALL,
+        payload: res.items,
+      };
+      itemsDispatch(action);
+
+      return { success: true, items: res.items };
+    } else {
+      return {
+        success: false,
+        error: res.error,
+      };
+    }
+  };
+
   const listsService = {
     addList,
     getAllLists,
@@ -112,7 +136,11 @@ export function ListsProvider({ children }) {
     updateList,
   };
 
-  return <ListsContext.Provider value={{ listsService, lists, items }}>{children}</ListsContext.Provider>;
+  const itemsService = {
+    getAllListItems,
+  };
+
+  return <ListsContext.Provider value={{ listsService, itemsService, lists, items }}>{children}</ListsContext.Provider>;
 }
 
 export { ListsContext };
