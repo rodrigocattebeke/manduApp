@@ -47,6 +47,8 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   //Validate onSubmit function
   if (!onSubmit || typeof onSubmit !== "function") return console.error("Se espera una funcion onSubmit");
 
+  //Handle inputs
+
   const handleUploadImgButton = () => {
     uploadFileRef.current?.click();
   };
@@ -95,12 +97,19 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
       return;
     }
 
-    const formObject = {
-      imgURL,
-      title,
-      description,
-      status,
-    };
+    //    Detect if the showSelectStatus is true
+    const formObject = showSelectStatus
+      ? {
+          imgURL,
+          title,
+          description,
+          status,
+        }
+      : {
+          imgURL,
+          title,
+          description,
+        };
     onSubmit(formObject);
   };
 
