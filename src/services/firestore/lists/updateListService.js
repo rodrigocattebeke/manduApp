@@ -1,15 +1,17 @@
 import { db } from "@/lib/firebase";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp, Timestamp } from "firebase/firestore";
 
 export async function updateListService(listID, newListData) {
   try {
     const listRef = doc(db, "lists", listID);
 
-    const newDataWithUpdatedAt = { ...newListData, updatedAt: serverTimestamp() };
+    const localTimestamp = Timestamp.fromDate(new Date());
 
-    await updateDoc(listRef, newDataWithUpdatedAt);
+    const newDataWithLocaleUpdatedAt = { ...newListData, updatedAt: localTimestamp };
 
-    return { success: true };
+    await updateDoc(listRef, { ...newDataWithLocaleUpdatedAt, updatedAt: serverTimestamp() });
+
+    return { success: true, list: newDataWithLocaleUpdatedAt };
   } catch (error) {
     return { success: false, error: error.message || String(error) };
   }
