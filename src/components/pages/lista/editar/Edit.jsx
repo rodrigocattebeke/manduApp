@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
 export const Edit = ({ list: { title, description, imgURL, id } }) => {
-  const { listFunctions } = useContext(ListsContext);
+  const { listsService } = useContext(ListsContext);
   const router = useRouter();
 
   const handleSubmit = async (formObject) => {
-    const listRes = await listFunctions.updateList(id, formObject);
+    const listRes = await listsService.updateList(id, formObject);
     if (listRes.success) {
       router.push("/mis-listas");
     }
