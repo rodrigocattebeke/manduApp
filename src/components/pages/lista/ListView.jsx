@@ -44,7 +44,6 @@ export const ListView = ({ listTitle = "", listItems }) => {
   };
 
   const handleFilter = (filter) => {
-    console.log(filter);
     setFilterSelected(filter);
     filterItems(filter);
   };
