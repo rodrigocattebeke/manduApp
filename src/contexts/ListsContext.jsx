@@ -2,14 +2,16 @@
 import { ITEMS_REDUCER_TYPES, LISTS_REDUCER_TYPES } from "@/constants/listsTypes";
 import { itemsReducer } from "@/lib/reducers/itemsReducer";
 import { listsReducer } from "@/lib/reducers/listsReducer";
+import { addItemService } from "@/services/firestore/items/addItemService";
 import { getAllListItemsService } from "@/services/firestore/items/getAllListItemsService";
 import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
 import { getListService } from "@/services/firestore/lists/getListService";
 import { updateListService } from "@/services/firestore/lists/updateListService";
 import { getItemsById } from "@/utils/getItemsById";
+import { isValidObj } from "@/utils/isValidObject";
 
-const { useReducer, createContext, useState } = require("react");
+const { useReducer, createContext, useState, useEffect } = require("react");
 
 const ListsContext = createContext();
 
@@ -17,6 +19,7 @@ export function ListsProvider({ children }) {
   const [lists, listsDispatch] = useReducer(listsReducer, undefined);
   const [items, itemsDispatch] = useReducer(itemsReducer, undefined);
   const [isAllListsFetched, setIsAllListsFetched] = useState(false);
+  const [isFirstItemsFetch, setIsFirstItemsFetch] = useState(true);
 
   //Lists functions
 
@@ -110,10 +113,32 @@ export function ListsProvider({ children }) {
 
   //Items Functions
 
+  const addItem = async (listId, itemData) => {
+    if (!listId) return console.error("Se necesita el id de la lista.");
+    if (!isValidObj(itemData)) return console.error("Se debe de pasar un objeto válido con los datos del ítem.");
+
+    const itemRes = await addItemService(listId, itemData);
+
+    if (itemRes.success) {
+      const action = {
+        type: ITEMS_REDUCER_TYPES.ADD,
+        payload: itemRes.item,
+      };
+
+      itemsDispatch(action);
+      return {
+        success: true,
+        item: itemRes.item,
+      };
+    } else {
+      return { success: false, error: "Hubo un error al crear el item: " + itemRes.error };
+    }
+  };
+
   const getAllListItems = async (listId) => {
     if (!listId) return console.error("Se debe de pasar el id de una lista");
 
-    if (items && Object.values(getItemsById(items, listId)).length !== 0) return { success: true, items: getItemsById(listId) };
+    if (!isFirstItemsFetch && items && Object.values(getItemsById(listId, items)).length !== 0) return { success: true, items: getItemsById(listId, items) };
 
     const res = await getAllListItemsService(listId);
 
@@ -123,6 +148,9 @@ export function ListsProvider({ children }) {
         payload: res.items,
       };
       itemsDispatch(action);
+
+      // Set false the first items fetch
+      setIsFirstItemsFetch(false);
 
       return { success: true, items: res.items };
     } else {
@@ -141,6 +169,7 @@ export function ListsProvider({ children }) {
   };
 
   const itemsService = {
+    addItem,
     getAllListItems,
   };
 
