@@ -9,13 +9,14 @@ import { getListService } from "@/services/firestore/lists/getListService";
 import { updateListService } from "@/services/firestore/lists/updateListService";
 import { getItemsById } from "@/utils/getItemsById";
 
-const { useReducer, createContext } = require("react");
+const { useReducer, createContext, useState } = require("react");
 
 const ListsContext = createContext();
 
 export function ListsProvider({ children }) {
   const [lists, listsDispatch] = useReducer(listsReducer, undefined);
   const [items, itemsDispatch] = useReducer(itemsReducer, undefined);
+  const [isAllListsFetched, setIsAllListsFetched] = useState(false);
 
   //Lists functions
 
@@ -39,7 +40,7 @@ export function ListsProvider({ children }) {
   };
 
   const getAllLists = async () => {
-    if (lists) return { success: true, lists }; //if lists have data, return
+    if (isAllListsFetched && lists) return { success: true, lists }; //if lists have data, return
 
     const res = await getAllListsService();
 
@@ -49,6 +50,9 @@ export function ListsProvider({ children }) {
         payload: res.lists,
       };
       listsDispatch(action);
+
+      // confirm the all list fetch
+      setIsAllListsFetched(true);
 
       return { success: true, lists: res.lists };
     } else {
