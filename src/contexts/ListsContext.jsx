@@ -4,11 +4,12 @@ import { itemsReducer } from "@/lib/reducers/itemsReducer";
 import { listsReducer } from "@/lib/reducers/listsReducer";
 import { addItemService } from "@/services/firestore/items/addItemService";
 import { getAllListItemsService } from "@/services/firestore/items/getAllListItemsService";
+import { getItemService } from "@/services/firestore/items/getItemService";
 import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
 import { getListService } from "@/services/firestore/lists/getListService";
 import { updateListService } from "@/services/firestore/lists/updateListService";
-import { getItemsById } from "@/utils/getItemsById";
+import { findItemInList } from "@/utils/findItemInList";
 import { isValidObj } from "@/utils/isValidObject";
 
 const { useReducer, createContext, useState, useEffect } = require("react");
@@ -138,7 +139,7 @@ export function ListsProvider({ children }) {
   const getAllListItems = async (listId) => {
     if (!listId) return console.error("Se debe de pasar el id de una lista");
 
-    if (!isFirstItemsFetch && items && Object.values(getItemsById(listId, items)).length !== 0) return { success: true, items: getItemsById(listId, items) };
+    if (!isFirstItemsFetch && items && Object.values(findItemInList(listId, items)).length !== 0) return { success: true, items: findItemInList(listId, items) };
 
     const res = await getAllListItemsService(listId);
 
@@ -161,6 +162,28 @@ export function ListsProvider({ children }) {
     }
   };
 
+  const getItem = async (itemId) => {
+    if (!itemId) return console.error("Se necesita pasar el id del item a obtener.");
+
+    if (items && items[itemId]) return items[itemId];
+    const itemRes = await getItemService(itemId);
+
+    if (itemRes.success) {
+      const action = {
+        type: ITEMS_REDUCER_TYPES.ADD,
+        payload: itemRes.list,
+      };
+
+      listsDispatch(action);
+      return {
+        success: true,
+        item: itemRes.item,
+      };
+    } else {
+      return { success: false, error: "Hubo un error al obtener la lista: " + itemRes.error };
+    }
+  };
+
   const listsService = {
     addList,
     getAllLists,
@@ -171,6 +194,7 @@ export function ListsProvider({ children }) {
   const itemsService = {
     addItem,
     getAllListItems,
+    getItem,
   };
 
   return <ListsContext.Provider value={{ listsService, itemsService, lists, items }}>{children}</ListsContext.Provider>;
