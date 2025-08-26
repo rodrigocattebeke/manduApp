@@ -3,6 +3,7 @@
 import { Loader } from "@/components/loader/Loader";
 import { ListView } from "@/components/pages/lista/ListView";
 import { ListsContext } from "@/contexts/ListsContext";
+import { slugToText } from "@/utils/slugToText";
 import { notFound, useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
@@ -34,5 +35,5 @@ export default function ListPage() {
 
   if (isLoading) return <Loader />;
 
-  return <>{!isSuccess ? <h2>Ocurrio un error al cargar la lista, intente de nuevo más tarde.</h2> : <ListView listTitle={titleSlug} listItems={listItems} />}</>;
+  return <>{!isSuccess ? <h2>Ocurrio un error al cargar la lista, intente de nuevo más tarde.</h2> : <ListView listTitle={slugToText(titleSlug)} listItems={listItems} />}</>;
 }
