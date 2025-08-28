@@ -9,6 +9,9 @@ import { Header } from "@/components/ui/header/Header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button/Button";
 import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
+import { usePathname } from "next/navigation";
+import { toUrlSlug } from "@/utils/toUrlSlug";
+import { Visibility } from "@/components/icons/Visibility";
 
 const FILTER_STATES = [
   {
@@ -32,6 +35,7 @@ const FILTER_STATES = [
 export const ListView = ({ listTitle = "", listItems }) => {
   const [filterSelected, setFilterSelected] = useState(FILTER_STATES[0].filter);
   const [filteredItems, setFilteredItems] = useState(listItems || []);
+  const pathname = usePathname();
 
   if (!listItems) return console.error("Se necesitan los items de la lista para mostrarlos.");
 
@@ -99,8 +103,13 @@ export const ListView = ({ listTitle = "", listItems }) => {
                     </div>
                   </td>
                   <td>
-                    <div className={styles.editIconContainer}>
-                      <Edit />
+                    <div className={styles.iconsContainer}>
+                      <Link href={`${pathname}/${toUrlSlug(item.title)}--id${item.id}`}>
+                        <Visibility />
+                      </Link>
+                      <Link href={`${pathname}/${toUrlSlug(item.title)}--id${item.id}/editar`}>
+                        <Edit />
+                      </Link>
                     </div>
                   </td>
                 </tr>

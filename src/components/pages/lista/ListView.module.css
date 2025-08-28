@@ -51,14 +51,20 @@
 }
 
 /* Items table section styles */
-.editIconContainer {
+.iconsContainer {
   display: flex;
   width: fit-content;
   margin-left: auto;
-  cursor: pointer;
+  gap: 1rem;
 }
 
-.editIconContainer svg {
+.iconsContainer a {
+  display: flex;
+  align-items: center;
+}
+
+.iconsContainer svg {
+  cursor: pointer;
   fill: var(--color-text-secondary);
 }
 
