@@ -186,6 +186,33 @@ export function ListsProvider({ children }) {
     }
   };
 
+  const updateItem = async (itemId, newItemData) => {
+    if (!itemId) return console.error("Se necesita pasar el id de la lista.");
+    if (!isValidObj(newItemData)) return console.error("Se necesita pasar un objeto con la nueva información del ítem.");
+
+    const itemWithId = { ...newItemData, id: itemId };
+
+    const itemRes = await updateItemService(itemId, itemWithId);
+
+    if (itemRes.success) {
+      const itemUpdatedRes = await getItem(itemId);
+
+      if (itemUpdatedRes.success) {
+        const action = {
+          type: ITEMS_REDUCER_TYPES.UPDATE,
+          payload: itemUpdatedRes.item,
+        };
+
+        itemsDispatch(action);
+        return { success: true, item: itemUpdatedRes.item };
+      } else {
+        return { success: false, error: itemUpdatedRes.error };
+      }
+    } else {
+      return { success: false, error: itemRes.error };
+    }
+  };
+
   const listsService = {
     addList,
     getAllLists,
