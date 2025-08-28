@@ -1,22 +1,41 @@
+"use client";
+import { Loader } from "@/components/loader/Loader";
 import { ItemView } from "@/components/pages/item/ItemView";
-import { getListItem } from "@/services/firestore/getListItem";
-import { notFound } from "next/navigation";
+import { ListsContext } from "@/contexts/ListsContext";
+import { usePathname } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 
-export default async function ItemPage({ params }) {
-  const awaitedParams = await params;
-  const slug = decodeURIComponent(awaitedParams.itemTitle);
-  const [titleSlug, itemId] = slug.split("--id");
+export default function ItemPage() {
+  const { itemsService } = useContext(ListsContext);
+  const pathname = usePathname();
+  const lastSection = pathname.split("/").pop(); //Get the last url section
 
-  if (!itemId || !titleSlug) return notFound();
-  try {
-    const item = await getListItem(itemId);
+  const [titleSlug, itemId] = lastSection.split("--id");
 
-    return (
-      <>
-        <ItemView item={item} />
-      </>
-    );
-  } catch (error) {
-    console.log(error);
-  }
+  const [item, setItem] = useState(undefined);
+  const [isSuccess, setIsSuccess] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getItem = async () => {
+      const itemRes = await itemsService.getItem(itemId);
+      if (itemRes.success) {
+        setItem(itemRes.item);
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+      }
+      setIsLoading(false);
+    };
+    getItem();
+
+    return () => {
+      setIsLoading(true);
+      setIsSuccess(undefined);
+      setItem(undefined);
+    };
+  }, []);
+
+  if (isLoading) return <Loader />;
+  return <>{!isSuccess ? <h2>Error al obtener los datos, intente mas tarde</h2> : <ItemView item={item} />}</>;
 }
