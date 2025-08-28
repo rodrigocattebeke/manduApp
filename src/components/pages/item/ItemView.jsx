@@ -7,22 +7,25 @@ import { Edit } from "@/components/icons/Edit";
 import { Delete } from "@/components/icons/Delete";
 import Link from "next/link";
 import { Button } from "@/components/ui/button/Button";
+import { formattedFirestoreTimestamp } from "@/utils/formattedFirestoreTimestamp";
+import { usePathname } from "next/navigation";
 
 export const ItemView = ({ item }) => {
+  const pathname = usePathname();
   if (!item) return console.error("Se esperaba un objeto con los datos del item a mostrar.");
 
   //Date format
-  const options = { day: "numeric", month: "long", year: "numeric" };
-  const formattedDate = new Date(item.createdAt).toLocaleDateString("es-ES", options);
+  const formattedDate = formattedFirestoreTimestamp(item.createdAt);
 
   return (
     <>
       <Header title={item.title} className="d-md-none" />
+      {/* header in md screen size */}
       <header className="container-xxl d-md-flex  d-none align-items-center justify-content-between py-3">
         <h1 className="my-0">{item.title}</h1>
         <div className={"d-flex align-items-center"}>
           <Button text="Eliminar" mode="default" />
-          <Link href={`#`} className="ms-3">
+          <Link href={`${pathname}/editar`} className="ms-3">
             <Button text="Editar ítem" mode="primary" />
           </Link>
         </div>
@@ -34,10 +37,16 @@ export const ItemView = ({ item }) => {
             <Image src={item.imgURL} width={400} height={220} alt={`Imagen del item ${item.title}`} />
           </div>
           <div className={styles.infoContainer}>
-            <h2 className="m-0">Descripción</h2>
-            <div className={styles.itemDescriptionContainer}>
-              <p>{item.description}</p>
-            </div>
+            {item.description ? (
+              <>
+                <h2 className="m-0">Descripción</h2>
+                <div className={styles.itemDescriptionContainer}>
+                  <p>{item.description}</p>
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
 
@@ -57,7 +66,9 @@ export const ItemView = ({ item }) => {
           <Delete />
         </div>
         <div className={styles.editButton}>
-          <Edit />
+          <Link href={`${pathname}/editar`}>
+            <Edit />
+          </Link>
         </div>
       </section>
     </>
