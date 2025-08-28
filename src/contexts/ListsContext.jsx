@@ -25,6 +25,7 @@ export function ListsProvider({ children }) {
   //Lists functions
 
   const addList = async (listData) => {
+    if (!isValidObj(listData)) return console.error("Se debe de pasar un objeto valido con los datos de la lista.");
     const listRes = await addListService(listData);
 
     if (listRes.success) {
@@ -91,7 +92,7 @@ export function ListsProvider({ children }) {
 
   const updateList = async (listId, newListData) => {
     if (!listId) return console.error("Se necesita pasar el id de la lista.");
-    if (!newListData || typeof newListData !== "object" || Array.isArray(newListData) || Object.keys(newListData).length === 0) return console.error("Se necesita pasar un objeto con la nueva información de la lista.");
+    if (!isValidObj(newListData)) return console.error("Se necesita pasar un objeto con la nueva información de la lista.");
 
     const listWithId = { ...newListData, id: listId };
 
