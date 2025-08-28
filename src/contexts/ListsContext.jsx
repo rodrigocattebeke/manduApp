@@ -5,6 +5,7 @@ import { listsReducer } from "@/lib/reducers/listsReducer";
 import { addItemService } from "@/services/firestore/items/addItemService";
 import { getAllListItemsService } from "@/services/firestore/items/getAllListItemsService";
 import { getItemService } from "@/services/firestore/items/getItemService";
+import { updateItemService } from "@/services/firestore/items/updateItemService";
 import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
 import { getListService } from "@/services/firestore/lists/getListService";
@@ -71,7 +72,7 @@ export function ListsProvider({ children }) {
   const getList = async (listId) => {
     if (!listId) return console.error("Se necesita pasar el id de la lista");
 
-    if (lists && lists[listId]) return lists[listId];
+    if (lists && lists[listId]) return { success: true, list: lists[listId] };
     const listRes = await getListService(listId);
 
     if (listRes.success) {
@@ -166,7 +167,7 @@ export function ListsProvider({ children }) {
   const getItem = async (itemId) => {
     if (!itemId) return console.error("Se necesita pasar el id del item a obtener.");
 
-    if (items && items[itemId]) return items[itemId];
+    if (items && items[itemId]) return { success: true, item: items[itemId] };
     const itemRes = await getItemService(itemId);
 
     if (itemRes.success) {
@@ -196,6 +197,7 @@ export function ListsProvider({ children }) {
     addItem,
     getAllListItems,
     getItem,
+    updateItem,
   };
 
   return <ListsContext.Provider value={{ listsService, itemsService, lists, items }}>{children}</ListsContext.Provider>;
