@@ -2,10 +2,23 @@
 
 import { FormList } from "@/components/formList/FormList";
 import { Header } from "@/components/ui/header/Header";
+import { ListsContext } from "@/contexts/ListsContext";
+import { usePathname, useRouter } from "next/navigation";
+import { useContext } from "react";
 
-export const Edit = ({ item: { title, description, imgURL, status } }) => {
-  const handleSubmit = (formObject) => {
-    console.log(formObject);
+export const Edit = ({ item: { title, description, id, imgURL, status } }) => {
+  const { itemsService } = useContext(ListsContext);
+  const router = useRouter();
+
+  const pathnameArray = usePathname().split("/");
+  pathnameArray.pop();
+  const itemUrl = pathnameArray.join("/");
+
+  const handleSubmit = async (formObject) => {
+    const itemRes = await itemsService.updateItem(id, formObject);
+    if (itemRes.success) {
+      router.push(itemUrl);
+    }
   };
 
   const initialValues = {
