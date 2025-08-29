@@ -8,14 +8,41 @@ import { Delete } from "@/components/icons/Delete";
 import Link from "next/link";
 import { Button } from "@/components/ui/button/Button";
 import { formattedFirestoreTimestamp } from "@/utils/formattedFirestoreTimestamp";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+import { ListsContext } from "@/contexts/ListsContext";
+import { Modal } from "@/components/ui/modal/Modal";
 
 export const ItemView = ({ item }) => {
-  const pathname = usePathname();
   if (!item) return console.error("Se esperaba un objeto con los datos del item a mostrar.");
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const { itemsService } = useContext(ListsContext);
+  const [showModal, setShowModal] = useState(false);
 
   //Date format
   const formattedDate = formattedFirestoreTimestamp(item.createdAt);
+
+  // handle confirm modal
+  const handleShowModal = async () => {
+    setShowModal(true);
+  };
+
+  // handle onConfirm modal
+  const onConfirm = async () => {
+    const url = pathname.split("/");
+    url.pop(); // Remove the item route
+    const listUrl = url.join("/");
+
+    const res = await itemsService.removeItem(item.id);
+    if (res.success) {
+      router.push(listUrl);
+    } else {
+      alert("Ocurrió un error, intente de nuevo más tarde");
+    }
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -24,7 +51,7 @@ export const ItemView = ({ item }) => {
       <header className="container-xxl d-md-flex  d-none align-items-center justify-content-between py-3">
         <h1 className="my-0">{item.title}</h1>
         <div className={"d-flex align-items-center"}>
-          <Button text="Eliminar" mode="default" />
+          <Button text="Eliminar" mode="default" onClick={handleShowModal} />
           <Link href={`${pathname}/editar`} className="ms-3">
             <Button text="Editar ítem" mode="primary" />
           </Link>
@@ -62,7 +89,7 @@ export const ItemView = ({ item }) => {
 
       {/* Action buttons */}
       <section className={`${styles.actionButtons} d-md-none`}>
-        <div className={styles.deleteButton}>
+        <div className={styles.deleteButton} onClick={handleShowModal}>
           <Delete />
         </div>
         <div className={styles.editButton}>
@@ -71,6 +98,10 @@ export const ItemView = ({ item }) => {
           </Link>
         </div>
       </section>
+
+      {/* Modals */}
+
+      <Modal title="¿Desea eliminar el ítem?" show={showModal} mode="danger" onConfirm={onConfirm} onClose={() => setShowModal(false)} onCancel={() => setShowModal(false)} />
     </>
   );
 };
