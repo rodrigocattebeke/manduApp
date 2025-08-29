@@ -5,6 +5,7 @@ import { listsReducer } from "@/lib/reducers/listsReducer";
 import { addItemService } from "@/services/firestore/items/addItemService";
 import { getAllListItemsService } from "@/services/firestore/items/getAllListItemsService";
 import { getItemService } from "@/services/firestore/items/getItemService";
+import { removeItemService } from "@/services/firestore/items/removeItemService";
 import { updateItemService } from "@/services/firestore/items/updateItemService";
 import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
@@ -186,6 +187,23 @@ export function ListsProvider({ children }) {
     }
   };
 
+  const removeItem = async (itemId) => {
+    if (!itemId) return console.error("Se debe de pasar el id del ítem");
+
+    const res = await removeItemService(itemId);
+
+    if (res.success) {
+      const action = {
+        type: ITEMS_REDUCER_TYPES.REMOVE,
+        payload: { id: itemId },
+      };
+      itemsDispatch(action);
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
   const updateItem = async (itemId, newItemData) => {
     if (!itemId) return console.error("Se necesita pasar el id de la lista.");
     if (!isValidObj(newItemData)) return console.error("Se necesita pasar un objeto con la nueva información del ítem.");
@@ -224,6 +242,7 @@ export function ListsProvider({ children }) {
     addItem,
     getAllListItems,
     getItem,
+    removeItem,
     updateItem,
   };
 
