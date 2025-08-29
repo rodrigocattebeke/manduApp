@@ -20,7 +20,7 @@ import { Loader } from "@/components/loader/Loader";
 export const Modal = ({ title = "Confirmar", description = "", mode = "warning", show = true, onConfirm, onCancel, onClose }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isClose, setIsClose] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (mode !== "warning" && mode !== "success" && mode !== "danger") return console.error("Se debe de pasar un valor válido para la prop mode. Valores válidos: danger, success, warning");
   if (mode !== "success" && (!onConfirm || typeof onConfirm !== "function")) return console.error("Se debe de pasar una funcion onConfirm.");
