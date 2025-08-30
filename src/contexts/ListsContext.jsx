@@ -10,6 +10,7 @@ import { updateItemService } from "@/services/firestore/items/updateItemService"
 import { addListService } from "@/services/firestore/lists/addListService";
 import { getAllListsService } from "@/services/firestore/lists/getAllListsService";
 import { getListService } from "@/services/firestore/lists/getListService";
+import { removeListService } from "@/services/firestore/lists/removeListService";
 import { updateListService } from "@/services/firestore/lists/updateListService";
 import { findItemInList } from "@/utils/findItemInList";
 import { isValidObj } from "@/utils/isValidObject";
@@ -89,6 +90,23 @@ export function ListsProvider({ children }) {
       };
     } else {
       return { success: false, error: "Hubo un error al obtener la lista: " + listRes.error };
+    }
+  };
+
+  const removeList = async (listId) => {
+    if (!listId) return console.error("Se debe de pasar el id de la lista");
+
+    const res = await removeListService(listId);
+
+    if (res.success) {
+      const action = {
+        type: LISTS_REDUCER_TYPES.REMOVE,
+        payload: { id: listId },
+      };
+      listsDispatch(action);
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
     }
   };
 
@@ -235,6 +253,7 @@ export function ListsProvider({ children }) {
     addList,
     getAllLists,
     getList,
+    removeList,
     updateList,
   };
 
