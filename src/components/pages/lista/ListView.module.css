@@ -1,7 +1,28 @@
 .headerButtons {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1.2rem;
   gap: 1rem;
+}
+
+.listActionButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.title {
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.title h1 {
+  margin: 0;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Filters section styles */
@@ -129,4 +150,43 @@
   max-width: 100%;
   padding: 0 0.5rem;
   gap: 0.2rem;
+}
+
+/* Floating Buttons */
+
+.floatingButtonsContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  bottom: calc(var(--layout-navbar-height) + 1.5rem);
+  right: 1.25rem;
+}
+
+.floatingButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background-color: var(--color-bg-secondary);
+  cursor: pointer;
+  transition: var(--transition-short);
+}
+
+.floatingButton:active {
+  background-color: var(--color-hover);
+}
+
+.floatingButton a {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.addFloatingButton {
+  background-color: var(--color-accent);
 }
