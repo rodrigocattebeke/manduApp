@@ -35,5 +35,5 @@ export default function ListPage() {
 
   if (isLoading) return <Loader />;
 
-  return <>{!isSuccess ? <h2>Ocurrio un error al cargar la lista, intente de nuevo más tarde.</h2> : <ListView listTitle={slugToText(titleSlug)} listItems={listItems} />}</>;
+  return <>{!isSuccess ? <h2>Ocurrio un error al cargar la lista, intente de nuevo más tarde.</h2> : <ListView listTitle={slugToText(titleSlug)} listId={listId} listItems={listItems} />}</>;
 }
