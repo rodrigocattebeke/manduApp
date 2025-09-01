@@ -61,7 +61,7 @@ export const UserProvider = ({ children }) => {
 
   //functions for update user information
   const updateUserDisplayName = async (newName) => {
-    const res = await updateDisplayNameService(userData.uid, newName);
+    const res = await updateDisplayNameService(newName);
 
     if (res.success) {
       setUserData({ ...userData, displayName: newName });
