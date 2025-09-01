@@ -1,7 +1,8 @@
-import { db } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
-export const updateDisplayNameService = async (uid, newName) => {
+export const updateDisplayNameService = async (newName) => {
+  const uid = auth.currentUser.uid;
   try {
     const userRef = doc(db, "users", uid);
 
