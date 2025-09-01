@@ -28,8 +28,9 @@ export const Cuenta = () => {
   };
 
   const onConfirmSaveData = async () => {
-    const res = await userFunctions.updateDisplayName(displayName);
-    if (!res.success) return console.alert("ocurrio un error");
+    const res = await userFunctions.updateDisplayName(displayName.trim());
+    if (!res.success) alert("Ocurrio un error al actualizar, intenta de nuevo más tarde");
+    console.log(displayName);
     setShowSaveDataModal(false);
     return;
   };
