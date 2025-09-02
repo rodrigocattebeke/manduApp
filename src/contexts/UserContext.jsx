@@ -6,6 +6,8 @@ import { updateDisplayNameService } from "@/services/firestore/user/updateDispla
 import { singOutService } from "@/services/firestore/user/singOutService";
 import { observeAuthState } from "@/services/firestore/user/observeAuthState";
 import { loginWithGoogleService } from "@/services/firestore/user/loginWithGoogleService";
+import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists/favorites/getFavoritesListsIdsService";
+import { addFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/addFavoriteListIdService";
 
 const UserContext = createContext();
 
@@ -72,10 +74,28 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  //    User lists functions
+
+  const addFavoriteListId = async (listId) => {
+    if (!listId) return console.error("Se debe de pasar el id de la lista");
+
+    const res = await addFavoriteListIdService(listId);
+
+    if (res.success) {
+      setUserData((prev) => ({ ...prev, favoritesListsIds: [...new Set([...(prev.favoritesListsIds || []), listId])] }));
+
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  //Put all user functions into a object
   const userFunctions = {
     updateDisplayName: (name) => {
       return updateUserDisplayName(name);
     },
+    addFavoriteListId,
   };
 
   if (isLoading) return null; //for the moment, return null
