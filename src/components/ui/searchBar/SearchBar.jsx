@@ -3,21 +3,28 @@ import { Search } from "@/components/icons/Search";
 import styles from "./SearchBar.module.css";
 import { useEffect, useState } from "react";
 
-export const SearchBar = ({ onSearch, onInputChange }) => {
+export const SearchBar = ({ defaultInputValue, onSearch, onInputChange }) => {
   const [inputValue, setInputValue] = useState("");
   if (!onSearch || typeof onSearch !== "function") return console.error("Se debe de pasar una funcion onSearch para manejar la búsqueda.");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!inputValue.trim()) return;
     onSearch(inputValue);
   };
 
   useEffect(() => {
     if (onInputChange) {
       if (typeof onInputChange !== "function") return console.error("El onInputChange pasado debe de ser una función.");
+      if (!inputValue.trim()) return;
       onInputChange(inputValue);
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    if (!defaultInputValue) return;
+    setInputValue(defaultInputValue);
+  }, [defaultInputValue]);
 
   return (
     <div className={styles.searchBar}>
