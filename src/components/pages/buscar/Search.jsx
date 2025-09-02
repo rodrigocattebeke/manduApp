@@ -2,61 +2,96 @@
 
 import { Header } from "@/components/ui/header/Header";
 import { SearchBar } from "@/components/ui/searchBar/SearchBar";
-import { useRecentSearches } from "@/lib/hooks/useRecentSearches";
+import { useRecentSearches } from "@/hooks/useRecentSearches";
 import styles from "./Search.module.css";
 import { Chip } from "@/components/ui/chip/Chip";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ItemCard } from "@/components/ui/itemCard/ItemCard";
-import { getListItems } from "@/services/firestore/getListItems";
+import { UserContext } from "@/contexts/UserContext";
+import { searchService } from "@/services/firestore/search/searchService";
+import { Loader } from "@/components/loader/Loader";
+import { toUrlSlug } from "@/utils/toUrlSlug";
 
 export const Search = () => {
-  const [searchResults, setSearchResults] = useState(undefined);
-  const { addSearch, recent } = useRecentSearches(1234);
+  const { userData } = useContext(UserContext);
+  const { addSearch, recent } = useRecentSearches(userData.userUID);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
+  const [query, setQuery] = useState(undefined);
   const queryTimeoutRef = useRef();
 
   // Handle on search
-  const onSearch = (query) => {
-    console.log(query);
-
-    //update recent searches
-    //addSearch(query)
+  const onSearch = async (query) => {
+    setQuery(query);
   };
 
   const onInputChange = (query) => {
     if (queryTimeoutRef.current) {
       clearTimeout(queryTimeoutRef.current);
     }
-    const timeout = setTimeout(() => {
-      console.log(query);
-    }, 600);
+    const timeout = setTimeout(async () => {
+      setQuery(query);
+    }, 1500);
 
     queryTimeoutRef.current = timeout;
   };
 
-  //Search
+  //search when the query changes
   useEffect(() => {
-    const getResults = async () => {
-      let results = await getListItems();
-      setSearchResults(results);
+    const getSearch = async () => {
+      if (!query) return;
+      setIsLoading(true);
+      const res = await searchService(query);
+
+      if (res.success) {
+        if (Object.keys(res.results.lists).length == 0 && Object.keys(res.results.items).length == 0) {
+          setSearchResults(undefined);
+        } else {
+          setSearchResults(res.results);
+        }
+      } else {
+        setSearchResults(undefined);
+      }
+
+      setIsLoading(false);
+
+      //update recent searches
+      addSearch(query);
     };
-    getResults();
-  }, []);
+
+    getSearch();
+  }, [query]);
 
   return (
     <>
       <Header title="Buscar" className="d-lg-none" />
       <div className="container-xxl pt-lg-3">
-        <SearchBar onSearch={onSearch} onInputChange={onInputChange} />
+        <SearchBar defaultInputValue={query} onSearch={onSearch} onInputChange={onInputChange} />
       </div>
       <section className={`${styles.recentSearchesContainer} container-xxl`}>
         <h2 className="m-0">Búsquedas recientes</h2>
-        <div className={styles.recentSearches}>
-          <Chip text={"Batman"} />
-          <Chip text={"Trucos gta san andreas"} />
-          <Chip text={"autos que comprar"} />
-        </div>
+        <div className={styles.recentSearches}>{recent ? recent.map((q, i) => <Chip text={q} key={i} onClick={() => setQuery(q)} />) : ""}</div>
       </section>
-      <section className={`${styles.resultsContainer} container-xxl`}>{searchResults ? searchResults.length > 0 ? searchResults.map((result, i) => <ItemCard title={result.title} imgURL={result.imgURL} key={i} />) : <p>No hay resultados de busqueda</p> : ""}</section>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <section className={`${styles.resultsContainer} container-xxl`}>
+          {searchResults == null ? (
+            ""
+          ) : searchResults ? (
+            <>
+              {Object.values(searchResults.lists).map((result, i) => (
+                <ItemCard title={result.title} imgURL={result.imgURL} to={`/mis-listas/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
+              ))}
+              {Object.values(searchResults.items).map((result, i) => (
+                <ItemCard title={result.title} imgURL={result.imgURL} key={i} />
+              ))}
+            </>
+          ) : (
+            <p>No hay resultados de busqueda</p>
+          )}
+        </section>
+      )}
     </>
   );
 };
