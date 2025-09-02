@@ -8,6 +8,7 @@ export const useRecentSearches = (uuid) => {
     if (uuid) {
       const stored = JSON.parse(localStorage.getItem(key)) || [];
       setRecent(stored);
+      console.log(stored);
     }
   }, [uuid, key]);
 
@@ -15,7 +16,7 @@ export const useRecentSearches = (uuid) => {
     if (!uuid) return console.error("Se debe de pasar el uuid");
     if (!search) return console.error("Se debe de pasar la palabra buscada");
 
-    const updated = [search, ...recent.filter((item) => item !== search)].slice(0, 1);
+    const updated = [search, ...recent.filter((item) => item !== search)].slice(0, 3);
     localStorage.setItem(key, JSON.stringify(updated));
     setRecent(updated);
   };
