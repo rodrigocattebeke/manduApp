@@ -84,7 +84,7 @@ export const Search = () => {
                 <ItemCard title={result.title} imgURL={result.imgURL} to={`/mis-listas/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
               ))}
               {Object.values(searchResults.items).map((result, i) => (
-                <ItemCard title={result.title} imgURL={result.imgURL} key={i} />
+                <ItemCard title={result.title} imgURL={result.imgURL} to={`/mis-listas/_--id${result.listId}/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
               ))}
             </>
           ) : (
