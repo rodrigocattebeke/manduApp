@@ -114,12 +114,13 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!userData?.userUID) return;
+    if (!userData) return;
+    if (userData.favoritesListsIds) return; //If the userData already have favoritesLists, return
     const getFavs = async () => {
       await getFavoritesListsIds();
     };
     getFavs();
-  }, [userData?.userUID]);
+  }, [userData]);
 
   //Put all user functions into a object
   const userFunctions = {
