@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import styles from "./ListView.module.css";
 import Image from "next/image";
 import { Edit } from "@/components/icons/Edit";
@@ -15,6 +15,8 @@ import { Delete } from "@/components/icons/Delete";
 import { ListsContext } from "@/contexts/ListsContext";
 import { Modal } from "@/components/ui/modal/Modal";
 import { Add } from "@/components/icons/Add";
+import { UserContext } from "@/contexts/UserContext";
+import { Favorite } from "@/components/icons/Favorite";
 
 const FILTER_STATES = [
   {
@@ -36,10 +38,13 @@ const FILTER_STATES = [
 ];
 
 export const ListView = ({ listTitle = "", listId, listItems }) => {
+  const { userData, userFunctions } = useContext(UserContext);
   const [filterSelected, setFilterSelected] = useState(FILTER_STATES[0].filter);
   const [filteredItems, setFilteredItems] = useState(listItems || []);
   const { listsService } = useContext(ListsContext);
   const [showModal, setShowModal] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isUpdatingFavorite, setIsUpdattingFavorite] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -58,6 +63,24 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
   const handleFilter = (filter) => {
     setFilterSelected(filter);
     filterItems(filter);
+  };
+
+  // Detect if the list is favorite
+  useEffect(() => {
+    if (!userData.favoritesListsIds) return;
+    userData.favoritesListsIds.includes(listId) ? setIsFavorite(true) : setIsFavorite(false);
+  }, [userData.favoritesListsIds]);
+
+  // Handle favorites
+  const handleFavorite = async () => {
+    if (isUpdatingFavorite) return; //Evite multi click
+    setIsUpdattingFavorite(true);
+    if (!isFavorite) {
+      const res = await userFunctions.addFavoriteListId(listId);
+    } else {
+      const res = await userFunctions.removeFavoriteListId(listId);
+    }
+    setIsUpdattingFavorite(false);
   };
 
   // handle confirm modal
@@ -92,6 +115,7 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
             <Button text="+ Nuevo ítem" mode="primary" />
           </Link>
           <div className={styles.listActionButtons}>
+            <Button text={isFavorite ? "Remover de favoritos" : "Agregar a favoritos"} mode="default" onClick={handleFavorite} disabled={isUpdatingFavorite} />
             <Link href={`${pathname}/editar`}>
               <Button text="Editar lista" mode="default" />
             </Link>
@@ -147,15 +171,18 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
 
       {/* Floating action buttons */}
       <div className={`${styles.floatingButtonsContainer} d-lg-none`}>
-        <div className={`${styles.floatingButton} `} onClick={handleShowModal}>
+        <div className={`${styles.floatingButton} `} onClick={handleShowModal} title="Eliminar lista">
           <Delete />
         </div>
-        <div className={`${styles.floatingButton}`}>
+        <div className={`${styles.floatingButton} ${styles.favoriteIcon} ${isFavorite ? styles.isFavorite : ""}`} onClick={handleFavorite} title={isFavorite ? "Remover de favoritos" : "Agregar a favoritos"}>
+          <Favorite width="2rem" height="2rem" />
+        </div>
+        <div className={`${styles.floatingButton}`} title="Editar lista">
           <Link href={`${pathname}/editar`}>
             <Edit />
           </Link>
         </div>
-        <div className={`${styles.floatingButton} ${styles.addFloatingButton}`}>
+        <div className={`${styles.floatingButton} ${styles.addFloatingButton}`} title="Agregar items a la lista">
           <Link href={`${pathname}/agregar`}>
             <Add width="1.7rem" height="1.7rem" />
           </Link>

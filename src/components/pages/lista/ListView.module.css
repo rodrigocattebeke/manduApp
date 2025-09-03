@@ -47,7 +47,7 @@
   list-style: none;
   font-size: 1rem;
   color: var(--color-text-secondary);
-  transition: 0.5s;
+  transition: font-weight 0.5s;
   gap: 0.1rem;
   padding: 0 0.2rem;
   cursor: pointer;
@@ -59,7 +59,7 @@
   height: 0.2rem;
   border-radius: 0.2rem;
   background-color: var(--color-accent);
-  transition: 0.5s;
+  transition: width 0.5s;
 }
 
 .filtersContainer li.active {
@@ -153,6 +153,15 @@
 }
 
 /* Floating Buttons */
+.addFloatingButton {
+  background-color: var(--color-accent);
+}
+
+.favoriteIcon svg {
+  fill: none;
+  stroke: var(--color-text-primary);
+  stroke-width: 0.1rem;
+}
 
 .floatingButtonsContainer {
   position: fixed;
@@ -187,6 +196,19 @@
   text-decoration: none;
 }
 
-.addFloatingButton {
-  background-color: var(--color-accent);
+.isFavorite svg {
+  fill: var(--color-text-primary);
+  animation: popHeart 0.5s;
+}
+
+@keyframes popHeart {
+  0% {
+    transform: scale(0);
+  }
+  90% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
