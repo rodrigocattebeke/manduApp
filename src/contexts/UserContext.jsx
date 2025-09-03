@@ -8,6 +8,7 @@ import { observeAuthState } from "@/services/firestore/user/observeAuthState";
 import { loginWithGoogleService } from "@/services/firestore/user/loginWithGoogleService";
 import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists/favorites/getFavoritesListsIdsService";
 import { addFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/addFavoriteListIdService";
+import { removeFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/removeFavoriteListIdService";
 
 const UserContext = createContext();
 
@@ -100,6 +101,18 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const removeFavoriteListId = async (listId) => {
+    if (!listId) return console.error("Se debe de pasar el id de la lista a agregar");
+
+    const res = await removeFavoriteListIdService(listId);
+    if (res.success) {
+      setUserData((prev) => ({ ...prev, favoritesListsIds: [...prev.favoritesListsIds.filter((id) => id !== listId)] }));
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
   useEffect(() => {
     if (!userData?.userUID) return;
     const getFavs = async () => {
@@ -114,6 +127,7 @@ export const UserProvider = ({ children }) => {
       return updateUserDisplayName(name);
     },
     addFavoriteListId,
+    removeFavoriteListId,
   };
 
   if (isLoading) return null; //for the moment, return null
