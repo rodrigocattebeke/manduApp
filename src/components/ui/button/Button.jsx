@@ -11,11 +11,11 @@ import styles from "./Button.module.css";
 
 export const Button = ({ text = "", mode = "default", fullWidth = false, onClick, disabled = false }) => {
   return onClick ? (
-    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} onClick={onClick} disabled={disabled}>
+    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} onClick={onClick} title={text} disabled={disabled}>
       {text}
     </button>
   ) : (
-    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} disabled={disabled}>
+    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} title={text} disabled={disabled}>
       {text}
     </button>
   );
