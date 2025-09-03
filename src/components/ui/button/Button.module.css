@@ -15,6 +15,13 @@
   width: 100%;
 }
 
+.button:disabled {
+  opacity: 0.4;
+  filter: brightness(0.8);
+  cursor: not-allowed;
+  transition: var(--transition-short);
+}
+
 .button.default {
   background-color: var(--color-bg-secondary);
 }
