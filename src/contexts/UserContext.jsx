@@ -89,6 +89,25 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const getFavoritesListsIds = async () => {
+    const res = await getFavoritesListsIdsService();
+
+    if (res.success) {
+      setUserData((prev) => ({ ...prev, favoritesListsIds: res.favoritesIds }));
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  useEffect(() => {
+    if (!userData?.userUID) return;
+    const getFavs = async () => {
+      await getFavoritesListsIds();
+    };
+    getFavs();
+  }, [userData?.userUID]);
+
   //Put all user functions into a object
   const userFunctions = {
     updateDisplayName: (name) => {
