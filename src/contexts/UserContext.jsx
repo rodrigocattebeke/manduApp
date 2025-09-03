@@ -22,7 +22,6 @@ export const UserProvider = ({ children }) => {
     const userData = await loginWithGoogleService();
 
     if (userData.success) {
-      setUserData(userData.user);
       return { success: true };
     } else {
       console.error("Ocurrio un error al iniciar sesion, intentelo más tarde. " + userData.error);
