@@ -9,12 +9,14 @@ import { loginWithGoogleService } from "@/services/firestore/user/loginWithGoogl
 import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists/favorites/getFavoritesListsIdsService";
 import { addFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/addFavoriteListIdService";
 import { removeFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/removeFavoriteListIdService";
+import { getListsByIdsService } from "@/services/firestore/lists/getListsByIdsService";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
+  const [favoritesLists, setFavoritesLists] = useState(undefined);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -101,6 +103,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const getFavoritesLists = async () => {
+    if (favoritesLists) return { success: true, lists: favoritesLists };
+    if (!userData?.favoritesListsIds) return { success: false, error: "No hay listas favoritas" };
+    const res = await getListsByIdsService(userData.favoritesListsIds);
+
+    if (res.success) {
+      setFavoritesLists(res.lists);
+      return { success: true, lists: res.lists };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
   const removeFavoriteListId = async (listId) => {
     if (!listId) return console.error("Se debe de pasar el id de la lista a agregar");
 
@@ -114,8 +129,7 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (!userData) return;
-    if (userData.favoritesListsIds) return; //If the userData already have favoritesLists, return
+    if (!userData || userData.favoritesListsIds) return; //If the userData already have favoritesLists, return
     const getFavs = async () => {
       await getFavoritesListsIds();
     };
@@ -128,6 +142,7 @@ export const UserProvider = ({ children }) => {
       return updateUserDisplayName(name);
     },
     addFavoriteListId,
+    getFavoritesLists,
     removeFavoriteListId,
   };
 
