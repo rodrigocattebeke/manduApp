@@ -11,6 +11,7 @@ import { addFavoriteListIdService } from "@/services/firestore/user/userLists/fa
 import { removeFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/removeFavoriteListIdService";
 import { getListsByIdsService } from "@/services/firestore/lists/getListsByIdsService";
 import { getRecentUpdatedListsService } from "@/services/firestore/user/userLists/recentUpdated/getRecentUpdatedListsService";
+import { getRecentCreatedListsService } from "@/services/firestore/user/userLists/recentCreated/getRecentCreatedListsService";
 
 const UserContext = createContext();
 
@@ -18,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [favoritesLists, setFavoritesLists] = useState(undefined);
+  const [recentCreatedLists, setRecentCreatedLists] = useState(undefined);
   const [recentUpdated, setRecentUpdated] = useState(undefined);
   const router = useRouter();
   const pathname = usePathname();
@@ -132,10 +134,23 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // Recent Created
+
+  const getRecentCreatedLists = async () => {
+    if (recentCreatedLists) return { success: true, recentLists: recentCreatedLists };
+    const res = await getRecentCreatedListsService();
+    if (res.success) {
+      setRecentCreatedLists(res.recentLists);
+      return { success: true, recentLists: res.recentLists };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
   // Recent updated
 
   const getRecentUpdatedLists = async () => {
-    if (recentUpdated) return { success: true, recentUpdated };
+    if (recentUpdated) return { success: true, updatedLists: recentUpdated };
     const res = await getRecentUpdatedListsService();
     if (res.success) {
       setRecentUpdated(res.updatedLists);
@@ -160,8 +175,9 @@ export const UserProvider = ({ children }) => {
     },
     addFavoriteListId,
     getFavoritesLists,
-    removeFavoriteListId,
+    getRecentCreatedLists,
     getRecentUpdatedLists,
+    removeFavoriteListId,
   };
 
   if (isLoading) return null; //for the moment, return null
