@@ -10,6 +10,7 @@ import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists
 import { addFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/addFavoriteListIdService";
 import { removeFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/removeFavoriteListIdService";
 import { getListsByIdsService } from "@/services/firestore/lists/getListsByIdsService";
+import { getRecentUpdatedListsService } from "@/services/firestore/user/userLists/recentUpdated/getRecentUpdatedListsService";
 
 const UserContext = createContext();
 
@@ -17,6 +18,7 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [favoritesLists, setFavoritesLists] = useState(undefined);
+  const [recentUpdated, setRecentUpdated] = useState(undefined);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -92,6 +94,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  //Get the ids of favorites list in Firestore
   const getFavoritesListsIds = async () => {
     const res = await getFavoritesListsIdsService();
 
@@ -103,6 +106,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // Get the data of favorites lists
   const getFavoritesLists = async () => {
     if (favoritesLists) return { success: true, lists: favoritesLists };
     if (!userData?.favoritesListsIds) return { success: false, error: "No hay listas favoritas" };
@@ -128,6 +132,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // Recent updated
+
+  const getRecentUpdatedLists = async () => {
+    if (recentUpdated) return { success: true, recentUpdated };
+    const res = await getRecentUpdatedListsService();
+    if (res.success) {
+      setRecentUpdated(res.updatedLists);
+      return { success: true, updatedLists: res.updatedLists };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
   useEffect(() => {
     if (!userData || userData.favoritesListsIds) return; //If the userData already have favoritesLists, return
     const getFavs = async () => {
@@ -144,6 +161,7 @@ export const UserProvider = ({ children }) => {
     addFavoriteListId,
     getFavoritesLists,
     removeFavoriteListId,
+    getRecentUpdatedLists,
   };
 
   if (isLoading) return null; //for the moment, return null
