@@ -1,7 +1,7 @@
 import { auth, db } from "@/lib/firebase";
 import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 
-export const getRecentUploadedListsService = async () => {
+export const getRecentCreatedListsService = async () => {
   try {
     const listsRef = collection(db, "lists");
 
@@ -9,7 +9,7 @@ export const getRecentUploadedListsService = async () => {
 
     const listsSnap = await getDocs(q);
 
-    if (listsSnap.empty) return { success: true, lists: {} };
+    if (listsSnap.empty) return { success: true, updatedLists: {} };
 
     //transform snap array to object
     const lists = listsSnap.docs.reduce((prev, doc) => {
@@ -18,7 +18,7 @@ export const getRecentUploadedListsService = async () => {
       return prev;
     }, {});
 
-    return { success: true, lists };
+    return { success: true, updatedLists: lists };
   } catch (error) {
     return { success: false, error };
   }
