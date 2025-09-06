@@ -9,7 +9,7 @@ export const getRecentCreatedListsService = async () => {
 
     const listsSnap = await getDocs(q);
 
-    if (listsSnap.empty) return { success: true, updatedLists: {} };
+    if (listsSnap.empty) return { success: true, recentLists: {} };
 
     //transform snap array to object
     const lists = listsSnap.docs.reduce((prev, doc) => {
@@ -18,7 +18,7 @@ export const getRecentCreatedListsService = async () => {
       return prev;
     }, {});
 
-    return { success: true, updatedLists: lists };
+    return { success: true, recentLists: lists };
   } catch (error) {
     return { success: false, error };
   }
