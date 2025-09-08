@@ -8,7 +8,7 @@ import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAdd
 import { Button } from "@/components/ui/button/Button";
 import Link from "next/link";
 
-export const HomePage = ({ statusSummary, recentUpdates, favorites, recentEdits }) => {
+export const HomePage = ({ statusSummary, recentCreated, favorites, recentUpdated }) => {
   const { userData } = useContext(UserContext);
 
   return (
@@ -31,7 +31,7 @@ export const HomePage = ({ statusSummary, recentUpdates, favorites, recentEdits 
         <StatusOverview statusSummary={statusSummary} />
       </section>
       <section className="container-xxl my-4 " aria-label="Resumen de listas del usuario">
-        <ListsSection favorites={favorites} recentEdits={recentEdits} recentUpdates={recentUpdates} />
+        <ListsSection favorites={favorites} recentCreated={recentCreated} recentUpdated={recentUpdated} />
       </section>
       <FloatingAddButton to={"#"} className="d-lg-none" />
     </>
