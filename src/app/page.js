@@ -13,30 +13,30 @@ export default function Home() {
   const [statusSummaryArray, setStatusSummaryArray] = useState([]);
   const [recentUpdatedArray, setRecentUpdatedArray] = useState([]);
   const [favoritesListsArray, setFavoritesListsArray] = useState([]);
-  const [recentlyEditedArray, setRecentlyEditedArray] = useState([]);
+  const [recentCreatedArray, setRecentCreatedArray] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getAllLists = async () => {
-      const results = await Promise.allSettled([getStatusSummary(), userFunctions.getRecentUpdatedLists(), userFunctions.getFavoritesLists(), getRecentEdits()]);
+      const results = await Promise.allSettled([getStatusSummary(), userFunctions.getRecentCreatedLists(), userFunctions.getFavoritesLists(), userFunctions.getRecentUpdatedLists()]);
 
       //Filter fullfilled responses
       const fulfilled = results.filter((res) => res.status == "fulfilled");
 
       if (fulfilled.length == 0) return setIsError(true);
 
-      const [statusSummaryRes, recentUpdatedRes, favoritesListsRes, recentlyEditedRes] = results;
-
+      const [statusSummaryRes, recentCreatedRes, favoritesListsRes, recentUpdatedRes] = results;
       setStatusSummaryArray(statusSummaryRes.value);
-      setRecentUpdatedArray(recentUpdatedRes.value);
-      if (recentUpdatedRes.value.success) {
-        setRecentUpdatedArray(Object.values(recentUpdatedRes.value.updatedLists));
+      if (recentCreatedRes.value.success) {
+        setRecentCreatedArray(Object.values(recentCreatedRes.value.recentLists));
       }
       if (favoritesListsRes.value.success) {
         setFavoritesListsArray(Object.values(favoritesListsRes.value.lists));
       }
-      setRecentlyEditedArray(recentlyEditedRes.value);
+      if (recentUpdatedRes.value.success) {
+        setRecentUpdatedArray(Object.values(recentUpdatedRes.value.updatedLists));
+      }
       setIsLoading(false);
     };
 
@@ -47,7 +47,7 @@ export default function Home() {
   if (isError) return notFound();
   return (
     <>
-      <HomePage favorites={favoritesListsArray} recentEdits={recentlyEditedArray} recentUpdates={recentUpdatedArray} statusSummaryArray={statusSummaryArray} />
+      <HomePage statusSummary={statusSummaryArray} recentUpdated={recentUpdatedArray} favorites={favoritesListsArray} recentCreated={recentCreatedArray} />
     </>
   );
 }
