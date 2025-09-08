@@ -43,7 +43,7 @@ export default function Home() {
     getAllLists();
   }, [userFunctions]);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
   if (isError) return notFound();
   return (
     <>

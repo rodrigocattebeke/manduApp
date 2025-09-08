@@ -1,4 +1,5 @@
 "use client";
+import { Loader } from "@/components/loader/Loader";
 import { MyLists } from "@/components/pages/mis-listas/MyLists";
 import { ListsContext } from "@/contexts/ListsContext";
 import { useContext, useEffect, useState } from "react";
@@ -25,7 +26,7 @@ export default function MisListas() {
     };
   }, []);
 
-  if (isLoading) return <h3>Cargando...</h3>;
+  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
 
   return <>{!isSuccess ? <h2>Error al cargar las listas, intenta mas tarde</h2> : <MyLists lists={lists}></MyLists>}</>;
 }

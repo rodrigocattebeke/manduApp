@@ -73,7 +73,7 @@ export const Search = () => {
         <div className={styles.recentSearches}>{recent ? recent.map((q, i) => <Chip text={q} key={i} onClick={() => setQuery(q)} />) : ""}</div>
       </section>
       {isLoading ? (
-        <Loader />
+        <Loader fullWidth="true" />
       ) : (
         <section className={`${styles.resultsContainer} container-xxl`}>
           {searchResults == null ? (
