@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [favoritesLists, setFavoritesLists] = useState(undefined);
+  const [isFavoritesChanged, setIsFavoritesChanged] = useState(true);
   const [recentCreatedLists, setRecentCreatedLists] = useState(undefined);
   const [recentUpdated, setRecentUpdated] = useState(undefined);
   const router = useRouter();
@@ -110,17 +111,25 @@ export const UserProvider = ({ children }) => {
 
   // Get the data of favorites lists
   const getFavoritesLists = async () => {
-    if (favoritesLists) return { success: true, lists: favoritesLists };
+    if (!isFavoritesChanged && favoritesLists) return { success: true, lists: favoritesLists };
     if (!userData?.favoritesListsIds) return { success: false, error: "No hay listas favoritas" };
     const res = await getListsByIdsService(userData.favoritesListsIds);
 
     if (res.success) {
       setFavoritesLists(res.lists);
+      setIsFavoritesChanged(false);
       return { success: true, lists: res.lists };
     } else {
       return { success: false, error: res.error };
     }
   };
+
+  //Check if user favorites changed for refetch
+  useEffect(() => {
+    if (userData && userData.favoritesListsIds) {
+      setIsFavoritesChanged(true);
+    }
+  }, [userData]);
 
   const removeFavoriteListId = async (listId) => {
     if (!listId) return console.error("Se debe de pasar el id de la lista a agregar");
