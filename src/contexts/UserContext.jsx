@@ -12,6 +12,7 @@ import { removeFavoriteListIdService } from "@/services/firestore/user/userLists
 import { getListsByIdsService } from "@/services/firestore/lists/getListsByIdsService";
 import { getRecentUpdatedListsService } from "@/services/firestore/user/userLists/recentUpdated/getRecentUpdatedListsService";
 import { getRecentCreatedListsService } from "@/services/firestore/user/userLists/recentCreated/getRecentCreatedListsService";
+import { Loader } from "@/components/loader/Loader";
 
 const UserContext = createContext();
 
@@ -189,8 +190,7 @@ export const UserProvider = ({ children }) => {
     removeFavoriteListId,
   };
 
-  if (isLoading) return null; //for the moment, return null
-
+  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
   return <UserContext.Provider value={{ loginWithGoogle, singOut, userData, userFunctions }}>{children}</UserContext.Provider>;
 };
 
