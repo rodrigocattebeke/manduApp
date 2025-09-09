@@ -8,6 +8,7 @@ import { Button } from "../ui/button/Button";
 import { ErrorTooltip } from "../ui/errorTooltip/ErrorTooltip";
 import { useRouter } from "next/navigation";
 import { Modal } from "../ui/modal/Modal";
+import { useParentPath } from "@/hooks/useParentPath";
 
 /**
  * @param {{
@@ -39,8 +40,10 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   const [imgURL, setImgURL] = useState(initialValues.imgURL);
   const [title, setTitle] = useState(initialValues.title);
   const [description, setDescription] = useState(initialValues.description);
+  const parentPath = useParentPath();
   const [status, setStatus] = useState(initialValues.status);
-  const [showModal, setShowModal] = useState(false);
+  const [showCancelarModal, setShowCancelarModal] = useState(false);
+  const [showGuardarModal, setShowGuardarModal] = useState(false);
   const [showTitleError, setShowTitleError] = useState(false);
   const [showStatusError, setShowStatusError] = useState(false);
   const router = useRouter();
@@ -86,16 +89,16 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     setStatus(e.target.value);
   };
 
-  //Modal functions
-  const openModal = () => {
-    setShowModal(true);
+  //Save Modal functions
+  const openGuardarModal = () => {
+    setShowGuardarModal(true);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeGuardarModal = () => {
+    setShowGuardarModal(false);
   };
 
-  const onModalConfirm = async () => {
+  const onConfirmGuardarModal = async () => {
     if (!title.trim()) {
       router.push("#title");
       setShowTitleError(true);
@@ -122,6 +125,19 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
           description,
         };
     await onSubmit(formObject);
+  };
+
+  // Cancel Modal Functions
+  const openCancelarModal = () => {
+    setShowCancelarModal(true);
+  };
+
+  const closeCancelarModal = () => {
+    setShowCancelarModal(false);
+  };
+
+  const onConfirmCancelarModal = async () => {
+    router.push(parentPath);
   };
 
   return (
@@ -168,13 +184,17 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
         </div>
         {/* Action buttons */}
         <div className={`${styles.actionButtonsContainer} d-flex flex-sm-row`}>
-          <Button mode="primary" text="Guardar" fullWidth="true" onClick={openModal} />
-          <Button mode="default" text="Cancelar" fullWidth="true" />
+          <Button mode="primary" text="Guardar" fullWidth="true" onClick={openGuardarModal} />
+          <Button mode="default" text="Cancelar" fullWidth="true" onClick={openCancelarModal} />
         </div>
       </section>
 
-      {/* Modal */}
-      <Modal title="Confirmar datos?" show={showModal} onConfirm={onModalConfirm} onCancel={closeModal} onClose={closeModal} />
+      {/*     Modals     */}
+      {/* onConfirm modal */}
+      <Modal title="¿Confirmar datos?" show={showGuardarModal} onConfirm={onConfirmGuardarModal} onCancel={closeGuardarModal} onClose={closeGuardarModal} />
+
+      {/* onCancel modal */}
+      <Modal title="¿Seguro que desea cancelar?" show={showCancelarModal} onConfirm={onConfirmCancelarModal} onCancel={closeCancelarModal} onClose={closeCancelarModal} />
     </>
   );
 };
