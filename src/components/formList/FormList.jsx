@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Button } from "../ui/button/Button";
 import { ErrorTooltip } from "../ui/errorTooltip/ErrorTooltip";
 import { useRouter } from "next/navigation";
+import { Modal } from "../ui/modal/Modal";
 
 /**
  * @param {{
@@ -39,6 +40,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   const [title, setTitle] = useState(initialValues.title);
   const [description, setDescription] = useState(initialValues.description);
   const [status, setStatus] = useState(initialValues.status);
+  const [showModal, setShowModal] = useState(false);
   const [showTitleError, setShowTitleError] = useState(false);
   const [showStatusError, setShowStatusError] = useState(false);
   const router = useRouter();
@@ -84,7 +86,16 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     setStatus(e.target.value);
   };
 
-  const handleSubmit = () => {
+  //Modal functions
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const onModalConfirm = async () => {
     if (!title.trim()) {
       router.push("#title");
       setShowTitleError(true);
@@ -110,7 +121,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
           title,
           description,
         };
-    onSubmit(formObject);
+    await onSubmit(formObject);
   };
 
   return (
@@ -157,10 +168,13 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
         </div>
         {/* Action buttons */}
         <div className={`${styles.actionButtonsContainer} d-flex flex-sm-row`}>
-          <Button mode="primary" text="Guardar" fullWidth="true" onClick={handleSubmit} />
+          <Button mode="primary" text="Guardar" fullWidth="true" onClick={openModal} />
           <Button mode="default" text="Cancelar" fullWidth="true" />
         </div>
       </section>
+
+      {/* Modal */}
+      <Modal title="Confirmar datos?" show={showModal} onConfirm={onModalConfirm} onCancel={closeModal} onClose={closeModal} />
     </>
   );
 };
