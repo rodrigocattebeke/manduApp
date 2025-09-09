@@ -233,7 +233,7 @@ export function ListsProvider({ children }) {
     if (itemRes.success) {
       const action = {
         type: ITEMS_REDUCER_TYPES.UPDATE,
-        payload: newItemData,
+        payload: itemWithId,
       };
 
       itemsDispatch(action);
