@@ -36,6 +36,6 @@ export default function Editar() {
     };
   }, []);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
   return <>{!isSuccess ? <h2>Error al obtener los datos, intente mas tarde</h2> : <Edit item={item} />}</>;
 }
