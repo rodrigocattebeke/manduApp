@@ -231,19 +231,13 @@ export function ListsProvider({ children }) {
     const itemRes = await updateItemService(itemId, itemWithId);
 
     if (itemRes.success) {
-      const itemUpdatedRes = await getItem(itemId);
+      const action = {
+        type: ITEMS_REDUCER_TYPES.UPDATE,
+        payload: newItemData,
+      };
 
-      if (itemUpdatedRes.success) {
-        const action = {
-          type: ITEMS_REDUCER_TYPES.UPDATE,
-          payload: itemUpdatedRes.item,
-        };
-
-        itemsDispatch(action);
-        return { success: true, item: itemUpdatedRes.item };
-      } else {
-        return { success: false, error: itemUpdatedRes.error };
-      }
+      itemsDispatch(action);
+      return { success: true };
     } else {
       return { success: false, error: itemRes.error };
     }
