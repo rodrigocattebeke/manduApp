@@ -33,7 +33,7 @@ export default function ListPage() {
     getListItems();
   }, []);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
 
   return <>{!isSuccess ? <h2>Ocurrio un error al cargar la lista, intente de nuevo más tarde.</h2> : <ListView listTitle={slugToText(titleSlug)} listId={listId} listItems={listItems} />}</>;
 }
