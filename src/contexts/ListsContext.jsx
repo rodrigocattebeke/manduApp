@@ -14,16 +14,30 @@ import { removeListService } from "@/services/firestore/lists/removeListService"
 import { updateListService } from "@/services/firestore/lists/updateListService";
 import { findItemInList } from "@/utils/findItemInList";
 import { isValidObj } from "@/utils/isValidObject";
+import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists/favorites/getFavoritesListsIdsService";
+import { addFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/addFavoriteListIdService";
+import { removeFavoriteListIdService } from "@/services/firestore/user/userLists/favorites/removeFavoriteListIdService";
+import { getListsByIdsService } from "@/services/firestore/lists/getListsByIdsService";
+import { getRecentUpdatedListsService } from "@/services/firestore/user/userLists/recentUpdated/getRecentUpdatedListsService";
+import { getRecentCreatedListsService } from "@/services/firestore/user/userLists/recentCreated/getRecentCreatedListsService";
+import { UserContext } from "./UserContext";
 
-const { useReducer, createContext, useState, useEffect } = require("react");
+const { useReducer, createContext, useState, useEffect, useContext } = require("react");
 
 const ListsContext = createContext();
 
 export function ListsProvider({ children }) {
-  const [lists, listsDispatch] = useReducer(listsReducer, undefined);
-  const [items, itemsDispatch] = useReducer(itemsReducer, undefined);
+  const { userData, userFunctions } = useContext(UserContext);
+  const [favoritesLists, setFavoritesLists] = useState(undefined);
   const [isAllListsFetched, setIsAllListsFetched] = useState(false);
+  const [isFavoritesChanged, setIsFavoritesChanged] = useState(true);
+  const [isRecentCreatedChanged, setIsRecentCreatedChanged] = useState(true);
+  const [isRecentUpdChanged, setIsRecentUpdChanged] = useState(true);
   const [isFirstItemsFetch, setIsFirstItemsFetch] = useState(true);
+  const [items, itemsDispatch] = useReducer(itemsReducer, undefined);
+  const [lists, listsDispatch] = useReducer(listsReducer, undefined);
+  const [recentCreatedLists, setRecentCreatedLists] = useState(undefined);
+  const [recentUpdated, setRecentUpdated] = useState(undefined);
 
   //Lists functions
 
@@ -243,10 +257,90 @@ export function ListsProvider({ children }) {
     }
   };
 
+  //    User favorites lists
+
+  const addFavoriteListId = async (listId) => {
+    if (!listId) return console.error("Se debe de pasar el id de la lista");
+
+    const res = await addFavoriteListIdService(listId);
+
+    if (res.success) {
+      userFunctions.addFavoriteListId(listId);
+      setIsFavoritesChanged(true);
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  // Get the data of favorites lists
+  const getFavoritesLists = async () => {
+    if (!isFavoritesChanged && favoritesLists) return { success: true, lists: favoritesLists };
+    if (!userData?.favoritesListsIds) return { success: false, error: "No hay listas favoritas" };
+    const res = await getListsByIdsService(userData.favoritesListsIds);
+
+    if (res.success) {
+      setFavoritesLists(res.lists);
+      setIsFavoritesChanged(false);
+      return { success: true, lists: res.lists };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  const removeFavoriteListId = async (listId) => {
+    if (!listId) return console.error("Se debe de pasar el id de la lista a agregar");
+
+    const res = await removeFavoriteListIdService(listId);
+    if (res.success) {
+      userFunctions.removeFavoriteListId(listId);
+      setIsFavoritesChanged(true);
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  // Recent Created
+
+  const getRecentCreatedLists = async () => {
+    if (!isRecentCreatedChanged && recentCreatedLists) return { success: true, recentLists: recentCreatedLists };
+    const res = await getRecentCreatedListsService();
+    if (res.success) {
+      setRecentCreatedLists(res.recentLists);
+      setIsRecentCreatedChanged(false);
+      return { success: true, recentLists: res.recentLists };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  // Recent updated
+
+  const getRecentUpdatedLists = async () => {
+    if (!isRecentUpdChanged && recentUpdated) return { success: true, updatedLists: recentUpdated };
+    const res = await getRecentUpdatedListsService();
+    if (res.success) {
+      setRecentUpdated(res.updatedLists);
+      setIsRecentUpdChanged(false);
+      return { success: true, updatedLists: res.updatedLists };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
+  // Detect if the lists changed, and set isChanged states to true
+  useEffect(() => {
+    setIsRecentCreatedChanged(true);
+    setIsRecentUpdChanged(true);
+  }, [lists]);
+
   const listsService = {
     addList,
     getAllLists,
     getList,
+    getRecentCreatedLists,
+    getRecentUpdatedLists,
     removeList,
     updateList,
   };
@@ -259,7 +353,13 @@ export function ListsProvider({ children }) {
     updateItem,
   };
 
-  return <ListsContext.Provider value={{ listsService, itemsService, lists, items }}>{children}</ListsContext.Provider>;
+  const favoritesService = {
+    addFavoriteListId,
+    getFavoritesLists,
+    removeFavoriteListId,
+  };
+
+  return <ListsContext.Provider value={{ favoritesService, listsService, itemsService, lists, items }}>{children}</ListsContext.Provider>;
 }
 
 export { ListsContext };
