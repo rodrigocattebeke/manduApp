@@ -1,3 +1,7 @@
+.slick-track {
+  margin-left: 0;
+}
+
 .nextArrow,
 .prevArrow {
   display: flex !important;
