@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./ListView.module.css";
 import Image from "next/image";
 import { Edit } from "@/components/icons/Edit";
@@ -38,7 +38,8 @@ const FILTER_STATES = [
 ];
 
 export const ListView = ({ listTitle = "", listId, listItems }) => {
-  const { userData, userFunctions } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
+  const { favoritesService } = useContext(ListsContext);
   const [filterSelected, setFilterSelected] = useState(FILTER_STATES[0].filter);
   const [filteredItems, setFilteredItems] = useState(listItems || []);
   const { listsService } = useContext(ListsContext);
@@ -76,9 +77,9 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
     if (isUpdatingFavorite) return; //Evite multi click
     setIsUpdattingFavorite(true);
     if (!isFavorite) {
-      const res = await userFunctions.addFavoriteListId(listId);
+      const res = await favoritesService.addFavoriteListId(listId);
     } else {
-      const res = await userFunctions.removeFavoriteListId(listId);
+      const res = await favoritesService.removeFavoriteListId(listId);
     }
     setIsUpdattingFavorite(false);
   };
