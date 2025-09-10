@@ -2,14 +2,13 @@
 
 import { Loader } from "@/components/loader/Loader";
 import { HomePage } from "@/components/pages/inicio/HomePage";
-import { UserContext } from "@/contexts/UserContext";
-import { getRecentEdits } from "@/services/firestore/getRecentEdits";
+import { ListsContext } from "@/contexts/ListsContext";
 import { getStatusSummary } from "@/services/firestore/getStatusSummary";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
-  const { userFunctions } = useContext(UserContext);
+  const { favoritesService, listsService } = useContext(ListsContext);
   const [statusSummaryArray, setStatusSummaryArray] = useState([]);
   const [recentUpdatedArray, setRecentUpdatedArray] = useState([]);
   const [favoritesListsArray, setFavoritesListsArray] = useState([]);
@@ -19,7 +18,7 @@ export default function Home() {
 
   useEffect(() => {
     const getAllLists = async () => {
-      const results = await Promise.allSettled([getStatusSummary(), userFunctions.getRecentCreatedLists(), userFunctions.getFavoritesLists(), userFunctions.getRecentUpdatedLists()]);
+      const results = await Promise.allSettled([getStatusSummary(), listsService.getRecentCreatedLists(), favoritesService.getFavoritesLists(), listsService.getRecentUpdatedLists()]);
 
       //Filter fullfilled responses
       const fulfilled = results.filter((res) => res.status == "fulfilled");
@@ -41,7 +40,7 @@ export default function Home() {
     };
 
     getAllLists();
-  }, [userFunctions]);
+  }, [favoritesService, listsService]);
 
   if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
   if (isError) return notFound();
