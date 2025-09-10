@@ -4,5 +4,5 @@ export const useParentPath = () => {
   const currentPath = usePathname();
   const parts = currentPath.split("/");
   parts.pop();
-  return parts.join("/");
+  return parts.join("/") || "/";
 };
