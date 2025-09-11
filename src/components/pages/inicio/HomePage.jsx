@@ -33,7 +33,7 @@ export const HomePage = ({ statusSummary, recentCreated, favorites, recentUpdate
       <section className="container-xxl my-4 " aria-label="Resumen de listas del usuario">
         <ListsSection favorites={favorites} recentCreated={recentCreated} recentUpdated={recentUpdated} />
       </section>
-      <FloatingAddButton to={"#"} className="d-lg-none" />
+      <FloatingAddButton to={"/mis-listas/agregar"} className="d-lg-none" />
     </>
   );
 };
