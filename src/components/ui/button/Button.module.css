@@ -63,5 +63,5 @@
 }
 
 .button:hover {
-  background-color: var(--color-hover);
+  filter: brightness(0.91);
 }
