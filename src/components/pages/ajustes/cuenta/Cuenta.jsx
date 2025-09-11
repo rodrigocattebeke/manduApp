@@ -7,12 +7,17 @@ import { useContext, useState } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { Button } from "@/components/ui/button/Button";
 import { Modal } from "@/components/ui/modal/Modal";
+import { useRouter } from "next/navigation";
+import { useParentPath } from "@/hooks/useParentPath";
 
 export const Cuenta = () => {
   const { userData, userFunctions } = useContext(UserContext);
   const [displayName, setDisplayName] = useState(userData.displayName);
-  const [showSaveDataModal, setShowSaveDataModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+  const [showSaveDataModal, setShowSaveDataModal] = useState(false);
+  const parentPath = useParentPath();
+  const router = useRouter();
 
   const handleInput = (e) => {
     setDisplayName(e.target.value);
@@ -33,6 +38,20 @@ export const Cuenta = () => {
     console.log(displayName);
     setShowSaveDataModal(false);
     return;
+  };
+
+  // Cancel button functions
+
+  const handleCancelButton = () => {
+    setShowCancelModal(true);
+  };
+
+  const onConfirmCancelModal = () => {
+    router.push(parentPath);
+  };
+
+  const closeCancelModal = () => {
+    setShowCancelModal(false);
   };
 
   // Delete account button functions
@@ -76,7 +95,7 @@ export const Cuenta = () => {
       <section className={`container-xxl ${styles.actionButtons}`}>
         <div className={`${styles.editButtons} flex-md-row`}>
           <Button text="Guardar" mode="primary" fullWidth="true" onClick={handleSaveDataButton} />
-          <Button text="Cancelar" fullWidth="true" />
+          <Button text="Cancelar" fullWidth="true" onClick={handleCancelButton} />
         </div>
         <Button text="Eliminar cuenta" mode="danger" fullWidth="true" onClick={handleDeleteAccountButton} />
       </section>
@@ -85,6 +104,10 @@ export const Cuenta = () => {
 
       {/* Save data modal*/}
       <Modal title="¿Estás seguro de guardar los cambios?" show={showSaveDataModal} onClose={onSaveDataModalClose} onConfirm={onConfirmSaveData} onCancel={onSaveDataModalClose} />
+
+      {/* Cancel modal */}
+      <Modal title="¿Estás seguro de cancelar?" show={showCancelModal} onClose={closeCancelModal} onConfirm={onConfirmCancelModal} onCancel={closeCancelModal} />
+
       {/* Delete account modal */}
       <Modal title="¿Estás seguro de eliminar tu cuenta?" description="Esta acción no se puede revertir" mode="danger" show={showDeleteAccountModal} onClose={onDeleteAccountModalClose} onConfirm={onConfirmDeleteAccount} onCancel={onDeleteAccountModalClose} />
     </>
