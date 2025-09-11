@@ -8,7 +8,6 @@ export const useRecentSearches = (uuid) => {
     if (uuid) {
       const stored = JSON.parse(localStorage.getItem(key)) || [];
       setRecent(stored);
-      console.log(stored);
     }
   }, [uuid, key]);
 
