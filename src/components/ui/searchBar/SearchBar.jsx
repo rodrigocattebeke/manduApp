@@ -16,7 +16,6 @@ export const SearchBar = ({ defaultInputValue, onSearch, onInputChange }) => {
   useEffect(() => {
     if (onInputChange) {
       if (typeof onInputChange !== "function") return console.error("El onInputChange pasado debe de ser una función.");
-      if (!inputValue.trim()) return;
       onInputChange(inputValue);
     }
   }, [inputValue]);
