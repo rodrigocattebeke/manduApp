@@ -68,10 +68,14 @@ export const Search = () => {
       <div className="container-xxl pt-lg-3">
         <SearchBar defaultInputValue={query} onSearch={onSearch} onInputChange={onInputChange} />
       </div>
-      <section className={`${styles.recentSearchesContainer} container-xxl`}>
-        <h2 className="m-0">Búsquedas recientes</h2>
-        <div className={styles.recentSearches}>{recent ? recent.map((q, i) => <Chip text={q} key={i} onClick={() => setQuery(q)} />) : ""}</div>
-      </section>
+      {!recent || recent.length == 0 ? (
+        ""
+      ) : (
+        <section className={`${styles.recentSearchesContainer} container-xxl`}>
+          <h2 className="m-0">Búsquedas recientes</h2>
+          <div className={styles.recentSearches}>{recent ? recent.map((q, i) => <Chip text={q} key={i} onClick={() => setQuery(q)} />) : ""}</div>
+        </section>
+      )}
       {isLoading ? (
         <Loader fullWidth="true" />
       ) : (
