@@ -6,10 +6,10 @@ export const ListsSection = ({ favorites = [], recentCreated = [], recentUpdated
 
   return (
     <>
-      {/* Recent updated */}
+      {/* Recent created */}
       {recentCreated.length > 0 ? (
         <section className={styles.section}>
-          <h2 className="my-0">Listas recientes</h2>
+          <h2 className="my-0">Creadas recientemente</h2>
           <ListCarousel cards={recentCreated} basePath="mis-listas" />
         </section>
       ) : (
@@ -26,10 +26,10 @@ export const ListsSection = ({ favorites = [], recentCreated = [], recentUpdated
         ""
       )}
 
-      {/* Recently edited */}
+      {/* Recent updated */}
       {recentUpdated.length > 0 ? (
         <section className={styles.section}>
-          <h2 className="my-0">Últimos editados</h2>
+          <h2 className="my-0">Editadas recientemente</h2>
           <ListCarousel cards={recentUpdated} basePath="mis-listas" />
         </section>
       ) : (
