@@ -73,8 +73,8 @@ export const Modal = ({ title = "Confirmar", description = "", mode = "warning",
                   <Button text="Confirmar" fullWidth="true" mode="success" onClick={onClose} />
                 ) : (
                   <>
-                    <Button text="Cancelar" fullWidth="true" onClick={onCancel} />
-                    <Button text="Confirmar" fullWidth="true" mode={mode == "danger" ? "danger" : "primary"} onClick={handleOnConfirm} />
+                    <Button text="Cancelar" fullWidth="true" mode={mode == "danger" ? "danger" : "default"} onClick={onCancel} />
+                    <Button text="Confirmar" fullWidth="true" mode={mode == "danger" ? "default" : "primary"} onClick={handleOnConfirm} />
                   </>
                 )}
               </div>
