@@ -90,15 +90,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   };
 
   //Save Modal functions
-  const openGuardarModal = () => {
-    setShowGuardarModal(true);
-  };
-
-  const closeGuardarModal = () => {
-    setShowGuardarModal(false);
-  };
-
-  const onConfirmGuardarModal = async () => {
+  const handleGuardarButton = () => {
     if (!title.trim()) {
       router.push("#title");
       setShowTitleError(true);
@@ -111,6 +103,14 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
       return;
     }
 
+    setShowGuardarModal(true);
+  };
+
+  const closeGuardarModal = () => {
+    setShowGuardarModal(false);
+  };
+
+  const onConfirmGuardarModal = async () => {
     //    Detect if the showSelectStatus is true
     const formObject = showSelectStatus
       ? {
@@ -184,7 +184,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
         </div>
         {/* Action buttons */}
         <div className={`${styles.actionButtonsContainer} d-flex flex-sm-row`}>
-          <Button mode="primary" text="Guardar" fullWidth="true" onClick={openGuardarModal} />
+          <Button mode="primary" text="Guardar" fullWidth="true" onClick={handleGuardarButton} />
           <Button mode="default" text="Cancelar" fullWidth="true" onClick={openCancelarModal} />
         </div>
       </section>
