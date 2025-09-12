@@ -146,7 +146,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
         <div className={`${styles.infoContainer} d-flex flex-column flex-sm-row`}>
           <div className={styles.container}>
             <div className={styles.imgContainer}>
-              <Image src={imgURL} width={400} height={270} alt="Imagen de la lista" />
+              {!imgURL ? "" : <Image src={imgURL} width={400} height={270} alt="Imagen de la lista" />}
               <div className={styles.uploadImgContainer}>
                 <input ref={uploadFileRef} onChange={(e) => handleUpFileChange(e)} id="fileUpload" name="fileUpload" type="file" accept=".jpg, .jpeg, .png, .webp" />
                 <Button text="Subir imagen" mode="primary" onClick={handleUploadImgButton} />
