@@ -17,6 +17,8 @@ import { Modal } from "@/components/ui/modal/Modal";
 import { Add } from "@/components/icons/Add";
 import { UserContext } from "@/contexts/UserContext";
 import { Favorite } from "@/components/icons/Favorite";
+import { AddContent } from "@/components/icons/AddContent";
+import { EmptyState } from "@/components/ui/emptyState/EmptyState";
 
 const FILTER_STATES = [
   {
@@ -125,50 +127,55 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
         </div>
       </header>
 
-      {/* Filters */}
-      <section className="container-xxl d-flex flex-column align-items-center justify-content-center py-3">
-        <div className={styles.filtersContainer}>
-          <ul>
-            {FILTER_STATES.map((filter, i) => (
-              <li className={filterSelected == filter.filter ? styles.active : ""} onClick={() => handleFilter(filter.filter)} key={i}>
-                {filter.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* ITEMS TABLE */}
-
-        <div className={styles.tableContainer}>
-          <table>
-            <tbody>
-              {filteredItems.map((item, i) => (
-                <tr key={i}>
-                  <td className={styles.itemImgContainer}>
-                    <Image src={item.imgURL} width={56} height={56} alt={`Foto del item ${item.title}`} />
-                  </td>
-                  <td className={styles.itemTitleContainer}>
-                    <div>
-                      <p className="m-0">{item.title}</p>
-                      <p className={`${styles.itemStatus} ${styles[STATUS[item.status]] || ""}`}>{STATUS_LABELS[item.status] || ""}</p>
-                    </div>
-                  </td>
-                  <td>
-                    <div className={styles.iconsContainer}>
-                      <Link href={`${pathname}/${toUrlSlug(item.title)}--id${item.id}`}>
-                        <Visibility />
-                      </Link>
-                      <Link href={`${pathname}/${toUrlSlug(item.title)}--id${item.id}/editar`}>
-                        <Edit />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
+      {/* Body */}
+      {listItems.length == 0 ? (
+        <EmptyState icon={AddContent} message={"Tu lista está vacía"} action={<Link href={`${pathname}/agregar`}>¡Agrega tu primer item!</Link>} />
+      ) : (
+        <section className="container-xxl d-flex flex-column align-items-center justify-content-center py-3">
+          {/* Filters */}
+          <div className={styles.filtersContainer}>
+            <ul>
+              {FILTER_STATES.map((filter, i) => (
+                <li className={filterSelected == filter.filter ? styles.active : ""} onClick={() => handleFilter(filter.filter)} key={i}>
+                  {filter.title}
+                </li>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+            </ul>
+          </div>
+
+          {/* ITEMS TABLE */}
+
+          <div className={styles.tableContainer}>
+            <table>
+              <tbody>
+                {filteredItems.map((item, i) => (
+                  <tr key={i}>
+                    <td className={styles.itemImgContainer}>
+                      <Image src={item.imgURL} width={56} height={56} alt={`Foto del item ${item.title}`} />
+                    </td>
+                    <td className={styles.itemTitleContainer}>
+                      <div>
+                        <p className="m-0">{item.title}</p>
+                        <p className={`${styles.itemStatus} ${styles[STATUS[item.status]] || ""}`}>{STATUS_LABELS[item.status] || ""}</p>
+                      </div>
+                    </td>
+                    <td>
+                      <div className={styles.iconsContainer}>
+                        <Link href={`${pathname}/${toUrlSlug(item.title)}--id${item.id}`}>
+                          <Visibility />
+                        </Link>
+                        <Link href={`${pathname}/${toUrlSlug(item.title)}--id${item.id}/editar`}>
+                          <Edit />
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       {/* Floating action buttons */}
       <div className={`${styles.floatingButtonsContainer} d-lg-none`}>
