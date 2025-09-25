@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.changeImageButton .profileInput {
+  display: none;
+}
+
 .imageContainer {
   display: flex;
   align-items: center;

@@ -3,7 +3,7 @@
 import { Header } from "@/components/ui/header/Header";
 import Image from "next/image";
 import styles from "./Cuenta.module.css";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { Button } from "@/components/ui/button/Button";
 import { Modal } from "@/components/ui/modal/Modal";
@@ -13,14 +13,39 @@ import { useParentPath } from "@/hooks/useParentPath";
 export const Cuenta = () => {
   const { userData, userFunctions } = useContext(UserContext);
   const [displayName, setDisplayName] = useState(userData.displayName);
+  const [inputFileImg, setInputFileImg] = useState(undefined);
+  const [imgURL, setImgURL] = useState(userData.photoURL || undefined);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [showSaveDataModal, setShowSaveDataModal] = useState(false);
+  const uploadFileRef = useRef();
   const parentPath = useParentPath();
   const router = useRouter();
 
   const handleInput = (e) => {
     setDisplayName(e.target.value);
+  };
+
+  const handleUploadImgButton = () => {
+    uploadFileRef.current?.click();
+  };
+
+  const handleUpFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    // Validate the img type
+    const validTypes = ["image/jpeg", "image/png", "image/jpeg", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      alert("Solo se permiten imágenes JPG, , JPEG, PNG o WEBP.");
+      return;
+    }
+
+    setInputFileImg(e.target.files[0]);
+    //previsualize the img
+    const image = URL.createObjectURL(file);
+    setImgURL(image);
   };
 
   // Save data button functions
@@ -33,9 +58,12 @@ export const Cuenta = () => {
   };
 
   const onConfirmSaveData = async () => {
-    const res = await userFunctions.updateDisplayName(displayName.trim());
+    const userFormData = new FormData();
+    userFormData.append("img", inputFileImg);
+    userFormData.append("displayName", displayName);
+    const res = await userFunctions.updateAccountInformation(userFormData);
+
     if (!res.success) alert("Ocurrio un error al actualizar, intenta de nuevo más tarde");
-    console.log(displayName);
     setShowSaveDataModal(false);
     return;
   };
@@ -77,14 +105,15 @@ export const Cuenta = () => {
       <section className="container-xxl d-flex flex-column flex-md-row">
         <div className={`${styles.profileImage} col-md-6`}>
           <div className={styles.imageContainer}>
-            <Image src={userData.photoURL} width={128} height={128} alt={`Foto de perfil de ${userData.displayName}`} />
+            <Image src={imgURL} width={128} height={128} alt={`Foto de perfil de ${userData.displayName}`} />
           </div>
           <div className={styles.infoContainer}>
             <h2>{userData.displayName}</h2>
             <p>Te uniste en 2025</p>
           </div>
           <div className={styles.changeImageButton}>
-            <Button text="Cambiar foto de perfil" />
+            <input type="file" className={styles.profileInput} ref={uploadFileRef} accept=".jpg, .jpeg, .png, .webp" onChange={(e) => handleUpFileChange(e)}></input>
+            <Button text="Cambiar foto de perfil" onClick={handleUploadImgButton} />
           </div>
         </div>
         <div className={`${styles.displayName} col-md-6`}>
