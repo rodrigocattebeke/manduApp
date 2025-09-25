@@ -40,12 +40,12 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   const [imgURL, setImgURL] = useState(initialValues.imgURL);
   const [title, setTitle] = useState(initialValues.title);
   const [description, setDescription] = useState(initialValues.description);
-  const parentPath = useParentPath();
   const [status, setStatus] = useState(initialValues.status);
   const [showCancelarModal, setShowCancelarModal] = useState(false);
   const [showGuardarModal, setShowGuardarModal] = useState(false);
   const [showTitleError, setShowTitleError] = useState(false);
   const [showStatusError, setShowStatusError] = useState(false);
+  const parentPath = useParentPath();
   const router = useRouter();
   const uploadFileRef = useRef();
 
