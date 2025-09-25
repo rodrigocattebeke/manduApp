@@ -2,10 +2,9 @@
 
 import { createContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { updateDisplayNameService } from "@/services/firestore/user/updateDisplayNameService";
-import { singOutService } from "@/services/firestore/user/singOutService";
-import { observeAuthState } from "@/services/firestore/user/observeAuthState";
-import { loginWithGoogleService } from "@/services/firestore/user/loginWithGoogleService";
+import { singOutService } from "@/services/firestore/user/account/singOutService";
+import { observeAuthState } from "@/services/firestore/user/account/observeAuthState";
+import { loginWithGoogleService } from "@/services/firestore/user/account/loginWithGoogleService";
 
 import { Loader } from "@/components/loader/Loader";
 import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists/favorites/getFavoritesListsIdsService";
