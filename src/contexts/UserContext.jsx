@@ -8,6 +8,7 @@ import { loginWithGoogleService } from "@/services/firestore/user/account/loginW
 
 import { Loader } from "@/components/loader/Loader";
 import { getFavoritesListsIdsService } from "@/services/firestore/user/userLists/favorites/getFavoritesListsIdsService";
+import { updateProfileService } from "@/services/firestore/user/profile/updateProfileService";
 
 const UserContext = createContext();
 
@@ -61,17 +62,6 @@ export const UserProvider = ({ children }) => {
   };
 
   //functions for update user information
-  const updateUserDisplayName = async (newName) => {
-    const res = await updateDisplayNameService(newName);
-
-    if (res.success) {
-      setUserData({ ...userData, displayName: newName });
-      return { success: true };
-    } else {
-      console.error("Ocurrio un error al cambiar el nombre");
-      return { success: false, error: res.error };
-    }
-  };
 
   // user favorites function
 
@@ -98,6 +88,22 @@ export const UserProvider = ({ children }) => {
     setUserData((prev) => ({ ...prev, favoritesListsIds: [...prev.favoritesListsIds.filter((id) => id !== listId)] }));
   };
 
+  // user displayName and user profile image
+  const updateAccountInformation = async (userFormData) => {
+    const imgFile = userFormData.get("img");
+    const displayName = userFormData.get("displayName");
+
+    if (!imgFile && !displayName) return { success: false, error: "No se encontraron imgFile y displayName" };
+
+    const res = await updateProfileService(userFormData, userData);
+    if (res.success) {
+      setUserData({ ...userData, ...res.updatedUserData });
+      return { success: true };
+    } else {
+      return { success: false, error: res.error };
+    }
+  };
+
   useEffect(() => {
     if (!userData || userData.favoritesListsIds) return; //If the userData already have favoritesLists, return
     const getFavs = async () => {
@@ -108,11 +114,9 @@ export const UserProvider = ({ children }) => {
 
   //Put all user functions into a object
   const userFunctions = {
-    updateDisplayName: (name) => {
-      return updateUserDisplayName(name);
-    },
     addFavoriteListId,
     removeFavoriteListId,
+    updateAccountInformation,
   };
 
   if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
