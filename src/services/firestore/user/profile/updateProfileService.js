@@ -6,10 +6,10 @@ export const updateProfileService = async (userFormData, userData) => {
   const imgFile = userFormData.get("img");
   const displayName = userFormData.get("displayName");
 
-  if (!imgFile && displayName == userData.displayName) return { success: true, message: "No hubo cambios para aplicar." };
+  if ((!imgFile || imgFile == "undefined" || imgFile == "null") && displayName == userData.displayName) return { success: true, error: "No hubo cambios para aplicar." };
 
   try {
-    if (!imgFile) {
+    if (!imgFile || imgFile == "undefined" || imgFile == "null") {
       const res = await updateDisplayNameService(displayName);
       if (res.success) {
         const newUserData = {
