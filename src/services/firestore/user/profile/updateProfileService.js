@@ -1,5 +1,5 @@
 import { updateDisplayNameService } from "./updateDisplayNameService";
-import { updateProfileImageService } from "./updateProfileImageService";
+import { uploadProfileImageService } from "./uploadProfileImageService";
 import { updateUserDataService } from "./updateUserDataService";
 
 export const updateProfileService = async (userFormData, userData) => {
@@ -20,7 +20,7 @@ export const updateProfileService = async (userFormData, userData) => {
         return { success: false, error: res.error };
       }
     } else if (imgFile) {
-      const profileRes = await updateProfileImageService(imgFile, userData.userUID);
+      const profileRes = await uploadProfileImageService(imgFile, userData.userUID);
       if (!profileRes.success) return { success: false, error: profileRes.error };
 
       const newUserData = {

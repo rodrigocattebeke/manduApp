@@ -1,4 +1,4 @@
-export const updateProfileImageService = async (imgFile, userUID) => {
+export const uploadProfileImageService = async (imgFile, userUID) => {
   try {
     //create the form data
     const formData = new FormData();
