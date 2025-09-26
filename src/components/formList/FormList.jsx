@@ -38,6 +38,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
   };
 
   const [imgURL, setImgURL] = useState(initialValues.imgURL);
+  const [imgFile, setImgFile] = useState(undefined);
   const [title, setTitle] = useState(initialValues.title);
   const [description, setDescription] = useState(initialValues.description);
   const [status, setStatus] = useState(initialValues.status);
@@ -69,6 +70,9 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
       alert("Solo se permiten imágenes JPG, , JPEG, PNG o WEBP.");
       return;
     }
+
+    // Set imgFile
+    setImgFile(file);
 
     //previsualize the img
     const image = URL.createObjectURL(file);
@@ -114,13 +118,13 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     //    Detect if the showSelectStatus is true
     const formObject = showSelectStatus
       ? {
-          imgURL,
+          imgFile,
           title,
           description,
           status,
         }
       : {
-          imgURL,
+          imgFile,
           title,
           description,
         };
