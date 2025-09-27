@@ -206,10 +206,10 @@ export function ListsProvider({ children }) {
     if (itemRes.success) {
       const action = {
         type: ITEMS_REDUCER_TYPES.ADD,
-        payload: itemRes.list,
+        payload: itemRes.item,
       };
 
-      listsDispatch(action);
+      itemsDispatch(action);
       return {
         success: true,
         item: itemRes.item,
