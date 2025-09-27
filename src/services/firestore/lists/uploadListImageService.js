@@ -18,8 +18,8 @@ export const uploadListImageService = async (imgFile, listID) => {
     const cloudRes = await res.json();
 
     if (cloudRes.success) {
-      const photoURL = cloudRes.photoURL;
-      return { success: true, photoURL };
+      const imgURL = cloudRes.imgURL;
+      return { success: true, imgURL };
     } else {
       return { success: false, error: cloudRes.error };
     }

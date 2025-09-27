@@ -28,9 +28,9 @@ export async function POST(req) {
     });
 
     const cloudRes = await res.json();
-    const photoURL = cloudRes.url;
+    const imgURL = cloudRes.url;
 
-    return Response.json({ success: true, photoURL });
+    return Response.json({ success: true, imgURL });
   } catch (error) {
     return Response.json({ success: false, error });
   }
