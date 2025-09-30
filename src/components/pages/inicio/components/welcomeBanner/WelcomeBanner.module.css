@@ -1,0 +1,40 @@
+.welcomeBannerContainer {
+  position: relative;
+  display: flex;
+  align-items: end;
+  width: 100%;
+  min-height: 14.3rem;
+  margin-top: 1rem;
+}
+
+.bannerContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.629) 20%, rgba(0, 0, 0, 0)), url("/images/welcomeBanner.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textContainer {
+  width: 100%;
+  z-index: 2;
+  padding: 1rem;
+}
+
+.welcomeText {
+  width: 100%;
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
