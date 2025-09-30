@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import styles from "./HomePage.module.css";
 import { UserContext } from "@/contexts/UserContext";
-import { StatusOverview } from "./components/statusOverview/StatusOverview";
+import { WelcomeBanner } from "./components/welcomeBanner/WelcomeBanner";
 import { ListsSection } from "./components/listsSection/ListsSection";
 import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
 import { Button } from "@/components/ui/button/Button";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import { EmptyState } from "@/components/ui/emptyState/EmptyState";
 import { AddFiles } from "@/components/icons/AddFiles";
 
-export const HomePage = ({ statusSummary, recentCreated = [], favorites = [], recentUpdated = [] }) => {
+export const HomePage = ({ recentCreated = [], favorites = [], recentUpdated = [] }) => {
   const { userData } = useContext(UserContext);
   return (
     <>
@@ -21,8 +21,9 @@ export const HomePage = ({ statusSummary, recentCreated = [], favorites = [], re
         <EmptyState icon={AddFiles} message={"Empieza organizando tus ideas"} action={<Link href={"/mis-listas/agregar"}>¡Agrega tu primera lista!</Link>} />
       ) : (
         <>
-          <section className={`container-xxl py-lg-3`}>
-            <div className="d-flex justify-content-between">
+          {/* Hero */}
+          <section className={`container-xxl p-0 py-lg-3`}>
+            <div className="d-flex justify-content-between px-2">
               <div>
                 <h2 className="my-0">Hola, {userData.displayName.split(" ")[0]}</h2>
                 <p className="my-0">Esto es lo último de tus listas</p>
@@ -33,8 +34,10 @@ export const HomePage = ({ statusSummary, recentCreated = [], favorites = [], re
                 </Link>
               </div>
             </div>
-            <StatusOverview statusSummary={statusSummary} />
+            <WelcomeBanner />
           </section>
+
+          {/* Lists section */}
           <section className="container-xxl my-4 " aria-label="Resumen de listas del usuario">
             <ListsSection favorites={favorites} recentCreated={recentCreated} recentUpdated={recentUpdated} />
           </section>
