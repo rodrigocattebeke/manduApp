@@ -85,10 +85,10 @@ export const Search = () => {
           ) : searchResults ? (
             <>
               {Object.values(searchResults.lists).map((result, i) => (
-                <ItemCard title={result.title} imgURL={result.imgURL} to={`/mis-listas/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
+                <ItemCard title={result.title} imgURL={result.imgURL} type={"Lista"} to={`/mis-listas/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
               ))}
               {Object.values(searchResults.items).map((result, i) => (
-                <ItemCard title={result.title} imgURL={result.imgURL} to={`/mis-listas/_--id${result.listId}/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
+                <ItemCard title={result.title} imgURL={result.imgURL} type={"Item"} to={`/mis-listas/_--id${result.listId}/${toUrlSlug(result.title)}--id${result.id}`} key={i} />
               ))}
             </>
           ) : (
