@@ -15,7 +15,7 @@
 }
 
 .button:hover {
-  background-color: var(--color-accent-secondary);
+  background-color: var(--color-hover);
 }
 
 .button svg {
