@@ -4,10 +4,11 @@
   width: fit-content;
   max-width: 12rem;
   min-height: 2.25rem;
-  padding: 0.7rem;
+  padding: 0.7rem 1rem;
   border-radius: 0.5rem;
   background-color: var(--color-bg-secondary);
   cursor: pointer;
+  gap: 0.3rem;
 }
 
 .chip p {
