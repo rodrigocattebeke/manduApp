@@ -25,7 +25,7 @@ export async function addListService(listData) {
       const res = await uploadListImageService(listData.imgFile, listDataWithUID.id);
 
       if (res.success) {
-        const imgURL = res.photoURL;
+        const imgURL = res.imgURL;
         listDataWithUID.imgURL = imgURL;
         await setDoc(listRef, { ...listDataWithUID, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
         return { success: true, list: listDataWithUID };
