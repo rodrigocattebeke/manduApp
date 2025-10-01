@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button/Button";
 import Link from "next/link";
 import { EmptyState } from "@/components/ui/emptyState/EmptyState";
 import { AddFiles } from "@/components/icons/AddFiles";
+import { FilterChips } from "./components/filterChips/FilterChips";
 
 export const HomePage = ({ recentCreated = [], favorites = [], recentUpdated = [] }) => {
   const { userData } = useContext(UserContext);
@@ -35,6 +36,7 @@ export const HomePage = ({ recentCreated = [], favorites = [], recentUpdated = [
               </div>
             </div>
             <WelcomeBanner />
+            <FilterChips />
           </section>
 
           {/* Lists section */}
