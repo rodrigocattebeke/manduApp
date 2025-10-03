@@ -20,6 +20,7 @@
   --color-text-secondary: #6b6b6b;
   --layout-navbar-height: 4rem;
   --transition-short: 0.2s;
+  --size-floatingButton: 4rem;
 }
 
 html[data-theme="dark"] {
