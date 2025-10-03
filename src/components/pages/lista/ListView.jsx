@@ -19,6 +19,8 @@ import { UserContext } from "@/contexts/UserContext";
 import { Favorite } from "@/components/icons/Favorite";
 import { AddContent } from "@/components/icons/AddContent";
 import { EmptyState } from "@/components/ui/emptyState/EmptyState";
+import { Menu } from "@/components/icons/Menu";
+import { Close } from "@/components/icons/Close";
 
 const FILTER_STATES = [
   {
@@ -45,6 +47,7 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
   const [filterSelected, setFilterSelected] = useState(FILTER_STATES[0].filter);
   const [filteredItems, setFilteredItems] = useState(listItems || []);
   const { listsService } = useContext(ListsContext);
+  const [showActionButtons, setShowActionButtons] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isUpdatingFavorite, setIsUpdattingFavorite] = useState(false);
@@ -179,21 +182,36 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
 
       {/* Floating action buttons */}
       <div className={`${styles.floatingButtonsContainer} d-lg-none`}>
-        <div className={`${styles.floatingButton} `} onClick={handleShowModal} title="Eliminar lista">
-          <Delete />
-        </div>
-        <div className={`${styles.floatingButton} ${styles.favoriteIcon} ${isFavorite ? styles.isFavorite : ""}`} onClick={handleFavorite} title={isFavorite ? "Remover de favoritos" : "Agregar a favoritos"}>
-          <Favorite width="2rem" height="2rem" />
-        </div>
-        <div className={`${styles.floatingButton}`} title="Editar lista">
-          <Link href={`${pathname}/editar`}>
-            <Edit />
-          </Link>
-        </div>
-        <div className={`${styles.floatingButton} ${styles.addFloatingButton}`} title="Agregar items a la lista">
-          <Link href={`${pathname}/agregar`}>
-            <Add width="1.7rem" height="1.7rem" />
-          </Link>
+        <div className={styles.buttonsWrapper}>
+          <div className={`${styles.buttonsContainer} ${showActionButtons ? styles.show : ""}`}>
+            <div className={`${styles.floatingButton} ${styles.addButton}`} title="Agregar items a la lista">
+              <Link href={`${pathname}/agregar`}>
+                <Add width="1.7rem" height="1.7rem" />
+              </Link>
+            </div>
+            <div className={`${styles.floatingButton} ${styles.editButton}`} title="Editar lista">
+              <Link href={`${pathname}/editar`}>
+                <Edit />
+              </Link>
+            </div>
+            <div className={`${styles.floatingButton} ${styles.favoriteButton} ${isFavorite ? styles.isFavorite : ""}`} onClick={handleFavorite} title={isFavorite ? "Remover de favoritos" : "Agregar a favoritos"}>
+              <Favorite width="2rem" height="2rem" />
+            </div>
+            <div className={`${styles.floatingButton} ${styles.deleteButton}`} onClick={handleShowModal} title="Eliminar lista">
+              <Delete />
+            </div>
+          </div>
+          <div className={`${styles.floatingButton} ${styles.expandButtons}`} onClick={() => setShowActionButtons(!showActionButtons)}>
+            {!showActionButtons ? (
+              <span className={styles.left}>
+                <Menu />
+              </span>
+            ) : (
+              <span className={styles.right}>
+                <Close />
+              </span>
+            )}
+          </div>
         </div>
       </div>
 

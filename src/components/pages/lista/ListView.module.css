@@ -153,15 +153,6 @@
 }
 
 /* Floating Buttons */
-.addFloatingButton {
-  background-color: var(--color-accent);
-}
-
-.favoriteIcon svg {
-  fill: none;
-  stroke: var(--color-text-primary);
-  stroke-width: 0.1rem;
-}
 
 .floatingButtonsContainer {
   position: fixed;
@@ -170,14 +161,43 @@
   gap: 0.5rem;
   bottom: calc(var(--layout-navbar-height) + 1.5rem);
   right: 1.25rem;
+  --position-addButton: -120%;
+  --position-editButton: -240%;
+  --position-favoriteButton: -360%;
+  --position-deleteButton: -480%;
+  --transition-addButton: 0.15s;
+  --transition-editButton: 0.25s;
+  --transition-favoriteButton: 0.35s;
+  --transition-deleteButton: 0.45s;
+}
+
+.buttonsContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.buttonsWrapper {
+  position: relative;
+}
+
+.favoriteButton svg {
+  fill: none;
+  stroke: var(--color-text-primary);
+  stroke-width: 0.1rem;
 }
 
 .floatingButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
   background-color: var(--color-bg-secondary);
   cursor: pointer;
@@ -185,7 +205,7 @@
 }
 
 .floatingButton:active {
-  background-color: var(--color-hover);
+  filter: brightness(0.7);
 }
 
 .floatingButton a {
@@ -196,10 +216,85 @@
   text-decoration: none;
 }
 
+.expandButtons {
+  position: relative;
+  width: var(--size-floatingButton);
+  height: var(--size-floatingButton);
+  z-index: 5;
+  background-color: var(--color-accent);
+}
+
+.expandButtons span {
+  display: flex;
+}
+
+.expandButtons span.right {
+  animation: spinRight 0.5s;
+}
+
+.expandButtons span.left {
+  animation: spinLeft 0.5s;
+}
+
 .isFavorite svg {
   fill: var(--color-text-primary);
   animation: popHeart 0.5s;
 }
+
+/*  Floating buttons positions and show*/
+.addButton,
+.editButton,
+.favoriteButton,
+.deleteButton {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.addButton {
+  transition: var(--transition-addButton) ease-out;
+  transition-delay: calc(var(--transition-deleteButton) - var(--transition-addButton));
+  z-index: 4;
+}
+
+.buttonsContainer.show .addButton {
+  transition-delay: 0s;
+  transform: translateX(-50%) translateY(var(--position-addButton));
+}
+
+.editButton {
+  transition: var(--transition-editButton) ease-out;
+  transition-delay: calc(var(--transition-deleteButton) - var(--transition-editButton));
+  z-index: 3;
+}
+
+.buttonsContainer.show .editButton {
+  transition-delay: 0s;
+  transform: translateX(-50%) translateY(var(--position-editButton));
+}
+
+.favoriteButton {
+  transition: var(--transition-favoriteButton) ease-out;
+  transition-delay: calc(var(--transition-deleteButton) - var(--transition-favoriteButton));
+  z-index: 2;
+}
+
+.buttonsContainer.show .favoriteButton {
+  transition-delay: 0s;
+  transform: translateX(-50%) translateY(var(--position-favoriteButton));
+}
+
+.deleteButton {
+  transition: var(--transition-deleteButton) ease-out;
+  z-index: 1;
+}
+
+.buttonsContainer.show .deleteButton {
+  transition-delay: 0s;
+  transform: translateX(-50%) translateY(var(--position-deleteButton));
+}
+
+/* Keyframes */
 
 @keyframes popHeart {
   0% {
@@ -210,5 +305,23 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes spinRight {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(180deg);
+  }
+}
+
+@keyframes spinLeft {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(-180deg);
   }
 }
