@@ -14,6 +14,7 @@ import { toUrlSlug } from "@/utils/toUrlSlug";
 import { EmptyState } from "@/components/ui/emptyState/EmptyState";
 import { SearchFiles } from "@/components/icons/SearchFiles";
 import { Empty } from "@/components/icons/Empty";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const Search = () => {
   const { userData } = useContext(UserContext);
@@ -21,7 +22,13 @@ export const Search = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchResults, setSearchResults] = useState(undefined);
   const [query, setQuery] = useState(undefined);
+  const [filterSelected, setFilterSelected] = useState(undefined);
   const queryTimeoutRef = useRef();
+
+  //    Handle filters
+  const onFilterChange = (filter) => {
+    setFilterSelected(filter);
+  };
 
   // Handle on search
   const onSearch = async (query) => {
@@ -69,7 +76,7 @@ export const Search = () => {
     <>
       <Header title="Buscar" className="d-lg-none" />
       <div className="container-xxl pt-lg-3">
-        <SearchBar defaultInputValue={query} onSearch={onSearch} onInputChange={onInputChange} />
+        <SearchBar defaultInputValue={query} onSearch={onSearch} onFilterChange={onFilterChange} onInputChange={onInputChange} />
       </div>
       {!recent || recent.length == 0 ? (
         ""
