@@ -1,3 +1,5 @@
+/* Search bar */
+
 .form {
   display: flex;
   align-items: center;
@@ -38,4 +40,121 @@
 
 .searchIconContainer svg {
   fill: var(--color-text-secondary);
+}
+
+/* Filter */
+.filterIconContainer {
+  height: fit-content;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.filterIconContainer svg:hover {
+  fill: var(--color-text-secondary);
+}
+
+.filterOptionsModal {
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-backdrop);
+  z-index: 999;
+}
+
+.filterOptionsModal.fadeOut {
+  animation: fadeOut 0.2s;
+}
+
+.filterOptionsModal.fadeIn {
+  animation: fadeIn 0.2s;
+}
+
+.filterOptionsModal.show {
+  display: flex;
+}
+
+.filterOption {
+  width: fit-content;
+  cursor: pointer;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  transition: 0.5s;
+  color: var(--color-text-secondary);
+}
+
+.filterOption.active {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+/* Modal */
+
+.modalBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  background-color: var(--color-bg-primary);
+  padding: 1rem 2rem;
+  margin: 1rem;
+  border-radius: 0.7rem;
+}
+
+.modalClose {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+}
+
+.modalClose svg:hover {
+  fill: var(--color-text-secondary);
+}
+
+.modalTitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.modalOptionsContainer {
+  margin-top: 2rem;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    display: flex;
+  }
+  100% {
+    opacity: 0;
+    display: flex;
+  }
 }

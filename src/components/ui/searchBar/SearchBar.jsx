@@ -1,12 +1,20 @@
 "use client";
 import { Search } from "@/components/icons/Search";
 import styles from "./SearchBar.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { SEARCH_FILTER_OPTIONS } from "@/constants/statuses";
+import { Tune } from "@/components/icons/Tune";
+import { Close } from "@/components/icons/Close";
 
-export const SearchBar = ({ defaultInputValue, onSearch, onInputChange }) => {
+export const SearchBar = ({ defaultInputValue, onSearch, onFilterChange, onInputChange }) => {
   const [inputValue, setInputValue] = useState("");
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [filterSelected, setFilterSelected] = useState(undefined);
+  const filterModalRef = useRef();
+
   if (!onSearch || typeof onSearch !== "function") return console.error("Se debe de pasar una funcion onSearch para manejar la búsqueda.");
 
+  // Handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
@@ -24,6 +32,34 @@ export const SearchBar = ({ defaultInputValue, onSearch, onInputChange }) => {
     if (!defaultInputValue) return;
     setInputValue(defaultInputValue);
   }, [defaultInputValue]);
+
+  // Handle filter modal
+  const selectFilter = (filter) => {
+    if (SEARCH_FILTER_OPTIONS.find((fel) => fel.value == filter)) {
+      setFilterSelected(filter);
+    }
+  };
+
+  useEffect(() => {
+    if (onFilterChange) {
+      onFilterChange(filterSelected);
+      setShowFilterModal(false);
+    }
+  }, [filterSelected]);
+
+  useEffect(() => {
+    if (showFilterModal) {
+      if (filterModalRef.current) {
+        filterModalRef.current.classList.add(styles.fadeIn);
+        filterModalRef.current.classList.remove(`${styles.fadeOut}`);
+      }
+    } else {
+      if (filterModalRef.current) {
+        filterModalRef.current.classList.add(`${styles.fadeOut}`);
+        filterModalRef.current.classList.remove(`${styles.fadeIn}`);
+      }
+    }
+  }, [showFilterModal]);
 
   return (
     <div className={styles.searchBar}>
@@ -43,6 +79,26 @@ export const SearchBar = ({ defaultInputValue, onSearch, onInputChange }) => {
           }}
         ></input>
       </form>
+      <div className={styles.filterIconContainer}>
+        <div className={"d-flex"} onClick={() => setShowFilterModal(true)}>
+          <Tune width="1.7rem" height="1.7rem" />
+        </div>
+        <div className={`${styles.filterOptionsModal} ${showFilterModal ? styles.show : ""}`} ref={filterModalRef} onClick={() => setShowFilterModal(false)}>
+          <div className={styles.modalBody} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalClose} onClick={() => setShowFilterModal(false)}>
+              <Close />
+            </div>
+            <p className={styles.modalTitle}>Filtros de búsqueda</p>
+            <div className={styles.optionsContainer}>
+              {SEARCH_FILTER_OPTIONS.map((val, i) => (
+                <p className={`${styles.filterOption} ${val.value == filterSelected ? styles.active : ""}`} onClick={() => selectFilter(val.value)} key={i}>
+                  {val.label}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
