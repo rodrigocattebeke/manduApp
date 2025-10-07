@@ -20,10 +20,12 @@ export const STATUS_SUMMARY_ROUTES = {
   [STATUS.pending]: "#",
 };
 
-export const SEARCH_FILTER_OPTIONS = [
-  { label: "Todos", value: STATUS.all },
-  { label: "Solo listas", value: STATUS.lists },
-  { label: "Items completados", value: STATUS.completed },
-  { label: "Items en proceso", value: STATUS.in_process },
-  { label: "Items pendientes", value: STATUS.pending },
-];
+export const SEARCH_FILTER_OPTIONS = {
+  [STATUS.all]: { label: "Todos", value: STATUS.all },
+  [STATUS.lists]: { label: "Solo listas", value: STATUS.lists },
+  [STATUS.completed]: { label: "Items completados", value: STATUS.completed },
+  [STATUS.in_process]: { label: "Items en proceso", value: STATUS.in_process },
+  [STATUS.pending]: { label: "Items pendientes", value: STATUS.pending },
+};
+
+export const SEARCH_FILTER_ORDER = [STATUS.all, STATUS.lists, STATUS.completed, STATUS.in_process, STATUS.pending];
