@@ -1,43 +1,51 @@
+import { SEARCH_FILTER_OPTIONS } from "@/constants/statuses";
 import { auth, db } from "@/lib/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-export const searchService = async (searched) => {
+export const searchService = async (searched, filter) => {
   try {
-    let items, lists;
+    let items = {},
+      lists = {};
+
     //Search in items
-    const itemsRef = collection(db, "items");
+    if (filter !== SEARCH_FILTER_OPTIONS.lists.value) {
+      const itemsRef = collection(db, "items");
+      let itemsQuery;
+      if (filter == SEARCH_FILTER_OPTIONS.all.value) {
+        itemsQuery = query(itemsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"));
+      } else {
+        itemsQuery = query(itemsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"), where("status", "==", filter));
+      }
 
-    const itemsQuery = query(itemsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"));
+      const itemsSnap = await getDocs(itemsQuery);
 
-    const itemsSnap = await getDocs(itemsQuery);
-
-    if (itemsSnap.empty) {
-      items = {};
-    } else {
-      // Transform docs array to object
-      items = itemsSnap.docs.reduce((acc, doc) => {
-        const docData = doc.data();
-        acc[docData.id] = docData;
-        return acc;
-      }, {});
+      if (!itemsSnap.empty) {
+        // Transform docs array to object
+        items = itemsSnap.docs.reduce((acc, doc) => {
+          const docData = doc.data();
+          acc[docData.id] = docData;
+          return acc;
+        }, {});
+      }
     }
 
     //Search in lists
-    const listsRef = collection(db, "lists");
 
-    const listsQuery = query(listsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"));
+    if (filter == SEARCH_FILTER_OPTIONS.all.value || filter == SEARCH_FILTER_OPTIONS.lists.value) {
+      const listsRef = collection(db, "lists");
 
-    const listsSnap = await getDocs(listsQuery);
+      const listsQuery = query(listsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"));
 
-    if (listsSnap.empty) {
-      lists = {};
-    } else {
-      // Transform docs array to object
-      lists = listsSnap.docs.reduce((acc, doc) => {
-        const docData = doc.data();
-        acc[docData.id] = docData;
-        return acc;
-      }, {});
+      const listsSnap = await getDocs(listsQuery);
+
+      if (!listsSnap.empty) {
+        // Transform docs array to object
+        lists = listsSnap.docs.reduce((acc, doc) => {
+          const docData = doc.data();
+          acc[docData.id] = docData;
+          return acc;
+        }, {});
+      }
     }
 
     return {
