@@ -34,6 +34,11 @@
   overflow: hidden;
 }
 
+.quantity {
+  color: var(--color-text-secondary);
+}
+
+/* Type */
 .typeContainer {
   position: absolute;
   top: 0;
@@ -42,7 +47,6 @@
   padding: 0.5rem 0.8rem;
   z-index: 3;
 }
-
 .typeText {
   width: fit-content;
   max-width: 100%;
@@ -55,6 +59,27 @@
   text-overflow: ellipsis;
 }
 
-.quantity {
-  color: var(--color-text-secondary);
+/* Status */
+
+.status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 1rem;
+  border-radius: 50%;
+  z-index: 9;
+}
+
+.completed {
+  background-color: var(--color-status-success);
+}
+
+.pending {
+  background-color: var(--color-status-error);
+}
+
+.in_process {
+  background-color: var(--color-status-warning);
 }
