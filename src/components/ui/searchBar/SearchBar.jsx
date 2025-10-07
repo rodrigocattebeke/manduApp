@@ -2,14 +2,14 @@
 import { Search } from "@/components/icons/Search";
 import styles from "./SearchBar.module.css";
 import { useEffect, useRef, useState } from "react";
-import { SEARCH_FILTER_OPTIONS } from "@/constants/statuses";
+import { SEARCH_FILTER_OPTIONS, SEARCH_FILTER_ORDER } from "@/constants/statuses";
 import { Tune } from "@/components/icons/Tune";
 import { Close } from "@/components/icons/Close";
 
-export const SearchBar = ({ defaultInputValue, onSearch, onFilterChange, onInputChange }) => {
+export const SearchBar = ({ defaultInputValue, onSearch, initialFilter, onFilterChange, onInputChange }) => {
   const [inputValue, setInputValue] = useState("");
   const [showFilterModal, setShowFilterModal] = useState(false);
-  const [filterSelected, setFilterSelected] = useState(undefined);
+  const [filterSelected, setFilterSelected] = useState(initialFilter || undefined);
   const filterModalRef = useRef();
 
   if (!onSearch || typeof onSearch !== "function") return console.error("Se debe de pasar una funcion onSearch para manejar la búsqueda.");
@@ -35,7 +35,7 @@ export const SearchBar = ({ defaultInputValue, onSearch, onFilterChange, onInput
 
   // Handle filter modal
   const selectFilter = (filter) => {
-    if (SEARCH_FILTER_OPTIONS.find((fel) => fel.value == filter)) {
+    if (SEARCH_FILTER_OPTIONS[filter]) {
       setFilterSelected(filter);
     }
   };
@@ -90,11 +90,14 @@ export const SearchBar = ({ defaultInputValue, onSearch, onFilterChange, onInput
             </div>
             <p className={styles.modalTitle}>Filtros de búsqueda</p>
             <div className={styles.optionsContainer}>
-              {SEARCH_FILTER_OPTIONS.map((val, i) => (
-                <p className={`${styles.filterOption} ${val.value == filterSelected ? styles.active : ""}`} onClick={() => selectFilter(val.value)} key={i}>
-                  {val.label}
-                </p>
-              ))}
+              {SEARCH_FILTER_ORDER.map((fil, i) => {
+                const filter = SEARCH_FILTER_OPTIONS[fil];
+                return (
+                  <p className={`${styles.filterOption} ${filter.value == filterSelected ? styles.active : ""}`} onClick={() => selectFilter(filter.value)} key={i}>
+                    {filter.label}
+                  </p>
+                );
+              })}
             </div>
           </div>
         </div>
