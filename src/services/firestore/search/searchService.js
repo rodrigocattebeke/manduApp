@@ -11,7 +11,7 @@ export const searchService = async (searched, filter) => {
     if (filter !== SEARCH_FILTER_OPTIONS.lists.value) {
       const itemsRef = collection(db, "items");
       let itemsQuery;
-      if (filter == SEARCH_FILTER_OPTIONS.all.value) {
+      if (filter == SEARCH_FILTER_OPTIONS.all.value || filter == SEARCH_FILTER_OPTIONS.items.value) {
         itemsQuery = query(itemsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"));
       } else {
         itemsQuery = query(itemsRef, where("userUID", "==", auth.currentUser.uid), where("title", ">=", searched), where("title", "<=", searched + "\uf8ff"), where("status", "==", filter));
