@@ -46,7 +46,7 @@ export const ItemView = ({ item }) => {
 
   return (
     <>
-      <Header title={item.title} className="d-md-none" />
+      <Header title={item.title} className="d-lg-none" />
       {/* header in md screen size */}
       <header className="container-xxl d-md-flex  d-none align-items-center justify-content-between py-3">
         <h1 className="my-0">{item.title}</h1>
