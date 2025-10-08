@@ -7,7 +7,7 @@ export async function addListService(listData) {
     if (!listData.imgFile) {
       const listRef = doc(collection(db, "lists"));
       const localTimestamp = Timestamp.fromDate(new Date());
-      const imgURL = "https://picsum.photos/200"; //Set default img url
+      const imgURL = "/images/default-list-img.png"; //Set default img url
       const listDataWithUID = { ...listData, id: listRef.id, userUID: auth.currentUser.uid, createdAt: localTimestamp, updatedAt: localTimestamp, imgURL };
 
       //delete imgFile property
