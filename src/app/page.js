@@ -3,7 +3,6 @@
 import { Loader } from "@/components/loader/Loader";
 import { HomePage } from "@/components/pages/inicio/HomePage";
 import { ListsContext } from "@/contexts/ListsContext";
-import { getStatusSummary } from "@/services/firestore/getStatusSummary";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
@@ -18,15 +17,14 @@ export default function Home() {
 
   useEffect(() => {
     const getAllLists = async () => {
-      const results = await Promise.allSettled([getStatusSummary(), listsService.getRecentCreatedLists(), favoritesService.getFavoritesLists(), listsService.getRecentUpdatedLists()]);
+      const results = await Promise.allSettled([listsService.getRecentCreatedLists(), favoritesService.getFavoritesLists(), listsService.getRecentUpdatedLists()]);
 
       //Filter fullfilled responses
       const fulfilled = results.filter((res) => res.status == "fulfilled");
 
       if (fulfilled.length == 0) return setIsError(true);
 
-      const [statusSummaryRes, recentCreatedRes, favoritesListsRes, recentUpdatedRes] = results;
-      setStatusSummaryArray(statusSummaryRes.value);
+      const [recentCreatedRes, favoritesListsRes, recentUpdatedRes] = results;
       if (recentCreatedRes.value.success) {
         setRecentCreatedArray(Object.values(recentCreatedRes.value.recentLists));
       }
@@ -46,7 +44,7 @@ export default function Home() {
   if (isError) return notFound();
   return (
     <>
-      <HomePage statusSummary={statusSummaryArray} recentUpdated={recentUpdatedArray} favorites={favoritesListsArray} recentCreated={recentCreatedArray} />
+      <HomePage recentUpdated={recentUpdatedArray} favorites={favoritesListsArray} recentCreated={recentCreatedArray} />
     </>
   );
 }
