@@ -10,7 +10,7 @@ export const addItemService = async (listId, itemData) => {
 
     if (!itemData.imgFile) {
       //Set default img url
-      const imgURL = "https://picsum.photos/200";
+      const imgURL = "/images/default-item-img.png";
 
       // Delete imgFile prop
       delete itemData.imgFile;
