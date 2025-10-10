@@ -1,7 +1,7 @@
 "use client";
 
 import { HomePage } from "@/components/pages/inicio/HomePage";
-import { HomeSkeleton } from "@/components/skeletons/pages/Home/HomeSkeleton";
+import { HomeSkeleton } from "@/components/skeletons/pages/Inicio/HomeSkeleton";
 import { ListsContext } from "@/contexts/ListsContext";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
