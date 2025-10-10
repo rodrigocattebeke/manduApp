@@ -12,7 +12,7 @@ export const MyLists = ({ lists }) => {
   if (!lists) return console.error("Se debe de pasar las listas del usuario.");
   return (
     <>
-      <Header title="Mis listas" className="d-lg-none" />
+      <Header title="Mis Listas" className="d-lg-none" />
       <header className="d-none d-lg-flex align-items-center justify-content-between p-3">
         <h1 className="my-0">Mis Listas</h1>
         <Link href={"/mis-listas/agregar"}>
