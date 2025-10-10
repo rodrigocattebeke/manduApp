@@ -1,0 +1,17 @@
+.welcomeBanner {
+  width: 100%;
+  min-height: 14.3rem;
+  margin-top: 1rem;
+}
+
+.filterSkeletonsContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+  scrollbar-width: none;
+}
