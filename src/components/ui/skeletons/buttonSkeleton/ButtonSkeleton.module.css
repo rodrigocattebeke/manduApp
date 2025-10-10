@@ -1,0 +1,14 @@
+.button {
+  width: 100%;
+  max-width: 10rem;
+  height: auto;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.button.fullWidth {
+  max-width: 100%;
+}

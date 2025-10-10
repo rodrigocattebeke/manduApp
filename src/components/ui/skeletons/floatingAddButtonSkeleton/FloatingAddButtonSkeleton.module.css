@@ -1,0 +1,13 @@
+.button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-floatingButton);
+  height: var(--size-floatingButton);
+  right: 1.25rem;
+  bottom: calc(var(--layout-navbar-height) + 1.5rem);
+  border-radius: 100%;
+  z-index: 99;
+  cursor: pointer;
+}
