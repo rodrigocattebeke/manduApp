@@ -1,0 +1,36 @@
+.arrowBackContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+}
+
+.arrowBack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+}
+
+.arrowBack svg:hover {
+  cursor: pointer;
+  fill: var(--color-hover);
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: calc(2rem + 0.8rem); /* 2rem is the arrowBackContainer width*/
+  padding-left: 0.8rem;
+}
+
+.titleContainer h1 {
+  width: fit-content;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
