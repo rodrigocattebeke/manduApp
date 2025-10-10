@@ -1,6 +1,6 @@
 "use client";
-import { Loader } from "@/components/loader/Loader";
 import { Edit } from "@/components/pages/item/editar/Edit";
+import { EditSkeleton } from "@/components/skeletons/edit/EditSkeleton";
 import { ListsContext } from "@/contexts/ListsContext";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -36,6 +36,6 @@ export default function Editar() {
     };
   }, []);
 
-  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
+  if (isLoading) return <EditSkeleton />;
   return <>{!isSuccess ? <h2>Error al obtener los datos, intente mas tarde</h2> : <Edit item={item} />}</>;
 }
