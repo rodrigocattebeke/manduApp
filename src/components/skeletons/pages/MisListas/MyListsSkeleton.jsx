@@ -1,8 +1,8 @@
 "use client";
 
 import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAddButton";
+import { Header } from "@/components/ui/header/Header";
 import { ButtonSkeleton } from "@/components/ui/skeletons/buttonSkeleton/ButtonSkeleton";
-import { HeaderSkeleton } from "@/components/ui/skeletons/header/HeaderSkeleton";
 import { ItemCardSkeleton } from "@/components/ui/skeletons/itemCardSkeleton/ItemCardSkeleton";
 
 export const MyListsSkeleton = () => {
@@ -18,7 +18,7 @@ export const MyListsSkeleton = () => {
 
   return (
     <>
-      <HeaderSkeleton title="Mis Listas" className="d-lg-none" />
+      <Header title="Mis Listas" className="d-lg-none" />
       <header className="d-none d-lg-flex align-items-center justify-content-between p-3">
         <h1 className="my-0">Mis Listas</h1>
         <div>
