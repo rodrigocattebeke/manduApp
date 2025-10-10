@@ -4,17 +4,10 @@ import { FloatingAddButton } from "@/components/ui/floatingAddButton/FloatingAdd
 import { Header } from "@/components/ui/header/Header";
 import { ButtonSkeleton } from "@/components/ui/skeletons/buttonSkeleton/ButtonSkeleton";
 import { ItemCardSkeleton } from "@/components/ui/skeletons/itemCardSkeleton/ItemCardSkeleton";
+import styles from "./MyListsSkeleton.module.css";
 
 export const MyListsSkeleton = () => {
   const totalCards = 3;
-  const styles = {
-    cardsContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "1rem",
-      marginTop: "1rem",
-    },
-  };
 
   return (
     <>
@@ -25,7 +18,7 @@ export const MyListsSkeleton = () => {
           <ButtonSkeleton />
         </div>
       </header>
-      <div style={styles.cardsContainer}>
+      <div className={styles.cardsContainer}>
         {Array(totalCards)
           .fill(0)
           .map((e, i) => (
