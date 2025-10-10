@@ -9,6 +9,7 @@
   --color-border: #dde3e9;
   --color-border-active: #9ea2a6;
   --color-hover: #e8ecf6;
+  --color-skeleton: #bebebe;
   --color-status-error: #f38ba8;
   --color-status-error-active: #db7e98;
   --color-status-success: #a6e3a1;
@@ -34,6 +35,7 @@ html[data-theme="dark"] {
   --color-border: #313244;
   --color-border-active: #767896;
   --color-hover: #313d3f;
+  --color-skeleton: #43434f;
   --color-status-error: #f38ba8;
   --color-status-error-active: #db7e98;
   --color-status-success: #a6e3a1;
@@ -99,6 +101,13 @@ svg {
   transition: fill var(--transition-short);
 }
 
+/* Animations */
+
+.skeletonPulse {
+  animation: skeletonPulse 1.7s ease-in-out infinite;
+  background-color: var(--color-skeleton);
+}
+
 /* 992px is sm screen size in bootstrap available breakpoints */
 @media screen and (max-width: 576px) {
   p {
@@ -122,5 +131,19 @@ svg {
 @media screen and (max-width: 992px) {
   main {
     padding-bottom: var(--layout-navbar-height);
+  }
+}
+
+/* Keyframes */
+
+@keyframes skeletonPulse {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+  100% {
+    filter: brightness(1);
   }
 }
