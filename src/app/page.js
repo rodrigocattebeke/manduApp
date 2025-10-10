@@ -1,14 +1,13 @@
 "use client";
 
-import { Loader } from "@/components/loader/Loader";
 import { HomePage } from "@/components/pages/inicio/HomePage";
+import { HomeSkeleton } from "@/components/skeletons/pages/Home/HomeSkeleton";
 import { ListsContext } from "@/contexts/ListsContext";
 import { notFound } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
   const { favoritesService, listsService } = useContext(ListsContext);
-  const [statusSummaryArray, setStatusSummaryArray] = useState([]);
   const [recentUpdatedArray, setRecentUpdatedArray] = useState([]);
   const [favoritesListsArray, setFavoritesListsArray] = useState([]);
   const [recentCreatedArray, setRecentCreatedArray] = useState([]);
@@ -40,7 +39,7 @@ export default function Home() {
     getAllLists();
   }, [favoritesService, listsService]);
 
-  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
+  if (isLoading) return <HomeSkeleton />;
   if (isError) return notFound();
   return (
     <>
