@@ -2,8 +2,8 @@
 
 import { Loader } from "@/components/loader/Loader";
 import { Edit } from "@/components/pages/lista/editar/Edit";
+import { EditSkeleton } from "@/components/skeletons/edit/EditSkeleton";
 import { ListsContext } from "@/contexts/ListsContext";
-import { getUserLists } from "@/services/firestore/getUserLists";
 import { notFound, useParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
@@ -36,6 +36,6 @@ export default function EditList() {
     };
   }, []);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <EditSkeleton showStatusInput="false" />;
   return <>{!isSuccess ? <h2>Error al obtener los datos, intente mas tarde</h2> : <Edit list={list} />}</>;
 }
