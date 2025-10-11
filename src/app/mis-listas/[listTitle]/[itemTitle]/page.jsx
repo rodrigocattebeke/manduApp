@@ -1,6 +1,7 @@
 "use client";
 import { Loader } from "@/components/loader/Loader";
 import { ItemView } from "@/components/pages/item/ItemView";
+import { ItemViewSkeleton } from "@/components/skeletons/itemView/ItemViewSkeleton";
 import { ListsContext } from "@/contexts/ListsContext";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -36,6 +37,6 @@ export default function ItemPage() {
     };
   }, []);
 
-  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
+  if (isLoading) return <ItemViewSkeleton />;
   return <>{!isSuccess ? <h2>Error al obtener los datos, intente mas tarde</h2> : <ItemView item={item} />}</>;
 }
