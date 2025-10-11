@@ -1,0 +1,55 @@
+/* Item information */
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+  width: 16rem;
+}
+
+.imgContainer {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.itemCreationDate {
+  margin: 0;
+  margin-top: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.statusContainer {
+  margin-bottom: calc(var(--layout-navbar-height) + 2rem);
+}
+
+/* Action buttons */
+.actionButtons {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  right: 1.25rem;
+  bottom: calc(var(--layout-navbar-height) + 1.5rem);
+}
+
+.button div {
+  width: var(--size-floatingButton) !important;
+  height: var(--size-floatingButton) !important;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .imgContainer {
+    max-width: 19rem;
+  }
+}
