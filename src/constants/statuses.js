@@ -8,6 +8,9 @@ export const STATUS = {
 };
 
 export const STATUS_LABELS = {
+  [STATUS.all]: "Todos",
+  [STATUS.lists]: "Listas",
+  [STATUS.items]: "Items",
   [STATUS.completed]: "Completado",
   [STATUS.in_process]: "En proceso",
   [STATUS.pending]: "Pendiente",
@@ -15,11 +18,7 @@ export const STATUS_LABELS = {
 
 export const STATUS_ORDER = [STATUS.completed, STATUS.in_process, STATUS.pending];
 
-export const STATUS_SUMMARY_ROUTES = {
-  [STATUS.completed]: "#",
-  [STATUS.in_process]: "#",
-  [STATUS.pending]: "#",
-};
+export const ITEM_FILTER_ORDER = [STATUS.all, STATUS.completed, STATUS.in_process, STATUS.pending];
 
 export const SEARCH_FILTER_OPTIONS = {
   [STATUS.all]: { label: "Todos", value: STATUS.all },
