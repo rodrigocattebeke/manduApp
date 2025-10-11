@@ -2,6 +2,7 @@
 
 import { Loader } from "@/components/loader/Loader";
 import { ListView } from "@/components/pages/lista/ListView";
+import { ListViewSkeleton } from "@/components/skeletons/listView/ListViewSkeleton";
 import { ListsContext } from "@/contexts/ListsContext";
 import { slugToText } from "@/utils/slugToText";
 import { notFound, useParams } from "next/navigation";
@@ -33,7 +34,7 @@ export default function ListPage() {
     getListItems();
   }, []);
 
-  if (isLoading) return <Loader fullScreen="true" backdrop="true" />;
+  if (isLoading) return <ListViewSkeleton />;
 
   return <>{!isSuccess ? <h2>Ocurrio un error al cargar la lista, intente de nuevo más tarde.</h2> : <ListView listTitle={slugToText(titleSlug)} listId={listId} listItems={listItems} />}</>;
 }
