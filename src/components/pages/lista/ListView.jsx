@@ -25,7 +25,7 @@ import { Close } from "@/components/icons/Close";
 export const ListView = ({ listTitle = "", listId, listItems }) => {
   const { userData } = useContext(UserContext);
   const { favoritesService } = useContext(ListsContext);
-  const [filterSelected, setFilterSelected] = useState(FILTER_STATES[0].filter);
+  const [filterSelected, setFilterSelected] = useState(ITEM_FILTER_ORDER[0]);
   const [filteredItems, setFilteredItems] = useState(listItems || []);
   const { listsService } = useContext(ListsContext);
   const [showActionButtons, setShowActionButtons] = useState(false);
