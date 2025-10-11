@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./ListView.module.css";
 import Image from "next/image";
 import { Edit } from "@/components/icons/Edit";
-import { STATUS, STATUS_LABELS } from "@/constants/statuses";
+import { ITEM_FILTER_ORDER, STATUS, STATUS_LABELS } from "@/constants/statuses";
 import { Header } from "@/components/ui/header/Header";
 import Link from "next/link";
 import { Button } from "@/components/ui/button/Button";
@@ -21,25 +21,6 @@ import { AddContent } from "@/components/icons/AddContent";
 import { EmptyState } from "@/components/ui/emptyState/EmptyState";
 import { Menu } from "@/components/icons/Menu";
 import { Close } from "@/components/icons/Close";
-
-const FILTER_STATES = [
-  {
-    title: "Todos",
-    filter: "all",
-  },
-  {
-    title: "Completados",
-    filter: STATUS.completed,
-  },
-  {
-    title: "En proceso",
-    filter: STATUS.in_process,
-  },
-  {
-    title: "Pendientes",
-    filter: STATUS.pending,
-  },
-];
 
 export const ListView = ({ listTitle = "", listId, listItems }) => {
   const { userData } = useContext(UserContext);
@@ -136,11 +117,12 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
       ) : (
         <section className="container-xxl d-flex flex-column align-items-center justify-content-center py-3">
           {/* Filters */}
+
           <div className={styles.filtersContainer}>
             <ul>
-              {FILTER_STATES.map((filter, i) => (
-                <li className={filterSelected == filter.filter ? styles.active : ""} onClick={() => handleFilter(filter.filter)} key={i}>
-                  {filter.title}
+              {ITEM_FILTER_ORDER.map((filter, i) => (
+                <li className={filterSelected == filter ? styles.active : ""} onClick={() => handleFilter(filter)} key={i}>
+                  {STATUS_LABELS[filter]}
                 </li>
               ))}
             </ul>
