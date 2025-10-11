@@ -1,0 +1,144 @@
+.headerButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1.2rem;
+  gap: 1rem;
+}
+
+.listActionButtons {
+  display: flex;
+  width: 25rem;
+  gap: 1rem;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Filters section styles */
+.filtersContainer {
+  width: 100%;
+}
+
+.filtersContainer ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0.5rem 0;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filtersContainer li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  transition: font-weight 0.5s;
+  gap: 0.1rem;
+  padding: 0 0.2rem;
+  cursor: pointer;
+}
+
+.filtersContainer li::after {
+  content: "";
+  width: 0;
+  height: 0.2rem;
+  border-radius: 0.2rem;
+  background-color: var(--color-accent);
+  transition: width 0.5s;
+}
+
+.filtersContainer li.active {
+  color: var(--color-text-primary);
+  font-weight: bold;
+}
+
+.filtersContainer li.active::after {
+  width: 100%;
+}
+
+/* Items table section styles */
+.iconsContainer {
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  gap: 1rem;
+}
+
+.tableContainer {
+  width: 100%;
+  padding: 0 0.5rem 1rem 0.5rem;
+}
+
+.tableContainer table {
+  width: 100%;
+  border-spacing: 0 1.2rem;
+  word-break: break-word;
+}
+
+.itemImgContainer {
+  width: 3.8rem;
+}
+
+.itemImgContainer div {
+  width: 100%;
+  max-width: 3.8rem;
+  height: auto;
+  margin: auto;
+  border-radius: 0.8rem;
+  aspect-ratio: 1/1;
+}
+
+.itemStatus {
+  position: relative;
+  margin-left: 0.7rem;
+}
+
+.itemStatus::before {
+  position: absolute;
+  content: "";
+  left: -0.7rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-text-secondary);
+  border-radius: 100%;
+  transform: translateY(-50%);
+}
+
+.itemTitleContainer div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 0.5rem;
+  gap: 0.2rem;
+}
+
+/* Floating Buttons */
+
+.floatingButtonsContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  bottom: calc(var(--layout-navbar-height) + 1.5rem);
+  right: 1.25rem;
+}
+
+.floatingButton {
+  width: var(--size-floatingButton);
+  height: var(--size-floatingButton);
+  border-radius: 50%;
+  overflow: hidden;
+}
