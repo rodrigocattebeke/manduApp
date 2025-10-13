@@ -15,7 +15,7 @@ export const MyListsSkeleton = () => {
       <header className="d-none d-lg-flex align-items-center justify-content-between p-3">
         <h1 className="my-0">Mis Listas</h1>
         <div>
-          <ButtonSkeleton />
+          <ButtonSkeleton width="8rem" />
         </div>
       </header>
       <div className={styles.cardsContainer}>
