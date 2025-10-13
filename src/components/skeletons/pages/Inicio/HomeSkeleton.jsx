@@ -16,7 +16,7 @@ export const HomeSkeleton = () => {
         <section className={`container-xxl p-0 py-lg-3`}>
           <div className="d-flex justify-content-between px-2">
             <div>
-              <PSkeleton width="8rem" height="1rem" className="mb-2" />
+              <PSkeleton width="8rem" height="2rem" className="mb-2" />
               <PSkeleton width="14rem" height="1rem" />
             </div>
             <div className="d-none d-lg-flex align-items-center">
