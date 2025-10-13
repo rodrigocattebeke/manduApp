@@ -85,7 +85,7 @@ export const Ajustes = () => {
             <div className={styles.settingIcon}>
               <Info />
             </div>
-            <Link href={"#"} className={styles.linkContainer}>
+            <Link href={"/ajustes/sobre-nosotros"} className={styles.linkContainer}>
               <div className={styles.description}>
                 <p className={styles.subtitle}>Sobre nosotros</p>
                 <p>Lee más acerca de nuestra app</p>
