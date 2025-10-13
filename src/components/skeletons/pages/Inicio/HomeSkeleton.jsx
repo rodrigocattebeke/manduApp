@@ -20,7 +20,7 @@ export const HomeSkeleton = () => {
               <PSkeleton width="14rem" height="1rem" />
             </div>
             <div className="d-none d-lg-flex align-items-center">
-              <ButtonSkeleton />
+              <ButtonSkeleton width="8rem" />
             </div>
           </div>
           <div className={`${styles.welcomeBanner} skeletonPulse`}></div>
