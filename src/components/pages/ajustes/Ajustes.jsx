@@ -6,20 +6,26 @@ import styles from "./Ajustes.module.css";
 import { ArrowForward } from "@/components/icons/ArrowForward";
 import { LightMode } from "@/components/icons/LightMode";
 import { Info } from "@/components/icons/Info";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import { DarkMode } from "@/components/icons/DarkMode";
 import { Button } from "@/components/ui/button/Button";
 import { UserContext } from "@/contexts/UserContext";
 import Link from "next/link";
+import { Modal } from "@/components/ui/modal/Modal";
 
 export const Ajustes = () => {
   const { theme, activateDarkTheme, activateLightTheme } = useContext(ThemeContext);
   const { userData, singOut } = useContext(UserContext);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleTheme = () => {
     if (!theme) return;
     theme == "light" ? activateDarkTheme() : activateLightTheme();
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -92,8 +98,11 @@ export const Ajustes = () => {
         </div>
       </section>
       <section className={`${styles.buttonContainer} container-xxl flex-lg-grow-0 flex-grow-1`}>
-        <Button text="Cerrar Sesión" fullWidth="true" onClick={singOut} />
+        <Button text="Cerrar Sesión" fullWidth="true" onClick={() => setIsModalVisible(true)} />
       </section>
+
+      {/* Modals */}
+      <Modal title="¿Está seguro de cerrar sesión?" show={isModalVisible} onConfirm={singOut} onClose={closeModal} onCancel={closeModal} />
     </>
   );
 };
