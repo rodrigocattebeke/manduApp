@@ -12,8 +12,8 @@ export const SobreNosotros = () => {
         <p>Con ManduApp, puedes gestionar fácilmente las cosas que quieres hacer, leer o retomar, todo ordenado en un solo lugar mediante una interfaz limpia y moderna. Estamos dedicados a hacer que la gestión de tareas y listas sea simple, eficiente y agradable.</p>
         <p>
           Para soporte o consultas, puedes contactarnos directamente en{" "}
-          <a href="mailto:manduappsupport@gmail.com" className={styles.supportGmail}>
-            manduappsupport@gmail.com
+          <a href="mailto:manduappsupp@gmail.com" className={styles.supportGmail}>
+            manduappsupp@gmail.com
           </a>
         </p>
       </section>
