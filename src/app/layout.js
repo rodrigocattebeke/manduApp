@@ -10,7 +10,7 @@ import { ListsProvider } from "@/contexts/ListsContext";
 
 export const metadata = {
   title: "ManduApp",
-  description: "",
+  description: "Una aplicación simple y eficiente para crear y gestionar listas e ítems, ayudándote a mantener tus tareas organizadas día a día.",
 };
 
 const roboto = Roboto({
@@ -21,7 +21,7 @@ const roboto = Roboto({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className={roboto.className}>
         {
           <ThemeProvider>
