@@ -1,0 +1,39 @@
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+
+.cropperContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--color-backdrop);
+  padding: 1rem;
+  z-index: 998;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: fit-content;
+  margin-top: 5rem;
+  padding: 1rem 0.5rem;
+  background-color: var(--color-bg-primary);
+  border-radius: 1rem;
+}
+
+.reactCrop {
+  max-height: 20rem;
+  width: fit-content;
+}
