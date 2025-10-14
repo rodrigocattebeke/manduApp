@@ -3,12 +3,13 @@
 import { Header } from "@/components/ui/header/Header";
 import Image from "next/image";
 import styles from "./Cuenta.module.css";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "@/contexts/UserContext";
 import { Button } from "@/components/ui/button/Button";
 import { Modal } from "@/components/ui/modal/Modal";
 import { useRouter } from "next/navigation";
 import { useParentPath } from "@/hooks/useParentPath";
+import { ImageCropper } from "@/components/imageCropper/ImageCropper";
 
 export const Cuenta = () => {
   const { userData, userFunctions } = useContext(UserContext);
@@ -17,11 +18,13 @@ export const Cuenta = () => {
   const [imgURL, setImgURL] = useState(userData.photoURL || undefined);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+  const [showImageCropper, setShowImageCropper] = useState(false);
   const [showSaveDataModal, setShowSaveDataModal] = useState(false);
   const uploadFileRef = useRef();
   const parentPath = useParentPath();
   const router = useRouter();
 
+  // Handle profile image
   const handleInput = (e) => {
     setDisplayName(e.target.value);
   };
@@ -32,7 +35,6 @@ export const Cuenta = () => {
 
   const handleUpFileChange = (e) => {
     const file = e.target.files[0];
-
     if (!file) return;
 
     // Validate the img type
@@ -43,9 +45,12 @@ export const Cuenta = () => {
     }
 
     setInputFileImg(e.target.files[0]);
-    //previsualize the img
-    const image = URL.createObjectURL(file);
-    setImgURL(image);
+
+    //show image cropper
+    setShowImageCropper(true);
+
+    //reset input
+    e.target.value = "";
   };
 
   // Save data button functions
@@ -55,6 +60,16 @@ export const Cuenta = () => {
 
   const handleSaveDataButton = () => {
     setShowSaveDataModal(true);
+  };
+
+  const onCropConfirm = (croppedImg) => {
+    setImgURL(croppedImg.url);
+    setInputFileImg(croppedImg.file);
+    setShowImageCropper(false);
+  };
+
+  const onCropCancel = () => {
+    setShowImageCropper(false);
   };
 
   const onConfirmSaveData = async () => {
@@ -130,6 +145,9 @@ export const Cuenta = () => {
       </section>
 
       {/*    MODALS    */}
+
+      {/* Crop image */}
+      {showImageCropper ? <ImageCropper imgFile={inputFileImg} aspect={1} circularCrop="true" onCropConfirm={onCropConfirm} onCropCancel={onCropCancel} /> : ""}
 
       {/* Save data modal*/}
       <Modal title="¿Estás seguro de guardar los cambios?" show={showSaveDataModal} onClose={onSaveDataModalClose} onConfirm={onConfirmSaveData} onCancel={onSaveDataModalClose} />
