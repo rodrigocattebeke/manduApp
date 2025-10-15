@@ -6,6 +6,7 @@ import { Button } from "../ui/button/Button";
 import { Modal } from "../ui/modal/Modal";
 import { getCroppedImageFromFile } from "@/lib/cropper/getCroppedImgFromFile";
 import { Loader } from "../loader/Loader";
+import { getInitialCrop } from "@/lib/cropper/getInitialCrop";
 
 export const ImageCropper = ({ imgFile, aspect = 1, circularCrop = false, onCropConfirm, onCropCancel }) => {
   if (!imgFile) return console.error("Se debe de pasar el file de la imagen.");
@@ -18,10 +19,18 @@ export const ImageCropper = ({ imgFile, aspect = 1, circularCrop = false, onCrop
   const [crop, setCrop] = useState({
     x: 0,
     y: 0,
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
     unit: "%",
   });
+
+  //Generate initial centered crop
+  const handleImageLoad = () => {
+    const width = imgRef.current.clientWidth;
+    const height = imgRef.current.clientHeight;
+    const initialCrop = getInitialCrop(width, height, aspect);
+    setCrop(initialCrop);
+  };
 
   //Generate imgURL from preview
   useEffect(() => {
@@ -57,11 +66,11 @@ export const ImageCropper = ({ imgFile, aspect = 1, circularCrop = false, onCrop
       <div className={styles.cropperContainer}>
         <div className={styles.wrapper}>
           <ReactCrop className={styles.reactCrop} crop={crop} onChange={(c) => setCrop(c)} aspect={aspect} keepSelection={true} circularCrop={circularCrop}>
-            <img src={imgURL} alt="Imagen para recortar" ref={imgRef} />
+            <img src={imgURL} alt="Imagen para recortar" ref={imgRef} onLoad={handleImageLoad} />
           </ReactCrop>
           <div className={styles.buttonsContainer}>
             <Button mode="primary" text="Guardar" onClick={() => setIsModalVisible(true)} />
-            <Button mode="default" text="Cancelar" />
+            <Button mode="default" text="Cancelar" onClick={onCropCancel} />
           </div>
         </div>
       </div>
