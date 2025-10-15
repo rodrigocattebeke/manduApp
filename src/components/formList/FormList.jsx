@@ -165,7 +165,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     <>
       <section className={`${styles.formContainer} mt-2`}>
         <div className={`${styles.infoContainer} d-flex flex-column flex-sm-row`}>
-          <div className={styles.container}>
+          <div className={styles.imgWrapper}>
             <div className={styles.imgContainer}>
               {!imgURL ? "" : <Image src={imgURL} width={400} height={270} alt="Imagen de la lista" />}
               <div className={styles.uploadImgContainer}>
@@ -204,15 +204,17 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
           </div>
         </div>
         {/* Action buttons */}
-        <div className={`${styles.actionButtonsContainer} d-flex flex-sm-row`}>
-          <Button mode="primary" text="Guardar" fullWidth="true" onClick={handleGuardarButton} />
-          <Button mode="default" text="Cancelar" fullWidth="true" onClick={openCancelarModal} />
+        <div className={styles.actionButtonsWrapper}>
+          <div className={`${styles.actionButtonsContainer} d-flex flex-sm-row`}>
+            <Button mode="primary" text="Guardar" fullWidth="true" onClick={handleGuardarButton} />
+            <Button mode="default" text="Cancelar" fullWidth="true" onClick={openCancelarModal} />
+          </div>
         </div>
       </section>
 
       {/*     Modals     */}
       {/* Crop image */}
-      {showImageCropper ? <ImageCropper imgFile={imgFile} aspect={16 / 9} onCropConfirm={onCropConfirm} onCropCancel={onCropCancel} /> : ""}
+      {showImageCropper ? <ImageCropper imgFile={imgFile} aspect={4 / 3} onCropConfirm={onCropConfirm} onCropCancel={onCropCancel} /> : ""}
 
       {/* onConfirm modal */}
       <Modal title="¿Confirmar datos?" show={showGuardarModal} onConfirm={onConfirmGuardarModal} onCancel={closeGuardarModal} onClose={closeGuardarModal} />
