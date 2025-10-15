@@ -9,6 +9,7 @@ import { ErrorTooltip } from "../ui/errorTooltip/ErrorTooltip";
 import { useRouter } from "next/navigation";
 import { Modal } from "../ui/modal/Modal";
 import { useParentPath } from "@/hooks/useParentPath";
+import { ImageCropper } from "../imageCropper/ImageCropper";
 
 /**
  * @param {{
@@ -37,15 +38,16 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     ...initialValuesObject,
   };
 
+  const [description, setDescription] = useState(initialValues.description);
   const [imgURL, setImgURL] = useState(initialValues.imgURL);
   const [imgFile, setImgFile] = useState(undefined);
-  const [title, setTitle] = useState(initialValues.title);
-  const [description, setDescription] = useState(initialValues.description);
   const [status, setStatus] = useState(initialValues.status);
   const [showCancelarModal, setShowCancelarModal] = useState(false);
   const [showGuardarModal, setShowGuardarModal] = useState(false);
+  const [showImageCropper, setShowImageCropper] = useState(false);
   const [showTitleError, setShowTitleError] = useState(false);
   const [showStatusError, setShowStatusError] = useState(false);
+  const [title, setTitle] = useState(initialValues.title);
   const parentPath = useParentPath();
   const router = useRouter();
   const uploadFileRef = useRef();
@@ -74,11 +76,25 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     // Set imgFile
     setImgFile(file);
 
-    //previsualize the img
-    const image = URL.createObjectURL(file);
-    setImgURL(image);
+    //show image cropper
+    setShowImageCropper(true);
+
+    //reset input
+    e.target.value = "";
   };
 
+  // Image crop functions
+  const onCropConfirm = (croppedImg) => {
+    setImgURL(croppedImg.url);
+    setImgFile(croppedImg.file);
+    setShowImageCropper(false);
+  };
+
+  const onCropCancel = () => {
+    setShowImageCropper(false);
+  };
+
+  // Title
   const onTitleChange = (e) => {
     if (showTitleError && e.target.value !== title) {
       setShowTitleError(false);
@@ -86,6 +102,7 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
     setTitle(e.target.value);
   };
 
+  // Status
   const onStatusChange = (e) => {
     if (showStatusError && e.target.value !== status) {
       setShowStatusError(false);
@@ -194,6 +211,9 @@ export const FormList = ({ showSelectStatus = false, initialValuesObject, onSubm
       </section>
 
       {/*     Modals     */}
+      {/* Crop image */}
+      {showImageCropper ? <ImageCropper imgFile={imgFile} aspect={16 / 9} onCropConfirm={onCropConfirm} onCropCancel={onCropCancel} /> : ""}
+
       {/* onConfirm modal */}
       <Modal title="¿Confirmar datos?" show={showGuardarModal} onConfirm={onConfirmGuardarModal} onCancel={closeGuardarModal} onClose={closeGuardarModal} />
 
