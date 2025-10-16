@@ -65,12 +65,16 @@ export const ImageCropper = ({ imgFile, aspect = 1, circularCrop = false, onCrop
     <>
       <div className={styles.cropperContainer}>
         <div className={styles.wrapper}>
+          <div className={styles.header}>
+            <p className={styles.title}>Recortar imágen</p>
+            <p className={styles.description}>Ajusta la selección para recortar tu imágen. </p>
+          </div>
           <ReactCrop className={styles.reactCrop} crop={crop} onChange={(c) => setCrop(c)} aspect={aspect} keepSelection={true} circularCrop={circularCrop}>
             <img src={imgURL} alt="Imagen para recortar" ref={imgRef} onLoad={handleImageLoad} />
           </ReactCrop>
           <div className={styles.buttonsContainer}>
-            <Button mode="primary" text="Guardar" onClick={() => setIsModalVisible(true)} />
             <Button mode="default" text="Cancelar" onClick={onCropCancel} />
+            <Button mode="primary" text="Confirmar" onClick={() => setIsModalVisible(true)} />
           </div>
         </div>
       </div>
