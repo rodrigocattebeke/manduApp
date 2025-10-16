@@ -41,7 +41,7 @@ export const Ajustes = () => {
             <h2 className={styles.title}>Cuenta</h2>
           </div>
           <div className={styles.setting}>
-            <div className="d-flex">
+            <div className={styles.profilePhotoContainer}>
               <Image src={userData.photoURL} width={56} height={56} className={styles.profilePhoto} alt="Foto de perfil" />
             </div>
             <Link href={"/ajustes/cuenta"} className={styles.linkContainer}>
