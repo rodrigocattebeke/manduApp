@@ -99,7 +99,15 @@ export const ListView = ({ listTitle = "", listId, listItems }) => {
         </div>
         <div className={styles.headerButtons}>
           <Link href={`${pathname}/agregar`}>
-            <Button text="+ Nuevo ítem" mode="primary" />
+            <Button
+              text={
+                <>
+                  <Add />
+                  Nuevo ítem
+                </>
+              }
+              mode="primary"
+            />{" "}
           </Link>
           <div className={styles.listActionButtons}>
             <Button text={isFavorite ? "Remover de favoritos" : "Agregar a favoritos"} mode="default" onClick={handleFavorite} disabled={isUpdatingFavorite} />

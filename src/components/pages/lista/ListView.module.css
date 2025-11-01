@@ -101,17 +101,17 @@
 }
 
 .itemImgContainer {
-  width: 3.8rem;
+  width: 4rem;
 }
 
 .itemImgContainer img {
   width: 100%;
-  max-width: 3.8rem;
+  max-width: 4rem;
   height: auto;
   margin: auto;
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   object-fit: contain;
-  aspect-ratio: 1/1;
+  aspect-ratio: 4/3;
 }
 
 .itemStatus {
