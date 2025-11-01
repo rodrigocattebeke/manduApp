@@ -9,13 +9,13 @@ import styles from "./Button.module.css";
  * }} props
  */
 
-export const Button = ({ text = "", mode = "default", fullWidth = false, onClick, disabled = false }) => {
+export const Button = ({ text = "", title = "", mode = "default", fullWidth = false, onClick, disabled = false }) => {
   return onClick ? (
-    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} onClick={onClick} title={text} disabled={disabled}>
+    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} onClick={onClick} title={title || text} disabled={disabled}>
       {text}
     </button>
   ) : (
-    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} title={text} disabled={disabled}>
+    <button className={`${styles.button} ${styles[mode]} ${fullWidth ? styles.fullWidth : ""}`} title={title || text} disabled={disabled}>
       {text}
     </button>
   );

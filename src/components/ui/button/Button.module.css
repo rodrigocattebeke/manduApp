@@ -1,4 +1,7 @@
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: fit-content;
   height: auto;
   min-height: 2.5rem;
