@@ -47,7 +47,7 @@ export const ListViewSkeleton = () => {
                 .map((item, i) => (
                   <tr key={i}>
                     <td className={styles.itemImgContainer}>
-                      <PSkeleton width="3.5rem" height="3.5rem" />
+                      <PSkeleton width="3.5rem" height="2.63rem" />
                     </td>
                     <td className={styles.itemTitleContainer}>
                       <div>
