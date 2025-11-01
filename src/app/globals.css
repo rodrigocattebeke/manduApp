@@ -80,6 +80,10 @@ a {
   transition: color var(--transition-short) ease, fill var(--transition-short) ease;
 }
 
+a {
+  text-decoration: none;
+}
+
 p {
   font-size: 1rem;
 }
