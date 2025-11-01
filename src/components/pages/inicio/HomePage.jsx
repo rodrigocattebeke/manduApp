@@ -10,6 +10,7 @@ import Link from "next/link";
 import { EmptyState } from "@/components/ui/emptyState/EmptyState";
 import { AddFiles } from "@/components/icons/AddFiles";
 import { FilterChips } from "./components/filterChips/FilterChips";
+import { Add } from "@/components/icons/Add";
 
 export const HomePage = ({ recentCreated = [], favorites = [], recentUpdated = [] }) => {
   const { userData } = useContext(UserContext);
@@ -31,7 +32,15 @@ export const HomePage = ({ recentCreated = [], favorites = [], recentUpdated = [
               </div>
               <div className="d-none d-lg-flex align-items-center">
                 <Link href="/mis-listas/agregar">
-                  <Button text="+ Nueva Lista" mode="primary" />
+                  <Button
+                    text={
+                      <>
+                        <Add />
+                        Nueva Lista
+                      </>
+                    }
+                    mode="primary"
+                  />
                 </Link>
               </div>
             </div>
