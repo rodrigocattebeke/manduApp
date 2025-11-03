@@ -35,7 +35,6 @@ export const loginWithGoogleService = async () => {
     const res = await singInWithGoogle();
     if (res.success) {
       const userRes = await getUserByUIDService(res.user.uid);
-      console.log(userRes);
       // If the user doesn't exist in the DB, create user
       if (!userRes.success) {
         const initialUserValue = {
