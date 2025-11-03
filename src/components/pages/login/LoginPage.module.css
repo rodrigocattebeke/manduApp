@@ -14,6 +14,16 @@
   gap: 1.5rem;
 }
 
+.error {
+  color: var(--color-status-error);
+}
+
+.googleAuthContainer {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .greetingContainer p,
 .greetingContainer h2 {
   margin: 0;
